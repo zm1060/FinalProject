@@ -1,5 +1,5 @@
 Scrapy==1.4.0
-tensorflow_gpu==1.6.0
+tensorflow-intel==2.11.0
 scipy==1.0.0
 hanziconv==0.3.2
 tflearn==0.3.2

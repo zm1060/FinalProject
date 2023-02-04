@@ -9,3 +9,4 @@ matplotlib==2.1.0
 numpy==1.14.2
 SQLAlchemy==1.2.5
 tensorflow==1.7.0rc0
+pymongo==4.3.3

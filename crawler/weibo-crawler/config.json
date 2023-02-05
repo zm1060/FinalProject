@@ -1,0 +1,27 @@
+{
+    "user_id_list": [
+        "7648703289"
+    ],
+    "query_list": [],
+    "filter": 0,
+    "remove_html_tag": 1,
+    "since_date": "2020-01-01",
+    "start_page": 1,
+    "write_mode": [
+        "json"
+    ],
+    "download_comment": 1,
+    "comment_max_download_count": 100,
+    "download_repost": 1,
+    "repost_max_download_count": 100,
+    "result_dir_name": 0,
+    "cookie": "your cookie",
+    "mysql_config": {
+        "host": "localhost",
+        "port": 3306,
+        "user": "root",
+        "password": "Zm.1575098153",
+        "charset": "utf8mb4"
+    },
+    "mongodb_URI": "mongodb://localhost:27017"
+}

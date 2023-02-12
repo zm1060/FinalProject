@@ -175,7 +175,7 @@ class Weibo(object):
         except ValueError:
             return False
 
-    def get_json(self, params):
+    def get_json(self, params): 
         """获取网页中json数据"""
         url = "https://m.weibo.cn/api/container/getIndex?"
         r = requests.get(url, params=params, headers=self.headers, verify=False)
@@ -306,7 +306,8 @@ class Weibo(object):
         """获取用户信息"""
         params = {"containerid": "100505" + str(self.user_config["user_id"])}
         # TODO 这里在读取下一个用户的时候很容易被ban，需要优化休眠时长
-        sleep(random.randint(60, 180))
+        # sleep(random.randint(60, 180))
+        sleep(random.randint(10,20))
         js, status_code = self.get_json(params)
         if status_code != 200:
             logger.info("被ban了，需要等待一段时间")

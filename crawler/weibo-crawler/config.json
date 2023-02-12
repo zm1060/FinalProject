@@ -8,7 +8,7 @@
     "since_date": "2020-01-01",
     "start_page": 1,
     "write_mode": [
-        "json"
+        "json" 
     ],
     "download_comment": 1,
     "comment_max_download_count": 100,

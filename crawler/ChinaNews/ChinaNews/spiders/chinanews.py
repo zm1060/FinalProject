@@ -7,4 +7,6 @@ class ChinanewsSpider(scrapy.Spider):
     start_urls = ['http://www.chinanews.com/']
 
     def parse(self, response):
-        pass
+        links = response.css('.module_topcon_ul').getall()
+        print(links)
+  

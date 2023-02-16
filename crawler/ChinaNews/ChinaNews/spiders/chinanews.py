@@ -1,5 +1,5 @@
 import scrapy
-
+from bs4 import BeautifulSoup
 
 class ChinanewsSpider(scrapy.Spider):
     name = 'chinanews'
@@ -7,6 +7,7 @@ class ChinanewsSpider(scrapy.Spider):
     start_urls = ['http://www.chinanews.com/']
 
     def parse(self, response):
-        links = response.css('.module_topcon_ul').getall()
-        print(links)
+        soup = BeautifulSoup(response.text)
+        for item in soup.select('a'):
+            print(item)
   

@@ -1,36 +1,14 @@
-[TOC]
-# 基于NLP的可视化评价信息收集与分析系统
-By Ming Zuo
-
-## Crawler
-This moudle will collect information from websites like JD, weibo...
-### modern crawler frameworks.
 
 
-## NLP
-Use NLP framework to analyze information.
-### moder nlp solutions
+开学第一周叫  课题审批表 、任务书（假期里确定  任务书---》）                                        文献翻译、文献摘要   。。。。
+第二周 开题报告（）
+第一月 实习报告
+
+以上3月
+
+中期检查  4月底
 
 
-## FastAPI
-Backend framework.
+答辩5月底6月初
 
-### What is FastAPI?
-### Why FastAPI?
-
-
-## Vue
-Frontend framework.
-
-### What is Vue?
-### Why Vue?
-
-## Some ideas
-### Use scrapydweb or spider-admin-pro to manage various kinds of spiders(crawlers).
-### And backend provides general processing to the result of spiders. However, for some special sites like weibo, we can provide more features.
-### It means that our frontend must use components. Once we want to support a new website like www.jd.com, we just need to code a new crawler. And use general backend services.
-
-
-## How to use?
-
-## How to contribute to my project?
+论文格式 群里。答辩前一周  二次知网（记录，收集后，学校查） +  二次其他平台（参考）

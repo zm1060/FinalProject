@@ -1,17 +1,37 @@
-from fastapi import BackgroundTasks, FastAPI
+import uvicorn
 from fastapi import BackgroundTasks, Depends, FastAPI
-from fastapi.encoders import jsonable_encoder
-from fastapi.responses import JSONResponse
-from crawler.ChinaNews import run_china_news
+
+from model.User import User
+from model.Task import Task
 
 app = FastAPI()
 
+@app.post("/task/create")
+async def create_task(task: Task):
+    crawler_url = task.url
+    crawler_keywords = task.keywords
+    crawler_status = task.status
+    crawler_type = task.type
 
-@app.post("/run-spider/ChinaNews")
-async def crawler_china_new():
-    out, err = run_china_news.run_scrapy_spider()
-    if err:
-        response = {'status': 'error', 'message': err}
+    run_para = "/search?"
+    for keyword in crawler_keywords:
+        run_para = run_para+"keyword="+keyword
+    run_url = crawler_url + run_para
+    return {"url":crawler_url+run_para}
+
+@app.post("/login")
+async def login(user: User):
+    # check if user exists
+    if True:
+        return {"result": "success",
+                "token": "None"}
     else:
-        response = {'status': 'success', 'output': out}
-    return response
+        return {"result": "error"}
+
+@app.post("/register")
+async def register(user: User):
+    # check if user exists
+    return None
+
+if __name__ == "__main__":
+    uvicorn.run(app, host="127.0.0.1", port=8000)

@@ -1,0 +1,4 @@
+backend/app/__pycache__/main.cpython-39.pyc
+backend/model/__pycache__/__init__.cpython-310.pyc
+backend/model/__pycache__/Task.cpython-310.pyc
+backend/model/__pycache__/User.cpython-310.pyc

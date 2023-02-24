@@ -1,37 +1,17 @@
-### Send POST request with json body
-POST http://127.0.0.1:8000/send-notification/1575098153@qq.com
-
-### Send POST request with body as parameters
-POST https://httpbin.org/post
-Content-Type: application/x-www-form-urlencoded
-
-id=999&value=content
-
-### Send a form with the text and file fields
-POST https://httpbin.org/post
-Content-Type: multipart/form-data; boundary=WebAppBoundary
-
---WebAppBoundary
-Content-Disposition: form-data; name="element-name"
-Content-Type: text/plain
-
-Name
---WebAppBoundary
-Content-Disposition: form-data; name="data"; filename="data.json"
-Content-Type: application/json
-
-< ./request-form-data.json
---WebAppBoundary--
-
-### Send request with dynamic variables in request's body
-POST https://httpbin.org/post
+# 登录
+POST http://localhost:8000/login
 Content-Type: application/json
 
 {
-  "id": {{$uuid}},
-  "price": {{$randomInt}},
-  "ts": {{$timestamp}},
-  "value": "content"
+  "username": "admin",
+  "password": "admin",
+  "grant_type": "",
+  "client_id": "",
+  "client_secret": ""
 }
 
 ###
+
+# 获取受保护的数据
+GET http://localhost:8000/protected
+Authorization: Bearer {eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxNTc1MDk4MTUzQHFxLmNvbSIsImV4cCI6MTY3NzIzODcxN30.xbHR_RJCQxxLnzlYCy0KaHvlp4SrXP8LK3EADnd_924}

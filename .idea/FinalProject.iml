@@ -17,7 +17,6 @@
       <list>
         <option value="$MODULE_DIR$/crawler" />
         <option value="$MODULE_DIR$/backend/app" />
-        <option value="$MODULE_DIR$/backend/data" />
       </list>
     </option>
   </component>

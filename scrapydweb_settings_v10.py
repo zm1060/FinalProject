@@ -168,11 +168,11 @@ SCHEDULE_ADDITIONAL = "-d setting=CLOSESPIDER_TIMEOUT=60\r\n-d setting=CLOSESPID
 # the Items column in the Jobs page.
 SHOW_SCRAPYD_ITEMS = True
 
-# The default is True, set it to False to hide the Job column in the Jobs page with non-database view.
+# The default is True, set it to False to hide the Job column in the Jobs page with non-database views.
 SHOW_JOBS_JOB_COLUMN = True
 
 # The default is 0, which means unlimited, set it to a positive integer so that
-# only the latest N finished jobs would be shown in the Jobs page with non-database view.
+# only the latest N finished jobs would be shown in the Jobs page with non-database views.
 JOBS_FINISHED_JOBS_LIMIT = 0
 
 # If your browser stays on the Jobs page, it would be reloaded automatically every N seconds.

@@ -13,7 +13,7 @@ from sqlalchemy.orm import Session
 
 from models import user
 from db.database import SessionLocal
-from models.user import User
+from models.user import User, UserCreate
 
 import logging
 logging.basicConfig(level=logging.DEBUG)
@@ -131,17 +131,16 @@ async def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = 
 
 # 定义注册路由
 @app.post("/register")
-async def register(username: str, email: str, password: str, db: Session = Depends(get_db)):
-    user = db.query(User).filter(User.email == email).first()
+async def register(user_create: UserCreate, db: Session = Depends(get_db)):
+    user = db.query(User).filter(User.email == user_create.email).first()
     if user:
         raise HTTPException(status_code=400, detail="Email already registered")
-    hashed_password = hash_password(password)
-    new_user = User(username=username, email=email, password=hashed_password)
+    hashed_password = hash_password(user_create.password)
+    new_user = User(username=user_create.username, email=user_create.email, password=hashed_password)
     db.add(new_user)
     db.commit()
     db.refresh(new_user)
     return new_user
-
 
 # 需要登录才能访问的 API
 @app.get("/protected")

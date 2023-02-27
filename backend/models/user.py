@@ -1,5 +1,5 @@
 from sqlalchemy import Column, String, Integer
-
+from pydantic import BaseModel
 from db.database import Base, engine
 
 class User(Base):
@@ -8,6 +8,13 @@ class User(Base):
     username = Column(String(50), unique=True, index=True)
     email = Column(String(50), unique=True, index=True)
     password = Column(String(200))
+
+
+class UserCreate(BaseModel):
+    username: str
+    email: str
+    password: str
+
 
 if __name__ == '__main__':
     Base.metadata.create_all(engine)

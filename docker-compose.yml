@@ -1,44 +1,55 @@
-version: '3.8'
+version: "3.9"
 
 services:
-
-  web:
-    build: ./backend
+  app:
+    build:
+      context: ./backend/app
     ports:
-      - 8004:8000
-    command: uvicorn main:app --host 0.0.0.0 --reload
-    volumes:
-      - ./backend:/usr/src/app
-    environment:
-      - CELERY_BROKER_URL=redis://redis:6379/0
-      - CELERY_RESULT_BACKEND=redis://redis:6379/0
+      - "8000:8000"
     depends_on:
-      - redis
-
-  worker:
-    build: ./backend
-    command: celery worker --app=worker.celery --loglevel=info --logfile=logs/celery.log
-    volumes:
-      - ./backend:/usr/src/app
+      - rabbitmq
+  celery:
+    build:
+      context: ./celery
     environment:
-      - CELERY_BROKER_URL=redis://redis:6379/0
-      - CELERY_RESULT_BACKEND=redis://redis:6379/0
+      - BROKER_URL=amqp://guest:guest@rabbitmq:5672//
+      - CELERY_RESULT_BACKEND=rpc://guest:guest@rabbitmq:5672/
     depends_on:
-      - web
-      - redis
+      - rabbitmq
+    volumes:
+      - .:/app
 
-  redis:
-    image: redis:6-alpine
+  elasticsearch:
+    build:
+      context: ./elasticsearch
 
-  dashboard:
-    build: ./backend
-    command:  flower --app=worker.celery --port=5555 --broker=redis://redis:6379/0
+  spark:
+    build:
+      context: ./spark
+    environment:
+      - SPARK_MASTER_URL=spark://spark-master:7077
+    depends_on:
+      - spark-master
+
+  spark-master:
+    image: bde2020/spark-master:3.0.1-hadoop3.2
+
+  frontend:
+    build:
+      context: ./frontend
     ports:
-      - 5556:5555
-    environment:
-      - CELERY_BROKER_URL=redis://redis:6379/0
-      - CELERY_RESULT_BACKEND=redis://redis:6379/0
+      - "8080:8080"
     depends_on:
-      - web
-      - redis
-      - worker
+      - app
+
+  scrapy:
+    build:
+      context: ./scrapy
+    volumes:
+      - .:/app
+    depends_on:
+      - elasticsearch
+
+  spacy:
+    build:
+      context: ./spacy

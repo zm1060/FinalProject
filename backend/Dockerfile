@@ -1,8 +1,8 @@
 # pull official base image
-FROM python:3.9.5-slim-buster
+FROM python:3.10
 
 # set work directory
-WORKDIR /usr/src/app
+WORKDIR /app
 
 # set environment variables
 ENV PYTHONDONTWRITEBYTECODE 1
@@ -15,3 +15,5 @@ RUN pip install -r requirements.txt
 
 # copy project
 COPY . .
+
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]

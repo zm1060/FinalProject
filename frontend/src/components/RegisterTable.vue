@@ -47,7 +47,7 @@ export default {
       async register() {
         try {
           // eslint-disable-next-line no-unused-vars
-          const response = await axios.post("http://127.0.0.1:8000/register", this.registerData);
+          const response = await axios.post("http://localhost:8080/register", this.registerData);
           console.log(response)
           alert("注册成功：" + this.registerData.username);
           this.$router.push('/login')

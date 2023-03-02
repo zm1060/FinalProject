@@ -44,7 +44,7 @@ export default {
     methods: {
       async login() {
         try {
-          const response = await axios.post("http://127.0.0.1:8000/login", this.loginData, {
+          const response = await axios.post("http://localhost:8080/login", this.loginData, {
             headers: {
               'Content-Type': 'application/x-www-form-urlencoded',
               'accept': 'application/json'

@@ -1,3 +1,8 @@
+USE mysql;
+CREATE DATABASE IF NOT EXISTS fast;
+ALTER USER 'root' IDENTIFIED WITH mysql_native_password BY 'Zm.1575098153';
+USE fast;
+
 CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(50) NOT NULL,

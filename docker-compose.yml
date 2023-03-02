@@ -1,55 +1,20 @@
-version: "3.9"
-
 services:
-  app:
-    build:
-      context: ./backend/app
-    ports:
-      - "8000:8000"
-    depends_on:
-      - rabbitmq
-  celery:
-    build:
-      context: ./celery
-    environment:
-      - BROKER_URL=amqp://guest:guest@rabbitmq:5672//
-      - CELERY_RESULT_BACKEND=rpc://guest:guest@rabbitmq:5672/
-    depends_on:
-      - rabbitmq
-    volumes:
-      - .:/app
-
-  elasticsearch:
-    build:
-      context: ./elasticsearch
-
-  spark:
-    build:
-      context: ./spark
-    environment:
-      - SPARK_MASTER_URL=spark://spark-master:7077
-    depends_on:
-      - spark-master
-
-  spark-master:
-    image: bde2020/spark-master:3.0.1-hadoop3.2
-
-  frontend:
-    build:
-      context: ./frontend
+  backend:
+    build: ./backend
     ports:
       - "8080:8080"
     depends_on:
-      - app
+      - mysql
 
-  scrapy:
-    build:
-      context: ./scrapy
-    volumes:
-      - .:/app
-    depends_on:
-      - elasticsearch
+  frontend:
+    build: ./frontend
+    ports:
+      - "80:80"
 
-  spacy:
-    build:
-      context: ./spacy
+  mysql:
+    build: ./mysql
+    command: --default-authentication-plugin=mysql_native_password
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: Zm.1575098153

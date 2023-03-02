@@ -1,19 +1,16 @@
-# pull official base image
 FROM python:3.10
+ENV PYTHONPATH=/backend/app
 
-# set work directory
-WORKDIR /app
+WORKDIR /backend
 
-# set environment variables
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONUNBUFFERED 1
+COPY ./requirements.txt /backend/requirements.txt
 
-# install dependencies
-RUN pip install --upgrade pip
-COPY ./requirements.txt .
-RUN pip install -r requirements.txt
+RUN pip install --upgrade -r /backend/requirements.txt
+# Copy the ./app directory inside the /backend directory.
+# As this has all the code which is what changes most frequently the Docker cache won't be used for this or any following steps easily.
+# So, it's important to put this near the end of the Dockerfile, to optimize the container image build times.
+COPY ./app /backend/app
+# This command will be run from the current working directory, the same /backend directory you set above with WORKDIR /backend.
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8080"]
 
-# copy project
-COPY . .
-
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+EXPOSE 8080

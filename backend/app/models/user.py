@@ -1,6 +1,6 @@
 from sqlalchemy import Column, String, Integer
 from pydantic import BaseModel
-from db.database import Base, engine
+from app.db.database import Base, engine
 
 class User(Base):
     __tablename__ = 'users'  # 数据库表名

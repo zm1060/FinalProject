@@ -3,17 +3,14 @@ from typing import Optional
 import uvicorn
 from fastapi import FastAPI, HTTPException, Depends, status
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.requests import Request
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from datetime import datetime, timedelta
 from jose import JWTError, jwt
 from passlib.context import CryptContext
 from sqlalchemy.orm import Session
 
-
-from models import user
-from db.database import SessionLocal
-from models.user import User, UserCreate
+from app.db.database import SessionLocal
+from app.models.user import User, UserCreate
 
 import logging
 logging.basicConfig(level=logging.DEBUG)

@@ -4,7 +4,8 @@ ENV PYTHONPATH=/backend/app
 WORKDIR /backend
 
 COPY ./requirements.txt /backend/requirements.txt
-
+RUN pip install -U pip
+RUN pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
 RUN pip install --upgrade -r /backend/requirements.txt
 # Copy the ./app directory inside the /backend directory.
 # As this has all the code which is what changes most frequently the Docker cache won't be used for this or any following steps easily.

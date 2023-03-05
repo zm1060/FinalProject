@@ -1,5 +1,6 @@
-from typing import Optional
+from celery import Celery
 
+from typing import Optional
 import uvicorn
 from fastapi import FastAPI, HTTPException, Depends, status
 from fastapi.middleware.cors import CORSMiddleware
@@ -16,6 +17,10 @@ import logging
 logging.basicConfig(level=logging.DEBUG)
 
 app = FastAPI()
+
+
+celery = Celery('tasks', broker='redis://localhost:6379/0')
+
 
 # 加载密码哈希上下文
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")

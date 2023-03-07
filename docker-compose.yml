@@ -14,8 +14,29 @@ services:
     build: ./backend
     ports:
       - "8080:8080"
+    environment:
+      - RABBITMQ_DEFAULT_USER=admin
+      - RABBITMQ_DEFAULT_PASS=admin
+      - RABBITMQ_DEFAULT_VHOST=/
+      - CELERY_BROKER_URL=amqp://guest:guest@rabbitmq:5672/
+      - CELERY_RESULT_BACKEND=amqp://guest:guest@rabbitmq:5672/
+      - FLOWER_BASIC_AUTH=admin:password
     depends_on:
       - mysql
+      - mongodb
+      - rabbitmq
+      - flower
+    command: celery -A app.celery_task.tasks worker --loglevel=info
+
+  flower:
+    build: ./backend
+    environment:
+      - CELERY_BROKER_URL=amqp://admin:admin@rabbitmq:5672//
+    ports:
+      - "5555:5555"
+    depends_on:
+      - rabbitmq
+    command: flower --app=app.celery_task.tasks --broker=amqp://admin:admin@rabbitmq:5672// --port=5555
 
   mysql:
     build: ./mysql
@@ -42,6 +63,8 @@ services:
     ports:
       - "5672:5672"
       - "15672:15672"
+
+
 
   redis:
     build: ./redis

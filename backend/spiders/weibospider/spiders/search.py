@@ -7,7 +7,7 @@ Created Time: 2022/10/22
 import json
 import re
 from scrapy import Spider, Request
-from spiders.common import parse_tweet_info, parse_long_tweet
+from spiders.weibospider.spiders.common import parse_tweet_info, parse_long_tweet
 
 
 class SearchSpider(Spider):
@@ -17,11 +17,10 @@ class SearchSpider(Spider):
     name = "search_spider"
     base_url = "https://s.weibo.com/"
 
-    def __init__(self, uid=None, keywords=None, start_time=None, end_time=None,
+    def __init__(self, keywords=None, start_time=None, end_time=None,
                  is_sort_by_hot=False, is_search_with_specific_time_scope=False,
                  *args, **kwargs):
         super(SearchSpider, self).__init__(*args, **kwargs)
-        self.uid = uid
         self.keywords = keywords
         self.start_time = start_time
         self.end_time = end_time
@@ -38,7 +37,7 @@ class SearchSpider(Spider):
         爬虫入口
         """
         # 这里keywords可替换成实际待采集的数据
-        # keywords = ['丽江']
+
         # start_time = "2022-10-01-0"  # 格式为 年-月-日-小时, 2022-10-01-0 表示2022年10月1日0时
         # end_time = "2022-10-07-23"  # 格式为 年-月-日-小时, 2022-10-07-23 表示2022年10月7日23时
         # is_search_with_specific_time_scope = True  # 是否在指定的时间区间进行推文搜索

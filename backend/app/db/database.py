@@ -3,8 +3,8 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
+from app.config.config import SQLALCHEMY_DATABASE_URL
 
-SQLALCHEMY_DATABASE_URL = f'mysql+mysqlconnector://root:Zm.1575098153@mysql:3306/fast?charset=utf8&auth_plugin=mysql_native_password'
 engine = create_engine(
     SQLALCHEMY_DATABASE_URL, pool_pre_ping=True
 )

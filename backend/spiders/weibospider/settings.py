@@ -42,5 +42,10 @@ DOWNLOADER_MIDDLEWARES = {
 }
 
 ITEM_PIPELINES = {
-    'pipelines.JsonWriterPipeline': 300,
+    'pipelines.MongoDBPipeline': 300,
+    #'pipelines.JsonWriterPipeline': 300,
 }
+
+# MONGO_URI = 'mongodb://localhost:27017/'
+MONGO_URI = 'mongodb://mongodb:27017/'
+MONGO_DATABASE = 'weibo'

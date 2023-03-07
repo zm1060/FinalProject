@@ -1,14 +1,9 @@
 #!/usr/bin/env python
 # encoding: utf-8
-"""
-Author: nghuyong
-Mail: nghuyong@163.com
-Created Time: 2020/4/14
-"""
 import json
 from scrapy import Spider
 from scrapy.http import Request
-from spiders.common import parse_user_info, parse_time, url_to_mid
+from spiders.weibospider.spiders.common import parse_user_info, parse_time, url_to_mid
 
 
 class CommentSpider(Spider):

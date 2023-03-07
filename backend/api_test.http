@@ -1,13 +1,20 @@
 # 登录
-POST http://localhost:8000/login
+POST http://localhost:8000/run_weibo_search_spider
 Content-Type: application/json
 
 {
-  "username": "admin",
-  "password": "admin",
-  "grant_type": "",
-  "client_id": "",
-  "client_secret": ""
+  "keywords": "飞机",
+  "cookies": "SINAGLOBAL=4425100300041.554.1666339903107; ULV=1678025306877:10:1:1:8254618153806.708.1678025306875:1677500701421; UOR=,,www.baidu.com; WBPSESS=Dt2hbAUaXfkVprjyrAZT_PefhdSF_k7x-lhDuQeeVlPSvF0yA_npvhNmyOzBhOMqgjU0MNTcrnQBMfPZcFZbrLXyCN0c2vNCVQghL0eAQ8r22r_IrV_qgp_9qBqbem7OL3_YJ6RnhhW9smgjQgNEHbGkaahht5z-B354hPvbEuFOKls_KKmgKF_Z0s9dg-fSweZrzRqh5qox7rkgcrfPWw==; XSRF-TOKEN=YQ7zh5QgAcTcNsbvJ5UtuawB; SUBP=0033WrSXqPxfM725Ws9jqgMF55529P9D9W5shDzPXr8DRKPNvuCBnVCV5JpX5KMhUgL.FoM01K5N1hn0Shn2dJLoIp7LxKML1KBLBKnLxKqL1hnLBoMNe0.7S0nRe0BR; ALF=1680673154; SSOLoginState=1678081156; SCF=AmZZ1EK-9qm544rLpMROtBcL9b5_mQUnl8xpA1-qLiyhMmb6JpwpSf8Y9lBj01fQrLH3Tp4qxafDNfQ7HRqDyEI.; SUB=_2A25JAQzVDeRhGeFN4lIW-CbPzzSIHXVqd3kdrDV8PUNbmtAGLU31kW9NQ6gTOCJ_JhY9YvP27GaTtmxH139PFM0h; PC_TOKEN=150a3dfe68"
+}
+
+###
+# 登录
+POST http://localhost:8000/run_weibo_user_spider
+Content-Type: application/json
+
+{
+  "user_ids": ["1226097217"],
+  "cookies": "SINAGLOBAL=4425100300041.554.1666339903107; ULV=1678025306877:10:1:1:8254618153806.708.1678025306875:1677500701421; UOR=,,www.baidu.com; WBPSESS=Dt2hbAUaXfkVprjyrAZT_PefhdSF_k7x-lhDuQeeVlPSvF0yA_npvhNmyOzBhOMqgjU0MNTcrnQBMfPZcFZbrLXyCN0c2vNCVQghL0eAQ8r22r_IrV_qgp_9qBqbem7OL3_YJ6RnhhW9smgjQgNEHbGkaahht5z-B354hPvbEuFOKls_KKmgKF_Z0s9dg-fSweZrzRqh5qox7rkgcrfPWw==; XSRF-TOKEN=YQ7zh5QgAcTcNsbvJ5UtuawB; SUBP=0033WrSXqPxfM725Ws9jqgMF55529P9D9W5shDzPXr8DRKPNvuCBnVCV5JpX5KMhUgL.FoM01K5N1hn0Shn2dJLoIp7LxKML1KBLBKnLxKqL1hnLBoMNe0.7S0nRe0BR; ALF=1680673154; SSOLoginState=1678081156; SCF=AmZZ1EK-9qm544rLpMROtBcL9b5_mQUnl8xpA1-qLiyhMmb6JpwpSf8Y9lBj01fQrLH3Tp4qxafDNfQ7HRqDyEI.; SUB=_2A25JAQzVDeRhGeFN4lIW-CbPzzSIHXVqd3kdrDV8PUNbmtAGLU31kW9NQ6gTOCJ_JhY9YvP27GaTtmxH139PFM0h; PC_TOKEN=150a3dfe68"
 }
 
 ###

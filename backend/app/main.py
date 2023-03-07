@@ -1,4 +1,4 @@
-from celery import Celery
+import os
 
 from typing import Optional, List
 import uvicorn
@@ -6,12 +6,15 @@ from fastapi import FastAPI, HTTPException, Depends, status
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from datetime import datetime, timedelta
+
+from flower.command import FlowerCommand
 from jose import JWTError, jwt
 from passlib.context import CryptContext
 from scrapy.crawler import CrawlerProcess
 from scrapy.utils.project import get_project_settings
 from sqlalchemy.orm import Session
 
+from app.celery_task.tasks import celery
 from app.db.database import SessionLocal
 from app.models.user import User, UserCreate
 
@@ -21,19 +24,20 @@ logging.basicConfig(level=logging.DEBUG)
 
 app = FastAPI()
 
-celery = Celery('tasks', broker='pyamqp://admin:admin@localhost//')
 
 # 加载密码哈希上下文
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 # 跨域资源共享中间件设置
 origins = ["*"]
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
+    expose_headers=["Content-Type", "Authorization"],
 )
 
 # 定义令牌过期时间和令牌加密算法
@@ -187,7 +191,7 @@ def schedule_spider(spider_name: str, keywords: str):
 
 
 @app.post('/run_weibo_user_spider')
-async def run_weibo_spider(user_ids: List[str] = None, cookie: str = None):
+async def run_weibo_user_spider(user_ids: List[str] = None, cookie: str = None):
     task = celery.send_task('tasks.run_weibo_user_spider', kwargs={
         'run_mode': 'user',
         'user_ids': user_ids,
@@ -197,14 +201,13 @@ async def run_weibo_spider(user_ids: List[str] = None, cookie: str = None):
 
 
 @app.post('/run_weibo_search_spider')
-async def run_weibo_spider(uid: str = None, keywords: str = None,
-                           start_time: str = None, end_time: str = None,
-                           is_sort_by_hot: bool = False,
-                           is_search_with_specific_time_scope: bool = False,
-                           cookie: str = None):
+async def run_weibo_search_spider(keywords: List[str] = None,
+                                  start_time: str = None, end_time: str = None,
+                                  is_sort_by_hot: bool = False,
+                                  is_search_with_specific_time_scope: bool = False,
+                                  cookie: str = None):
     task = celery.send_task('tasks.run_weibo_search_spider', kwargs={
         'run_mode': 'search',
-        'uid': uid,
         'keywords': keywords,
         'start_time': start_time,
         'end_time': end_time,
@@ -215,5 +218,20 @@ async def run_weibo_spider(uid: str = None, keywords: str = None,
     return {'task_id': task.id}
 
 
+ignore_dirs = ["mongodb/data", "static/images"]
+
+
+# Start Celery worker
+def start_celery_worker():
+    cmd = ['celery', '-A', 'celery_task.tasks', 'worker', '-P', 'threads', '-l', 'info']
+    os.spawnl(os.P_NOWAIT, cmd[0], *cmd)
+
+
+# Start Flower server
+def start_flower_server():
+    cmd = FlowerCommand()
+    cmd.execute_from_commandline(['flower', '--port=5555', '--broker=pyamqp://admin:admin@localhost//'])
+
+
 if __name__ == "__main__":
-    uvicorn.run(app, host="127.0.0.1", port=8000)
+    uvicorn.run(app, host="127.0.0.1", port=8080, reload_dirs=[ignore_dirs])

@@ -1,6 +1,6 @@
 from celery import Celery
 
-from typing import Optional
+from typing import Optional, List
 import uvicorn
 from fastapi import FastAPI, HTTPException, Depends, status
 from fastapi.middleware.cors import CORSMiddleware
@@ -8,19 +8,20 @@ from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from datetime import datetime, timedelta
 from jose import JWTError, jwt
 from passlib.context import CryptContext
+from scrapy.crawler import CrawlerProcess
+from scrapy.utils.project import get_project_settings
 from sqlalchemy.orm import Session
 
 from app.db.database import SessionLocal
 from app.models.user import User, UserCreate
 
 import logging
+
 logging.basicConfig(level=logging.DEBUG)
 
 app = FastAPI()
 
-
-celery = Celery('tasks', broker='redis://localhost:6379/0')
-
+celery = Celery('tasks', broker='pyamqp://admin:admin@localhost//')
 
 # 加载密码哈希上下文
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
@@ -144,6 +145,7 @@ async def register(user_create: UserCreate, db: Session = Depends(get_db)):
     db.refresh(new_user)
     return new_user
 
+
 # 需要登录才能访问的 API
 @app.get("/protected")
 def protected_route(current_user: User = Depends(get_current_user)):
@@ -160,6 +162,57 @@ def protected_route(current_user: User = Depends(get_current_user)):
 @app.get("/protected2")
 def protected_route2(current_user: User = Depends(get_current_user)):
     return {"message": f"Hello from protected route 2, {current_user.username}!"}
+
+
+@app.post('/jd/run_spider')
+def run_jd_spider(spider_name: str):
+    celery.send_task('tasks.run_jd_spider', args=[spider_name])
+    return {'message': f'Starting task to run spider {spider_name}.'}
+
+
+@app.post('/weibo/run_spider')
+def run_weibo_spider(spider_name: str):
+    celery.send_task('tasks.run_weibo_spider', args=[spider_name])
+    return {'message': f'Starting task to run spider {spider_name}.'}
+
+
+@app.post('/schedule/{spider_name}')
+def schedule_spider(spider_name: str, keywords: str):
+    process = CrawlerProcess(get_project_settings())
+    spider_cls = process.spider_loader.load(spider_name)
+    spider = spider_cls(keywords=keywords)
+    process.crawl(spider)
+    process.start()
+    return {'status': 'ok'}
+
+
+@app.post('/run_weibo_user_spider')
+async def run_weibo_spider(user_ids: List[str] = None, cookie: str = None):
+    task = celery.send_task('tasks.run_weibo_user_spider', kwargs={
+        'run_mode': 'user',
+        'user_ids': user_ids,
+        'cookie': cookie
+    })
+    return {'task_id': task.id}
+
+
+@app.post('/run_weibo_search_spider')
+async def run_weibo_spider(uid: str = None, keywords: str = None,
+                           start_time: str = None, end_time: str = None,
+                           is_sort_by_hot: bool = False,
+                           is_search_with_specific_time_scope: bool = False,
+                           cookie: str = None):
+    task = celery.send_task('tasks.run_weibo_search_spider', kwargs={
+        'run_mode': 'search',
+        'uid': uid,
+        'keywords': keywords,
+        'start_time': start_time,
+        'end_time': end_time,
+        'is_sort_by_hot': is_sort_by_hot,
+        'is_search_with_specific_time_scope': is_search_with_specific_time_scope,
+        'cookie': cookie
+    })
+    return {'task_id': task.id}
 
 
 if __name__ == "__main__":

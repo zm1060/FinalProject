@@ -5,6 +5,11 @@ services:
       - "80:80"
     depends_on:
       - backend
+      - rabbitmq
+    environment:
+      MONGO_URI: "mongodb://mongodb:27017"
+      CELERY_BROKER_URL: "amqp://guest:guest@rabbitmq:5672//"
+
   backend:
     build: ./backend
     ports:
@@ -19,3 +24,29 @@ services:
       - "3306:3306"
     environment:
       MYSQL_ROOT_PASSWORD: Zm.1575098153
+
+  mongodb:
+    build: ./mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./mongodb/data:/data/db
+
+  elasticsearch:
+    build: ./elasticsearch
+    ports:
+      - "9200"
+
+  rabbitmq:
+    build: ./rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+
+  redis:
+    build: ./redis
+    ports:
+      - "6379:6379"
+
+  spacy:
+    build: ./spacy

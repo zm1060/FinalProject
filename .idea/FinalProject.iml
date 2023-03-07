@@ -7,6 +7,7 @@
     </content>
     <orderEntry type="jdk" jdkName="Python 3.10 (FinalProject)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module" module-name="djangoProject" />
   </component>
   <component name="PyDocumentationSettings">
     <option name="format" value="PLAIN" />

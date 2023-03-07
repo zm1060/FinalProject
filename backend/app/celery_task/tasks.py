@@ -21,7 +21,7 @@ celery.conf.task_routes = {'celery_task.tasks.*': {'queue': 'celery'}}
 
 
 @celery.task(name='tasks.run_weibo_user_spider')
-def run_weibo_user_spider(run_mode: str, user_ids: list = None):
+def run_weibo_user_spider(run_mode: str, user_ids: list = None, cookie: str = None):
     process = CrawlerProcess(get_project_settings())
 
     mode_to_spider = {
@@ -38,12 +38,13 @@ def run_weibo_user_spider(run_mode: str, user_ids: list = None):
     spider_kwargs = {}
     if user_ids:
         spider_kwargs['user_ids'] = user_ids
+    if cookie:
+        spider_kwargs['cookie'] = cookie
 
-    spider = spider_cls(**spider_kwargs)
-
-    process.crawl(spider)
+    process.crawl(spider_cls, **spider_kwargs)
     process.start()
-
+    # Wait for the process to finish
+    process.join()
     return {'message': f'Spider {run_mode} finished running.'}
 
 
@@ -78,9 +79,8 @@ def run_weibo_search_spider(run_mode: str, keywords: str = None,
     spider_kwargs['is_sort_by_hot'] = is_sort_by_hot
     spider_kwargs['is_search_with_specific_time_scope'] = is_search_with_specific_time_scope
 
-    spider = spider_cls(**spider_kwargs)
-
-    process.crawl(spider)
+    process.crawl(spider_cls, **spider_kwargs)
     process.start()
-
+    # Wait for the process to finish
+    process.join()
     return {'message': f'Spider {run_mode} finished running.'}

@@ -36,6 +36,7 @@ Frontend framework.
 
 ### What is Vue?
 ### Why Vue?
+Use Vue Components
 
 ## Some ideas
 <li>Use scrapydweb or spider-admin-pro to manage various kinds of spiders(crawlers).

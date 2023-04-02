@@ -1,7 +1,10 @@
 import json
 from scrapy import Spider
 from scrapy.http import Request
+
+from spiders.weibospider.settings import DEFAULT_REQUEST_HEADERS
 from spiders.weibospider.spiders.common import parse_user_info
+
 
 class UserSpider(Spider):
     """
@@ -10,16 +13,26 @@ class UserSpider(Spider):
     name = "user_spider"
     base_url = "https://weibo.cn"
 
-    def __init__(self, user_ids=None, *args, **kwargs):
+    user_ids = []
+
+    def __init__(self, user_ids=None, cookie=None, *args, **kwargs):
         super(UserSpider, self).__init__(*args, **kwargs)
         self.user_ids = user_ids
+        self.cookie = cookie
+
+        # Set cookie in default headers
+        if self.cookie is not None:
+            headers = DEFAULT_REQUEST_HEADERS
+            headers['Cookie'] = self.cookie
+            self.headers = headers
 
     def start_requests(self):
         """
         爬虫入口
         """
+        user_ids = ['1749127163']
         if self.user_ids is not None:
-            self.user_ids = self.user_ids
+           user_ids = self.user_ids
         else:
             user_ids = ['1749127163']
         urls = [f'https://weibo.com/ajax/profile/info?uid={user_id}' for user_id in user_ids]

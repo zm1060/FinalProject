@@ -7,6 +7,7 @@ import os
 
 BROKER_URL = 'amqp://admin:admin@localhost:5672/'
 BACKEND_URL = 'rpc://'
+CELERY_RESULT_BACKEND = 'amqp://admin:admin@localhost:5672/'
 # BACKEND_URL = 'amqp://guest:guest@localhost:5672/'
 REDIS_BACKEND_URL = 'redis://localhost:6379/0'
 # Database Configuration

@@ -20,7 +20,7 @@ Backend framework.
 
 ### Celery in Windows
 ``
-celery -A app.celery_task.tasks worker --loglevel=info -P solo
+celery -A app.celery_task.tasks worker --loglevel=info -P solo --result-backend=amqp://admin:admin@localhost:5672// --without-heartbeat
 ``
 #### use this to delete all history tasks
 ``

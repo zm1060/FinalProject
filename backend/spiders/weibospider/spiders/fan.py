@@ -22,21 +22,21 @@ class FanSpider(Spider):
         if self.user_ids is not None:
             self.user_ids = self.user_ids
         else:
-            user_ids = ['1749127163']
-        for user_id in user_ids:
+            self.user_ids = ['1749127163']
+        for user_id in self.user_ids:
             url = self.base_url + f"?relate=fans&page=1&uid={user_id}&type=fans"
             yield Request(url, callback=self.parse, meta={'user': user_id, 'page_num': 1})
 
 
-    @classmethod
-    def from_crawler(cls, crawler, *args, **kwargs):
-        """
-        工厂方法，用于创建爬虫实例
-        """
-        user_ids = crawler.settings.get('USER_IDS', [])
-        spider = cls(user_ids=user_ids, *args, **kwargs)
-        spider._set_crawler(crawler)
-        return spider
+    # @classmethod
+    # def from_crawler(cls, crawler, *args, **kwargs):
+    #     """
+    #     工厂方法，用于创建爬虫实例
+    #     """
+    #     user_ids = crawler.settings.get('USER_IDS', [])
+    #     spider = cls(user_ids=user_ids, *args, **kwargs)
+    #     spider._set_crawler(crawler)
+    #     return spider
 
     def parse(self, response, **kwargs):
         """

@@ -12,24 +12,9 @@ DEFAULT_REQUEST_HEADERS = {
     'Cookie': ''
 }
 
+TWISTED_REACTOR = 'twisted.internet.asyncioreactor.AsyncioSelectorReactor'
 
-def from_crawler(cls, crawler):
-    settings = crawler.settings
-
-    # If user has passed a cookie, add it to the default headers
-    if 'cookie' in settings:
-        headers = settings.get('DEFAULT_REQUEST_HEADERS', {})
-        headers['Cookie'] = settings.get('cookie')
-        settings.set('DEFAULT_REQUEST_HEADERS', headers)
-    else:
-        with open('cookie.txt', 'rt', encoding='utf-8') as f:
-            cookie = f.read().strip()
-        headers = settings.get('DEFAULT_REQUEST_HEADERS', {})
-        headers['Cookie'] = cookie
-        settings.set('DEFAULT_REQUEST_HEADERS', headers)
-
-    return cls(settings)
-
+REQUEST_FINGERPRINTER_IMPLEMENTATION = 'scrapy.resolver.CachingThreadedResolver'
 
 CONCURRENT_REQUESTS = 16
 

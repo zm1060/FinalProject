@@ -1,9 +1,8 @@
-from scrapy.crawler import CrawlerProcess
+from scrapy.crawler import CrawlerProcess, CrawlerRunner
 from scrapy.utils.project import get_project_settings
+from twisted.internet import reactor
 from celery import Celery
-import sys
-from scrapy.crawler import CrawlerProcess
-from scrapy.utils.project import get_project_settings
+
 from spiders.weibospider.spiders.tweet import TweetSpider
 from spiders.weibospider.spiders import CommentSpider
 from spiders.weibospider.spiders import FollowerSpider
@@ -20,29 +19,24 @@ celery.conf.task_routes = {'celery_task.tasks.*': {'queue': 'celery'}}
 
 @celery.task(name='tasks.run_weibo_user_spider')
 def run_weibo_user_spider(user_ids: list = None, cookie: str = None):
-    process = CrawlerProcess(get_project_settings())
-
-    mode_to_spider = {
-        'comment': CommentSpider,
-        'fan': FanSpider,
-        'follow': FollowerSpider,
-        'tweet': TweetSpider,
-        'user': UserSpider,
-        'repost': RepostSpider,
-        'search': SearchSpider
-    }
-
-    spider_cls = mode_to_spider['user']
+    spider_cls = UserSpider
     spider_kwargs = {}
     if user_ids:
         spider_kwargs['user_ids'] = user_ids
     if cookie:
         spider_kwargs['cookie'] = cookie
 
-    process.crawl(spider_cls, **spider_kwargs)
-    process.start()
-    # Wait for the process to finish
-    process.join()
+    settings = get_project_settings()
+    runner = CrawlerRunner(settings)
+    runner.crawl(spider_cls, **spider_kwargs)
+
+    def stop_reactor():
+        reactor.stop()
+
+    d = runner.join()
+    d.addBoth(stop_reactor)
+
+    reactor.run()
     return {'message': f'Spider user finished running.'}
 
 
@@ -52,19 +46,7 @@ def run_weibo_search_spider(keywords: str = None,
                             is_sort_by_hot: bool = True,
                             is_search_with_specific_time_scope: bool = False,
                             cookie: str = None):
-    process = CrawlerProcess(get_project_settings())
-
-    mode_to_spider = {
-        'comment': CommentSpider,
-        'fan': FanSpider,
-        'follow': FollowerSpider,
-        'tweet': TweetSpider,
-        'user': UserSpider,
-        'repost': RepostSpider,
-        'search': SearchSpider
-    }
-
-    spider_cls = mode_to_spider['search']
+    spider_cls = SearchSpider
     spider_kwargs = {}
     if keywords:
         spider_kwargs['keywords'] = keywords
@@ -77,37 +59,39 @@ def run_weibo_search_spider(keywords: str = None,
     spider_kwargs['is_sort_by_hot'] = is_sort_by_hot
     spider_kwargs['is_search_with_specific_time_scope'] = is_search_with_specific_time_scope
 
-    process.crawl(spider_cls, **spider_kwargs)
-    process.start()
-    # Wait for the process to finish
-    process.join()
+    settings = get_project_settings()
+    runner = CrawlerRunner(settings)
+    runner.crawl(spider_cls, **spider_kwargs)
+
+    def stop_reactor():
+        reactor.stop()
+
+    d = runner.join()
+    d.addBoth(stop_reactor)
+
+    reactor.run()
     return {'message': f'Spider search finished running.'}
 
 
 @celery.task(name='tasks.run_weibo_fan_spider')
 def run_weibo_fan_spider(user_ids: list = None,
                          cookie: str = None):
-    process = CrawlerProcess(get_project_settings())
-
-    mode_to_spider = {
-        'comment': CommentSpider,
-        'fan': FanSpider,
-        'follow': FollowerSpider,
-        'tweet': TweetSpider,
-        'user': UserSpider,
-        'repost': RepostSpider,
-        'search': SearchSpider
-    }
-
-    spider_cls = mode_to_spider['fan']
+    spider_cls = FanSpider
     spider_kwargs = {}
     if user_ids:
         spider_kwargs['user_ids'] = user_ids
     if cookie:
         spider_kwargs['cookie'] = cookie
 
-    process.crawl(spider_cls, **spider_kwargs)
-    process.start()
-    # Wait for the process to finish
-    process.join()
+    settings = get_project_settings()
+    runner = CrawlerRunner(settings)
+    runner.crawl(spider_cls, **spider_kwargs)
+
+    def stop_reactor():
+        reactor.stop()
+
+    d = runner.join()
+    d.addBoth(stop_reactor)
+
+    reactor.run()
     return {'message': f'Spider fan finished running.'}

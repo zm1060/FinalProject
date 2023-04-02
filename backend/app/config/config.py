@@ -5,8 +5,10 @@ import os
 # if you want to run it local, you should set it too localhost
 # BROKER_URL = 'pyamqp://admin:admin@rabbitmq//'
 
-BROKER_URL = 'amqp://admin:admin@rabbitmq:5672/'
-BACKEND_URL = 'amqp://guest:guest@rabbitmq:5672/'
+BROKER_URL = 'amqp://admin:admin@localhost:5672/'
+BACKEND_URL = 'rpc://'
+# BACKEND_URL = 'amqp://guest:guest@localhost:5672/'
+REDIS_BACKEND_URL = 'redis://localhost:6379/0'
 # Database Configuration
 DB_USER = os.getenv("DB_USER", "root")
 DB_PASSWORD = os.getenv("DB_PASSWORD", "Zm.1575098153")

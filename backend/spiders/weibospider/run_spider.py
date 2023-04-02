@@ -1,10 +1,3 @@
-#!/usr/bin/env python
-# encoding: utf-8
-"""
-Author: nghuyong
-Mail: nghuyong@163.com
-Created Time: 2019-12-07 21:27
-"""
 import os
 import sys
 from scrapy.crawler import CrawlerProcess
@@ -18,7 +11,7 @@ from spiders.weibospider.spiders import RepostSpider
 from spiders.weibospider.spiders import SearchSpider
 
 if __name__ == '__main__':
-    mode = sys.argv[1]
+    mode = 'follow'
     os.environ['SCRAPY_SETTINGS_MODULE'] = 'settings'
     settings = get_project_settings()
     process = CrawlerProcess(settings)

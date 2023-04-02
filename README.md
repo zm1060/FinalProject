@@ -18,6 +18,18 @@ Backend framework.
 ### What is FastAPI?
 ### Why FastAPI?
 
+### Celery in Windows
+``
+celery -A app.celery_task.tasks worker --loglevel=info -P solo
+``
+#### use this to delete all history tasks
+``
+celery -A app.celery_task.tasks purge 
+``
+### Flower
+``
+flower --app=app.celery_task.tasks --broker=amqp://admin:admin@localhost:5672// --port=5555
+``
 
 ## Vue
 Frontend framework.

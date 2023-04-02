@@ -1,6 +1,3 @@
-# encoding: utf-8
-
-
 class IPProxyMiddleware(object):
     """
     代理IP中间件

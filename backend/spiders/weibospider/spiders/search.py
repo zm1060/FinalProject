@@ -1,9 +1,3 @@
-#!/usr/bin/env python
-# encoding: utf-8
-"""
-Author: rightyonghu
-Created Time: 2022/10/22
-"""
 import json
 import re
 from scrapy import Spider, Request

@@ -1,10 +1,7 @@
-#!/usr/bin/env python
-# encoding: utf-8
 import json
 from scrapy import Spider
 from scrapy.http import Request
 from spiders.weibospider.spiders.common import parse_user_info
-
 
 class UserSpider(Spider):
     """
@@ -12,6 +9,7 @@ class UserSpider(Spider):
     """
     name = "user_spider"
     base_url = "https://weibo.cn"
+
     def __init__(self, user_ids=None, *args, **kwargs):
         super(UserSpider, self).__init__(*args, **kwargs)
         self.user_ids = user_ids
@@ -20,7 +18,6 @@ class UserSpider(Spider):
         """
         爬虫入口
         """
-        # 这里user_ids可替换成实际待采集的数据
         if self.user_ids is not None:
             self.user_ids = self.user_ids
         else:

@@ -24,7 +24,6 @@ logging.basicConfig(level=logging.DEBUG)
 
 app = FastAPI()
 
-
 # 加载密码哈希上下文
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
@@ -190,16 +189,17 @@ def schedule_spider(spider_name: str, keywords: str):
     return {'status': 'ok'}
 
 
+# 微博用户
 @app.post('/run_weibo_user_spider')
 async def run_weibo_user_spider(user_ids: List[str] = None, cookie: str = None):
     task = celery.send_task('tasks.run_weibo_user_spider', kwargs={
-        'run_mode': 'user',
         'user_ids': user_ids,
         'cookie': cookie
     })
     return {'task_id': task.id}
 
 
+# 微博搜索
 @app.post('/run_weibo_search_spider')
 async def run_weibo_search_spider(keywords: List[str] = None,
                                   start_time: str = None, end_time: str = None,
@@ -207,7 +207,6 @@ async def run_weibo_search_spider(keywords: List[str] = None,
                                   is_search_with_specific_time_scope: bool = False,
                                   cookie: str = None):
     task = celery.send_task('tasks.run_weibo_search_spider', kwargs={
-        'run_mode': 'search',
         'keywords': keywords,
         'start_time': start_time,
         'end_time': end_time,
@@ -218,12 +217,22 @@ async def run_weibo_search_spider(keywords: List[str] = None,
     return {'task_id': task.id}
 
 
+# 微博粉丝
+@app.post('/run_weibo_fan_spider')
+async def run_weibo_fan_spider(user_ids: List[str] = None, cookie: str = None):
+    task = celery.send_task('tasks.run_weibo_fan_spider', kwargs={
+        'user_ids': user_ids,
+        'cookie': cookie
+    })
+    return {'task_id': task.id}
+
+
 ignore_dirs = ["mongodb/data", "static/images"]
 
 
 # Start Celery worker
 def start_celery_worker():
-    cmd = ['celery', '-A', 'celery_task.tasks', 'worker', '-P', 'threads', '-l', 'info']
+    cmd = ['celery', '-A', 'celery_task.tasks', 'worker', '-P', 'threads', '-l', 'info', '-P', 'eventlet']
     os.spawnl(os.P_NOWAIT, cmd[0], *cmd)
 
 

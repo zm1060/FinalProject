@@ -1,10 +1,3 @@
-#!/usr/bin/env python
-# encoding: utf-8
-"""
-Author: nghuyong
-Mail: nghuyong@163.com
-Created Time: 2020/4/14
-"""
 import json
 from scrapy import Spider
 from scrapy.http import Request
@@ -18,15 +11,32 @@ class FanSpider(Spider):
     name = "fan"
     base_url = 'https://weibo.com/ajax/friendships/friends'
 
+    def __init__(self, user_ids=None, *args, **kwargs):
+        super(FanSpider, self).__init__(*args, **kwargs)
+        self.user_ids = user_ids
+
     def start_requests(self):
         """
         爬虫入口
         """
-        # 这里user_ids可替换成实际待采集的数据
-        user_ids = ['1087770692']
+        if self.user_ids is not None:
+            self.user_ids = self.user_ids
+        else:
+            user_ids = ['1749127163']
         for user_id in user_ids:
             url = self.base_url + f"?relate=fans&page=1&uid={user_id}&type=fans"
             yield Request(url, callback=self.parse, meta={'user': user_id, 'page_num': 1})
+
+
+    @classmethod
+    def from_crawler(cls, crawler, *args, **kwargs):
+        """
+        工厂方法，用于创建爬虫实例
+        """
+        user_ids = crawler.settings.get('USER_IDS', [])
+        spider = cls(user_ids=user_ids, *args, **kwargs)
+        spider._set_crawler(crawler)
+        return spider
 
     def parse(self, response, **kwargs):
         """

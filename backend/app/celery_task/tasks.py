@@ -1,16 +1,12 @@
 import os
-from scrapy.crawler import CrawlerProcess, CrawlerRunner
+from scrapy.crawler import CrawlerRunner
 from scrapy.utils.project import get_project_settings
 from twisted.internet import reactor
 from celery import Celery
 
-from spiders.weibospider.spiders.tweet import TweetSpider
-from spiders.weibospider.spiders import CommentSpider
-from spiders.weibospider.spiders import FollowerSpider
-from spiders.weibospider.spiders import UserSpider
-from spiders.weibospider.spiders import FanSpider
-from spiders.weibospider.spiders import RepostSpider
-from spiders.weibospider.spiders import SearchSpider
+from weibospider.spiders import UserSpider
+from weibospider.spiders import FanSpider
+from weibospider.spiders import SearchSpider
 
 from app.config.config import BROKER_URL, BACKEND_URL
 
@@ -20,7 +16,9 @@ celery.conf.task_routes = {'celery_task.tasks.*': {'queue': 'celery'}}
 
 @celery.task(name='tasks.run_weibo_user_spider')
 def run_weibo_user_spider(user_ids: list = None, cookie: str = None):
+    os.environ['SCRAPY_SETTINGS_MODULE'] = 'weibospider.settings'
     spider_cls = UserSpider
+
     spider_kwargs = {}
     if user_ids:
         spider_kwargs['user_ids'] = user_ids
@@ -28,6 +26,8 @@ def run_weibo_user_spider(user_ids: list = None, cookie: str = None):
         spider_kwargs['cookie'] = cookie
 
     settings = get_project_settings()
+    print(settings)
+
     runner = CrawlerRunner(settings)
     runner.crawl(spider_cls, **spider_kwargs)
 

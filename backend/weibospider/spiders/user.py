@@ -4,8 +4,8 @@ import json
 from scrapy import Spider
 from scrapy.http import Request
 
-from spiders.weibospider.settings import DEFAULT_REQUEST_HEADERS
-from spiders.weibospider.spiders.common import parse_user_info
+from weibospider.settings import DEFAULT_REQUEST_HEADERS
+from weibospider.spiders.common import parse_user_info
 
 
 class UserSpider(Spider):
@@ -67,6 +67,7 @@ class UserSpider(Spider):
         """
         item = response.meta['item']
         data = json.loads(response.text)['data']
+        print(data)
         item['birthday'] = data.get('birthday', '')
         if 'created_at' not in item:
             item['created_at'] = data.get('created_at', '')

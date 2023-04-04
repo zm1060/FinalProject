@@ -4,8 +4,8 @@ import json
 import re
 from scrapy import Spider, Request
 
-from spiders.weibospider.settings import DEFAULT_REQUEST_HEADERS
-from spiders.weibospider.spiders.common import parse_tweet_info, parse_long_tweet
+from weibospider.settings import DEFAULT_REQUEST_HEADERS
+from weibospider.spiders.common import parse_tweet_info, parse_long_tweet
 
 
 class SearchSpider(Spider):

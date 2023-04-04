@@ -21,7 +21,7 @@ from app.models.user import User, UserCreate
 
 import logging
 
-from spiders.weibospider.spiders import UserSpider
+from weibospider.spiders import UserSpider
 
 logging.basicConfig(level=logging.DEBUG)
 

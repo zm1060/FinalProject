@@ -4,8 +4,8 @@ import json
 from scrapy import Spider
 from scrapy.http import Request
 
-from spiders.weibospider.settings import DEFAULT_REQUEST_HEADERS
-from spiders.weibospider.spiders.common import parse_user_info
+from weibospider.settings import DEFAULT_REQUEST_HEADERS
+from weibospider.spiders.common import parse_user_info
 
 
 class FanSpider(Spider):

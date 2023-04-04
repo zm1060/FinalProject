@@ -3,7 +3,7 @@
 import json
 from scrapy import Spider
 from scrapy.http import Request
-from spiders.weibospider.spiders.common import parse_user_info
+from weibospider.spiders.common import parse_user_info
 
 
 class FollowerSpider(Spider):

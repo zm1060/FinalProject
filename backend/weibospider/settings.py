@@ -1,16 +1,12 @@
 # -*- coding: utf-8 -*-
 
-BOT_NAME = 'spider'
+BOT_NAME = 'weibospider'
 
-SPIDER_MODULES = ['spiders']
-NEWSPIDER_MODULE = 'spiders'
+SPIDER_MODULES = ['weibospider.spiders']
+NEWSPIDER_MODULE = 'weibospider.spiders'
 
 ROBOTSTXT_OBEY = False
 REQUEST_FINGERPRINTER_IMPLEMENTATION = '2.7'
-
-LOG_LEVEL = 'INFO'
-LOG_FORMAT = '%(asctime)s [%(name)s] %(levelname)s: %(message)s'
-LOG_FILE = 'scrapy.log'
 
 
 DEFAULT_REQUEST_HEADERS = {
@@ -26,7 +22,7 @@ DOWNLOADER_MIDDLEWARES = {
     'scrapy.downloadermiddlewares.cookies.CookiesMiddleware': None,
     'scrapy.downloadermiddlewares.redirect.RedirectMiddleware': None,
     'scrapy.extensions.telnet.TelnetConsole': 500,
-    'middlewares.IPProxyMiddleware': 100,
+    'weibospider.middlewares.IPProxyMiddleware': 100,
     'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware': 101,
 }
 #
@@ -34,7 +30,7 @@ DOWNLOADER_MIDDLEWARES = {
 #     'pipelines.JsonWriterPipeline': 300,
 # }
 ITEM_PIPELINES = {
-    'pipelines.MongoDBPipeline': 300,
+    'weibospider.pipelines.MongoDBPipeline': 300,
 }
 MONGO_URI = 'mongodb://localhost:27017/'
 MONGO_DATABASE = 'weibo'

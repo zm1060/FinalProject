@@ -1,16 +1,16 @@
 #!/usr/bin/env python
 # encoding: utf-8
-import os
-import sys
 from scrapy.crawler import CrawlerProcess
 from scrapy.utils.project import get_project_settings
 
-from spiders.weibospider.spiders import CommentSpider, FanSpider, FollowerSpider, TweetSpider, UserSpider, RepostSpider, \
+from weibospider.spiders import CommentSpider, FanSpider, FollowerSpider, TweetSpider, UserSpider, RepostSpider, \
     SearchSpider
 
+import os
+
 if __name__ == '__main__':
-    mode = 'user'
-    os.environ['SCRAPY_SETTINGS_MODULE'] = 'spiders.weibospider.settings'
+    mode = 'tweet'
+    os.environ['SCRAPY_SETTINGS_MODULE'] = 'weibospider.settings'
     settings = get_project_settings()
     process = CrawlerProcess(settings)
     mode_to_spider = {

@@ -3,7 +3,7 @@
 import json
 from scrapy import Spider
 from scrapy.http import Request
-from spiders.weibospider.spiders.common import parse_tweet_info, parse_long_tweet
+from weibospider.spiders.common import parse_tweet_info, parse_long_tweet
 
 class TweetSpider(Spider):
     """

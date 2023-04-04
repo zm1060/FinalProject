@@ -7,6 +7,7 @@ import time
 import pymongo
 import logging
 
+
 class JsonWriterPipeline(object):
     """
     写入json文件的pipline
@@ -40,6 +41,7 @@ class MongoDBPipeline(object):
     def __init__(self, mongo_uri, mongo_db):
         self.mongo_uri = mongo_uri
         self.mongo_db = mongo_db
+        self.logger = logging.getLogger(__name__)
 
     @classmethod
     def from_crawler(cls, crawler):
@@ -67,6 +69,6 @@ class MongoDBPipeline(object):
         """
         collection_name = spider.name
         item['crawl_time'] = int(time.time())
-        self.logger.debug("Item to be inserted: %s", item)
         self.db[collection_name].insert_one(dict(item))
         return item
+

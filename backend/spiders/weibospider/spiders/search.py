@@ -1,6 +1,10 @@
+#!/usr/bin/env python
+# encoding: utf-8
 import json
 import re
 from scrapy import Spider, Request
+
+from spiders.weibospider.settings import DEFAULT_REQUEST_HEADERS
 from spiders.weibospider.spiders.common import parse_tweet_info, parse_long_tweet
 
 
@@ -10,10 +14,13 @@ class SearchSpider(Spider):
     """
     name = "search_spider"
     base_url = "https://s.weibo.com/"
+    user_ids = []
+    cookie = []
+    headers = []
 
     def __init__(self, keywords=None, start_time=None, end_time=None,
                  is_sort_by_hot=False, is_search_with_specific_time_scope=False,
-                 *args, **kwargs):
+                 cookie=None, *args, **kwargs):
         super(SearchSpider, self).__init__(*args, **kwargs)
         self.keywords = keywords
         self.start_time = start_time
@@ -26,6 +33,26 @@ class SearchSpider(Spider):
             self.is_search_with_specific_time_scope = is_search_with_specific_time_scope
         else:
             self.is_search_with_specific_time_scope = False
+
+        self.cookie = self._parse_cookie(cookie)
+
+        # Set cookie in default headers
+        if self.cookie is not None:
+            self.headers = DEFAULT_REQUEST_HEADERS
+            self.headers['Cookie'] = self.cookie
+
+    def _parse_cookie(self, cookie_str):
+        # if cookie_str is None:
+        #     return None
+        # cookie_dict = {}
+        # for cookie in cookie_str.split(';'):
+        #     key, value = cookie.strip().split('=', 1)
+        #     cookie_dict[key] = value
+        # return cookie_dict
+        if cookie_str is None:
+            return None
+        return {cookie.split('=')[0]: cookie.split('=')[1] for cookie in cookie_str.split('; ')}
+
     def start_requests(self):
         """
         爬虫入口
@@ -43,7 +70,10 @@ class SearchSpider(Spider):
                 url = f"https://s.weibo.com/weibo?q={keyword}&page=1"
             if self.is_sort_by_hot:
                 url += "&xsort=hot"
-            yield Request(url, callback=self.parse, meta={'keyword': keyword})
+            print(url)
+            print(self.headers)
+            print(self.cookie)
+            yield Request(url, callback=self.parse, headers=self.headers, cookies=self.cookie, meta={'keyword': keyword})
 
     def parse(self, response, **kwargs):
         """

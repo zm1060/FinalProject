@@ -1,10 +1,11 @@
-# -*- coding: utf-8 -*-
+#!/usr/bin/env python
+# encoding: utf-8
 import datetime
 import json
 import os.path
 import time
 import pymongo
-
+import logging
 
 class JsonWriterPipeline(object):
     """
@@ -66,5 +67,6 @@ class MongoDBPipeline(object):
         """
         collection_name = spider.name
         item['crawl_time'] = int(time.time())
+        self.logger.debug("Item to be inserted: %s", item)
         self.db[collection_name].insert_one(dict(item))
         return item

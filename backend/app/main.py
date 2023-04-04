@@ -10,15 +10,18 @@ from datetime import datetime, timedelta
 from flower.command import FlowerCommand
 from jose import JWTError, jwt
 from passlib.context import CryptContext
-from scrapy.crawler import CrawlerProcess
+from scrapy.crawler import CrawlerProcess, CrawlerRunner
 from scrapy.utils.project import get_project_settings
 from sqlalchemy.orm import Session
+from twisted.internet import reactor
 
 from app.celery_task.tasks import celery
 from app.db.database import SessionLocal
 from app.models.user import User, UserCreate
 
 import logging
+
+from spiders.weibospider.spiders import UserSpider
 
 logging.basicConfig(level=logging.DEBUG)
 
@@ -167,16 +170,6 @@ def protected_route2(current_user: User = Depends(get_current_user)):
     return {"message": f"Hello from protected route 2, {current_user.username}!"}
 
 
-@app.post('/jd/run_spider')
-def run_jd_spider(spider_name: str):
-    celery.send_task('tasks.run_jd_spider', args=[spider_name])
-    return {'message': f'Starting task to run spider {spider_name}.'}
-
-
-@app.post('/weibo/run_spider')
-def run_weibo_spider(spider_name: str):
-    celery.send_task('tasks.run_weibo_spider', args=[spider_name])
-    return {'message': f'Starting task to run spider {spider_name}.'}
 
 
 @app.post('/schedule/{spider_name}')
@@ -192,12 +185,34 @@ def schedule_spider(spider_name: str, keywords: str):
 # 微博用户
 @app.post('/run_weibo_user_spider')
 async def run_weibo_user_spider(user_ids: List[str] = None, cookie: str = None):
+    spider = UserSpider(user_ids=user_ids, cookie=cookie)
     task = celery.send_task('tasks.run_weibo_user_spider', kwargs={
         'user_ids': user_ids,
         'cookie': cookie
     })
     return {'task_id': task.id}
 
+@app.post('/simple_run_weibo_user_spider')
+async def simple_run_weibo_user_spider(user_ids: List[str] = None, cookie: str = None):
+    spider_cls = UserSpider
+    spider_kwargs = {}
+    if user_ids:
+        spider_kwargs['user_ids'] = user_ids
+    if cookie:
+        spider_kwargs['cookie'] = cookie
+
+    settings = get_project_settings()
+    runner = CrawlerRunner(settings)
+    runner.crawl(spider_cls, **spider_kwargs)
+
+    def stop_reactor():
+        reactor.stop()
+
+    d = runner.join()
+    d.addBoth(stop_reactor)
+
+    reactor.run()
+    return {'message': f'Spider user finished running.'}
 
 # 微博搜索
 @app.post('/run_weibo_search_spider')

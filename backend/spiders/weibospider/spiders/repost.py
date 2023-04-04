@@ -1,4 +1,5 @@
-
+#!/usr/bin/env python
+# encoding: utf-8
 import json
 from scrapy import Spider
 from scrapy.http import Request

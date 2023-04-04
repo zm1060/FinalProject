@@ -36,6 +36,5 @@ DOWNLOADER_MIDDLEWARES = {
 ITEM_PIPELINES = {
     'pipelines.MongoDBPipeline': 300,
 }
-
 MONGO_URI = 'mongodb://localhost:27017/'
 MONGO_DATABASE = 'weibo'

@@ -170,8 +170,6 @@ def protected_route2(current_user: User = Depends(get_current_user)):
     return {"message": f"Hello from protected route 2, {current_user.username}!"}
 
 
-
-
 @app.post('/schedule/{spider_name}')
 def schedule_spider(spider_name: str, keywords: str):
     process = CrawlerProcess(get_project_settings())
@@ -191,6 +189,7 @@ async def run_weibo_user_spider(user_ids: List[str] = None, cookie: str = None):
         'cookie': cookie
     })
     return {'task_id': task.id}
+
 
 @app.post('/simple_run_weibo_user_spider')
 async def simple_run_weibo_user_spider(user_ids: List[str] = None, cookie: str = None):
@@ -213,6 +212,7 @@ async def simple_run_weibo_user_spider(user_ids: List[str] = None, cookie: str =
 
     reactor.run()
     return {'message': f'Spider user finished running.'}
+
 
 # 微博搜索
 @app.post('/run_weibo_search_spider')
@@ -237,6 +237,42 @@ async def run_weibo_search_spider(keywords: List[str] = None,
 async def run_weibo_fan_spider(user_ids: List[str] = None, cookie: str = None):
     task = celery.send_task('tasks.run_weibo_fan_spider', kwargs={
         'user_ids': user_ids,
+        'cookie': cookie
+    })
+    return {'task_id': task.id}
+
+
+@app.post('/run_weibo_tweet_spider')
+async def run_weibo_tweet_spider(user_ids: List[str] = None, cookie: str = None):
+    task = celery.send_task('tasks.run_weibo_tweet_spider', kwargs={
+        'user_ids': user_ids,
+        'cookie': cookie
+    })
+    return {'task_id': task.id}
+
+
+@app.post('/run_weibo_follower_spider')
+async def run_weibo_follower_spider(user_ids: List[str] = None, cookie: str = None):
+    task = celery.send_task('tasks.run_weibo_follower_spider', kwargs={
+        'user_ids': user_ids,
+        'cookie': cookie
+    })
+    return {'task_id': task.id}
+
+
+@app.post('/run_weibo_comment_spider')
+async def run_weibo_comment_spider(tweet_ids: List[str] = None, cookie: str = None):
+    task = celery.send_task('tasks.run_weibo_comment_spider', kwargs={
+        'tweet_ids': tweet_ids,
+        'cookie': cookie
+    })
+    return {'task_id': task.id}
+
+
+@app.post('/run_weibo_repost_spider')
+async def run_weibo_repost_spider(tweet_ids: List[str] = None, cookie: str = None):
+    task = celery.send_task('tasks.run_weibo_repost_spider', kwargs={
+        'tweet_ids': tweet_ids,
         'cookie': cookie
     })
     return {'task_id': task.id}

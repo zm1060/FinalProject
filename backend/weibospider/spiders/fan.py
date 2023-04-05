@@ -14,11 +14,14 @@ class FanSpider(Spider):
     """
     name = "fan"
     base_url = 'https://weibo.com/ajax/friendships/friends'
+    headers = []
+    cookie = []
+    user_ids = []
 
     def __init__(self, user_ids=None, cookie=None, *args, **kwargs):
         super(FanSpider, self).__init__(*args, **kwargs)
         self.user_ids = user_ids
-        self.cookie = self._parse_cookie(cookie)
+        self.cookie = cookie
 
         # Set cookie in default headers
         if self.cookie is not None:
@@ -42,7 +45,6 @@ class FanSpider(Spider):
         爬虫入口
         """
         print(self.headers)
-        print(self.cookie)
         for user_id in self.user_ids:
             url = self.base_url + f"?relate=fans&page=1&uid={user_id}&type=fans"
             print(url)
@@ -52,6 +54,7 @@ class FanSpider(Spider):
         """
         网页解析
         """
+        print(response.body)
         data = json.loads(response.text)
         for user in data['users']:
             item = dict()

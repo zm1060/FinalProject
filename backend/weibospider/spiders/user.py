@@ -21,11 +21,11 @@ class UserSpider(Spider):
     def __init__(self, user_ids=None, cookie=None, *args, **kwargs):
         super(UserSpider, self).__init__(*args, **kwargs)
         self.user_ids = user_ids
-        self.cookie = self._parse_cookie(cookie)
+        self.cookie = cookie
 
         # Set cookie in default headers
         if self.cookie is not None:
-            self.headers = DEFAULT_REQUEST_HEADERS
+            self.headers = DEFAULT_REQUEST_HEADERS.copy()
             self.headers['Cookie'] = self.cookie
 
     def _parse_cookie(self, cookie_str):
@@ -48,13 +48,13 @@ class UserSpider(Spider):
         for url in urls:
             print(url)
             print(self.headers)
-            print(self.cookie)
             yield Request(url, callback=self.parse, headers=self.headers, cookies=self.cookie)
 
     def parse(self, response, **kwargs):
         """
         网页解析
         """
+        print(response.text)
         data = json.loads(response.text)
         item = parse_user_info(data['data']['user'])
         url = f"https://weibo.com/ajax/profile/detail?uid={item['_id']}"
@@ -67,7 +67,6 @@ class UserSpider(Spider):
         """
         item = response.meta['item']
         data = json.loads(response.text)['data']
-        print(data)
         item['birthday'] = data.get('birthday', '')
         if 'created_at' not in item:
             item['created_at'] = data.get('created_at', '')
@@ -79,4 +78,5 @@ class UserSpider(Spider):
             item['company'] = data['company']
         if 'education' in data:
             item['education'] = data['education']
+        print(item)
         yield item

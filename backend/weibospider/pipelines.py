@@ -7,6 +7,8 @@ import time
 import pymongo
 import logging
 
+from celery import current_task
+
 
 class JsonWriterPipeline(object):
     """

@@ -14,9 +14,13 @@ class SearchSpider(Spider):
     """
     name = "search_spider"
     base_url = "https://s.weibo.com/"
-    user_ids = []
+    keywords = []
     cookie = []
     headers = []
+    start_time = "2023-04-04-0"
+    end_time = "2023-04-05-23"
+    is_sort_by_hot = True
+    is_search_with_specific_time_scope = False
 
     def __init__(self, keywords=None, start_time=None, end_time=None,
                  is_sort_by_hot=False, is_search_with_specific_time_scope=False,
@@ -33,22 +37,14 @@ class SearchSpider(Spider):
             self.is_search_with_specific_time_scope = is_search_with_specific_time_scope
         else:
             self.is_search_with_specific_time_scope = False
-
-        self.cookie = self._parse_cookie(cookie)
-
+        # self.cookie = self._parse_cookie(cookie)
+        self.cookie = cookie
         # Set cookie in default headers
         if self.cookie is not None:
             self.headers = DEFAULT_REQUEST_HEADERS
             self.headers['Cookie'] = self.cookie
 
     def _parse_cookie(self, cookie_str):
-        # if cookie_str is None:
-        #     return None
-        # cookie_dict = {}
-        # for cookie in cookie_str.split(';'):
-        #     key, value = cookie.strip().split('=', 1)
-        #     cookie_dict[key] = value
-        # return cookie_dict
         if cookie_str is None:
             return None
         return {cookie.split('=')[0]: cookie.split('=')[1] for cookie in cookie_str.split('; ')}
@@ -57,15 +53,10 @@ class SearchSpider(Spider):
         """
         爬虫入口
         """
-        # 这里keywords可替换成实际待采集的数据
 
-        # start_time = "2022-10-01-0"  # 格式为 年-月-日-小时, 2022-10-01-0 表示2022年10月1日0时
-        # end_time = "2022-10-07-23"  # 格式为 年-月-日-小时, 2022-10-07-23 表示2022年10月7日23时
-        # is_search_with_specific_time_scope = True  # 是否在指定的时间区间进行推文搜索
-        # is_sort_by_hot = True  # 是否按照热度排序,默认按照时间排序
         for keyword in self.keywords:
             if self.is_search_with_specific_time_scope:
-                url = f"https://s.weibo.com/weibo?q={keyword}&timescope=custom%3A{start_time}%3A{end_time}&page=1"
+                url = f"https://s.weibo.com/weibo?q={keyword}&timescope=custom%3A{self.start_time}%3A{self.end_time}&page=1"
             else:
                 url = f"https://s.weibo.com/weibo?q={keyword}&page=1"
             if self.is_sort_by_hot:
@@ -83,14 +74,14 @@ class SearchSpider(Spider):
         tweet_ids = re.findall(r'\d+/(.*?)\?refer_flag=1001030103_" ', html)
         for tweet_id in tweet_ids:
             url = f"https://weibo.com/ajax/statuses/show?id={tweet_id}"
-            yield Request(url, callback=self.parse_tweet, meta=response.meta)
+            yield Request(url, callback=self.parse_tweet, meta=response.meta, headers=self.headers, cookies=self.cookie)
         next_page = re.search('<a href="(.*?)" class="next">下一页</a>', html)
         if next_page:
             url = "https://s.weibo.com" + next_page.group(1)
-            yield Request(url, callback=self.parse, meta=response.meta)
+            yield Request(url, callback=self.parse, meta=response.meta, headers=self.headers, cookies=self.cookie)
 
     @staticmethod
-    def parse_tweet(response):
+    def parse_tweet(self, response):
         """
         解析推文
         """
@@ -99,6 +90,6 @@ class SearchSpider(Spider):
         item['keyword'] = response.meta['keyword']
         if item['isLongText']:
             url = "https://weibo.com/ajax/statuses/longtext?id=" + item['mblogid']
-            yield Request(url, callback=parse_long_tweet, meta={'item': item})
+            yield Request(url, callback=parse_long_tweet, meta={'item': item}, headers=self.headers, cookies=self.cookie)
         else:
             yield item

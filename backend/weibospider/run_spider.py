@@ -9,7 +9,7 @@ from weibospider.spiders import CommentSpider, FanSpider, FollowerSpider, TweetS
 import os
 
 if __name__ == '__main__':
-    mode = 'tweet'
+    mode = 'fan'
     os.environ['SCRAPY_SETTINGS_MODULE'] = 'weibospider.settings'
     settings = get_project_settings()
     process = CrawlerProcess(settings)

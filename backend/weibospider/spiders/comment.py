@@ -3,6 +3,8 @@
 import json
 from scrapy import Spider
 from scrapy.http import Request
+
+from weibospider.settings import DEFAULT_REQUEST_HEADERS
 from weibospider.spiders.common import parse_user_info, parse_time, url_to_mid
 
 
@@ -11,18 +13,29 @@ class CommentSpider(Spider):
     微博评论数据采集
     """
     name = "comment"
+    tweet_ids = []
+    cookie = []
+    headers = []
+
+    def __init__(self, tweet_ids=None, cookie=None, *args, **kwargs):
+        super(CommentSpider, self).__init__(*args, **kwargs)
+        self.tweet_ids = tweet_ids
+        self.cookie = cookie
+
+        # Set cookie in default headers
+        if self.cookie is not None:
+            self.headers = DEFAULT_REQUEST_HEADERS.copy()
+            self.headers['Cookie'] = self.cookie
 
     def start_requests(self):
         """
         爬虫入口
         """
-        # 这里tweet_ids可替换成实际待采集的数据
-        tweet_ids = ['Mb15BDYR0']
-        for tweet_id in tweet_ids:
+        for tweet_id in self.tweet_ids:
             mid = url_to_mid(tweet_id)
             url = f"https://weibo.com/ajax/statuses/buildComments?" \
                   f"is_reload=1&id={mid}&is_show_bulletin=2&is_mix=0&count=20"
-            yield Request(url, callback=self.parse, meta={'source_url': url})
+            yield Request(url, callback=self.parse, meta={'source_url': url}, headers=self.headers, cookies=self.cookie)
 
     def parse(self, response, **kwargs):
         """
@@ -34,7 +47,7 @@ class CommentSpider(Spider):
             yield item
         if data.get('max_id', 0) != 0:
             url = response.meta['source_url'] + '&max_id=' + str(data['max_id'])
-            yield Request(url, callback=self.parse, meta=response.meta)
+            yield Request(url, callback=self.parse, meta=response.meta, headers=self.headers, cookies=self.cookie)
 
     @staticmethod
     def parse_comment(data):

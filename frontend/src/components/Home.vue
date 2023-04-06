@@ -1,16 +1,32 @@
 <template>
   <div>
-    This is home
+    <h1>Welcome to Weibo Spider App</h1>
+    <ul>
+      <li><router-link to="/weibo/run_tasks">Go to Weibo Spider Page</router-link></li>
+      <li><router-link to="/weibo/analy">Go to Weibo Spider Data Analy Page</router-link></li>
+      <li><router-link to="/weibo/show">Go to Weibo Spider Data Show Page</router-link></li>
+    </ul>
   </div>
 </template>
 
 <script>
 export default {
-  // eslint-disable-next-line vue/multi-word-component-names
-  name: "Home"
+  name: "HomePage"
 }
 </script>
 
 <style scoped>
-
+h1 {
+  text-align: center;
+  margin-top: 50px;
+}
+ul {
+  list-style-type: none;
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+}
+li {
+  margin: 10px;
+}
 </style>

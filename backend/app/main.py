@@ -2,7 +2,7 @@ import os
 
 from typing import Optional, List
 import uvicorn
-from fastapi import FastAPI, HTTPException, Depends, status
+from fastapi import FastAPI, HTTPException, Depends, status, Body
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from datetime import datetime, timedelta
@@ -182,8 +182,9 @@ def schedule_spider(spider_name: str, keywords: str):
 
 # 微博用户
 @app.post('/run_weibo_user_spider')
-async def run_weibo_user_spider(user_ids: List[str] = None, cookie: str = None):
-    spider = UserSpider(user_ids=user_ids, cookie=cookie)
+async def run_weibo_user_spider(user_data: dict = Body(...)):
+    user_ids = user_data.get('user_ids')
+    cookie = user_data.get('cookie')
     task = celery.send_task('tasks.run_weibo_user_spider', kwargs={
         'user_ids': user_ids,
         'cookie': cookie
@@ -192,7 +193,9 @@ async def run_weibo_user_spider(user_ids: List[str] = None, cookie: str = None):
 
 
 @app.post('/simple_run_weibo_user_spider')
-async def simple_run_weibo_user_spider(user_ids: List[str] = None, cookie: str = None):
+async def simple_run_weibo_user_spider(user_data: dict = Body(...)):
+    user_ids = user_data.get('user_ids')
+    cookie = user_data.get('cookie')
     spider_cls = UserSpider
     spider_kwargs = {}
     if user_ids:
@@ -214,13 +217,15 @@ async def simple_run_weibo_user_spider(user_ids: List[str] = None, cookie: str =
     return {'message': f'Spider user finished running.'}
 
 
-# 微博搜索
 @app.post('/run_weibo_search_spider')
-async def run_weibo_search_spider(keywords: List[str] = None,
-                                  start_time: str = None, end_time: str = None,
-                                  is_sort_by_hot: bool = False,
-                                  is_search_with_specific_time_scope: bool = False,
-                                  cookie: str = None):
+async def run_weibo_search_spider(search_data: dict = Body(...)):
+    keywords = search_data.get('keywords')
+    start_time = search_data.get('start_time')
+    end_time = search_data.get('end_time')
+    is_sort_by_hot = search_data.get('is_sort_by_hot')
+    is_search_with_specific_time_scope = search_data.get('is_search_with_specific_time_scope')
+    cookie = search_data.get('cookie')
+    print(is_sort_by_hot)
     task = celery.send_task('tasks.run_weibo_search_spider', kwargs={
         'keywords': keywords,
         'start_time': start_time,
@@ -232,9 +237,11 @@ async def run_weibo_search_spider(keywords: List[str] = None,
     return {'task_id': task.id}
 
 
-# 微博粉丝
 @app.post('/run_weibo_fan_spider')
-async def run_weibo_fan_spider(user_ids: List[str] = None, cookie: str = None):
+async def run_weibo_fan_spider(fan_data: dict = Body(...)):
+    user_ids = fan_data.get('user_ids')
+    cookie = fan_data.get('cookie')
+
     task = celery.send_task('tasks.run_weibo_fan_spider', kwargs={
         'user_ids': user_ids,
         'cookie': cookie
@@ -243,7 +250,10 @@ async def run_weibo_fan_spider(user_ids: List[str] = None, cookie: str = None):
 
 
 @app.post('/run_weibo_tweet_spider')
-async def run_weibo_tweet_spider(user_ids: List[str] = None, cookie: str = None):
+async def run_weibo_tweet_spider(tweet_data: dict = Body(...)):
+    user_ids = tweet_data.get('user_ids')
+    cookie = tweet_data.get('cookie')
+
     task = celery.send_task('tasks.run_weibo_tweet_spider', kwargs={
         'user_ids': user_ids,
         'cookie': cookie
@@ -252,7 +262,10 @@ async def run_weibo_tweet_spider(user_ids: List[str] = None, cookie: str = None)
 
 
 @app.post('/run_weibo_follower_spider')
-async def run_weibo_follower_spider(user_ids: List[str] = None, cookie: str = None):
+async def run_weibo_follower_spider(follower_data: dict = Body(...)):
+    user_ids = follower_data.get('user_ids')
+    cookie = follower_data.get('cookie')
+
     task = celery.send_task('tasks.run_weibo_follower_spider', kwargs={
         'user_ids': user_ids,
         'cookie': cookie
@@ -261,16 +274,20 @@ async def run_weibo_follower_spider(user_ids: List[str] = None, cookie: str = No
 
 
 @app.post('/run_weibo_comment_spider')
-async def run_weibo_comment_spider(tweet_ids: List[str] = None, cookie: str = None):
+async def run_weibo_comment_spider(comment_data: dict = Body(...)):
+    tweet_ids = comment_data.get('tweet_ids')
+    cookie = comment_data.get('cookie')
+
     task = celery.send_task('tasks.run_weibo_comment_spider', kwargs={
         'tweet_ids': tweet_ids,
         'cookie': cookie
     })
     return {'task_id': task.id}
 
-
 @app.post('/run_weibo_repost_spider')
-async def run_weibo_repost_spider(tweet_ids: List[str] = None, cookie: str = None):
+async def run_weibo_repost_spider(repost_data: dict = Body(...)):
+    tweet_ids = repost_data.get('tweet_ids')
+    cookie = repost_data.get('cookie')
     task = celery.send_task('tasks.run_weibo_repost_spider', kwargs={
         'tweet_ids': tweet_ids,
         'cookie': cookie

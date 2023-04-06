@@ -13,7 +13,7 @@
     </a-layout-sider>
     <a-layout-content style="padding: 24px">
       <a-card>
-        <a-form :model="userData" :layout="formLayout" v-if="selectedTask === 'user'"  @submit.prevent="submitUserSpider">
+        <a-form :model="userData"  v-if="selectedTask === 'user'"  @submit.prevent="submitUserSpider">
           <a-form-item label="User IDs" :label-col="{ span: 4 }" :wrapper-col="{ span: 20 }">
             <a-input v-model:value="userData.user_ids" placeholder="Enter user IDs separated by comma" />
           </a-form-item>
@@ -24,7 +24,7 @@
             <a-button type="primary" html-type="submit">Submit</a-button>
           </a-form-item>
         </a-form>
-        <a-form :model="searchData" :layout="formLayout" v-else-if="selectedTask === 'search'"  @submit.prevent="submitSearchSpider">
+        <a-form :model="searchData" v-else-if="selectedTask === 'search'"  @submit.prevent="submitSearchSpider">
           <a-form-item label="Keywords" :label-col="{ span: 4 }" :wrapper-col="{ span: 20 }">
             <a-input v-model:value="searchData.keywords" placeholder="Enter keywords separated by comma" />
           </a-form-item>
@@ -32,7 +32,7 @@
             <a-date-picker
               v-model:value="searchData.startTime"
               show-time
-              format="YYYY-MM-DD HH:mm:ss"
+              format="YYYY-MM-DD-HH"
               placeholder="Select start time"
             />
           </a-form-item>
@@ -40,15 +40,16 @@
             <a-date-picker
               v-model:value="searchData.endTime"
               show-time
-              format="YYYY-MM-DD HH:mm:ss"
+              format="YYYY-MM-DD-HH"
               placeholder="Select end time"
             />
           </a-form-item>
+
           <a-form-item label="Sort By Hot" :label-col="{ span: 4 }" :wrapper-col="{ span: 20 }">
-            <a-switch v-model:value="searchData.isSortByHot" />
+            <a-switch v-model:checked="searchData.is_sort_by_hot" />
           </a-form-item>
           <a-form-item label="Specific Time Scope" :label-col="{ span: 4 }" :wrapper-col="{ span: 20 }">
-            <a-switch v-model:value="searchData.isSearchWithSpecificTimeScope" />
+            <a-switch v-model:checked="searchData.is_search_with_specific_time_scope" />
           </a-form-item>
           <a-form-item label="Cookie" :label-col="{ span: 4 }" :wrapper-col="{ span: 20 }">
             <a-input v-model:value="searchData.cookie" placeholder="Enter cookie" />
@@ -57,7 +58,7 @@
             <a-button type="primary" html-type="submit">Submit</a-button>
           </a-form-item>
         </a-form>
-        <a-form :model="fanData" :layout="formLayout" v-else-if="selectedTask === 'fan'" @submit.prevent="submitFanSpider">
+        <a-form :model="fanData" v-else-if="selectedTask === 'fan'" @submit.prevent="submitFanSpider">
           <a-form-item label="User IDs" :label-col="{ span: 4 }" :wrapper-col="{ span: 20 }">
             <a-input v-model:value="fanData.user_ids" placeholder="Enter user IDs separated by comma" />
           </a-form-item>
@@ -69,7 +70,7 @@
           </a-form-item>
         </a-form>
 
-        <a-form :model="tweetData" :layout="formLayout" v-else-if="selectedTask === 'tweet'" @submit.prevent="submitTweetSpider">
+        <a-form :model="tweetData" v-else-if="selectedTask === 'tweet'" @submit.prevent="submitTweetSpider">
           <a-form-item label="User IDs" :label-col="{ span: 4 }" :wrapper-col="{ span: 20 }">
             <a-input v-model:value="tweetData.user_ids" placeholder="Enter user IDs separated by comma" />
           </a-form-item>
@@ -81,7 +82,7 @@
           </a-form-item>
         </a-form>
 
-        <a-form :model="followerData" :layout="formLayout" v-else-if="selectedTask === 'follower'" @submit.prevent="submitFollowerSpider">
+        <a-form :model="followerData" v-else-if="selectedTask === 'follower'" @submit.prevent="submitFollowerSpider">
           <a-form-item label="User IDs" :label-col="{ span: 4 }" :wrapper-col="{ span: 20 }">
             <a-input v-model:value="followerData.user_ids" placeholder="Enter user IDs separated by comma" />
           </a-form-item>
@@ -93,7 +94,7 @@
           </a-form-item>
         </a-form>
 
-        <a-form :model="commentData" :layout="formLayout" v-else-if="selectedTask === 'comment'" @submit.prevent="submitCommentSpider">
+        <a-form :model="commentData" v-else-if="selectedTask === 'comment'" @submit.prevent="submitCommentSpider">
           <a-form-item label="Tweet IDs" :label-col="{ span: 4 }" :wrapper-col="{ span: 20 }">
             <a-input v-model:value="commentData.tweet_ids" placeholder="Enter tweet IDs separated by comma" />
           </a-form-item>
@@ -105,7 +106,7 @@
           </a-form-item>
         </a-form>
 
-        <a-form :form="repostData" :layout="formLayout" v-else-if="selectedTask === 'repost'" @submit.prevent="submitRepostSpider">
+        <a-form :form="repostData" v-else-if="selectedTask === 'repost'" @submit.prevent="submitRepostSpider">
           <a-form-item label="Tweet IDs" :label-col="{ span: 4 }" :wrapper-col="{ span: 20 }">
             <a-input v-model:value="repostData.tweetIds" placeholder="Enter tweet IDs separated by comma" />
           </a-form-item>
@@ -125,6 +126,8 @@
 import { defineComponent } from 'vue'
 import { Menu, Layout, Form, Input, Button, message, DatePicker, Switch, Card } from 'ant-design-vue'
 import axiosInstance from "@/api/axiosInstance";
+//import moment from 'moment';
+
 
 export default defineComponent({
   name: 'RunTasks',
@@ -176,6 +179,10 @@ export default defineComponent({
             tweet_ids: '',
             cookie: ''
         },
+        repostData: {
+          tweet_ids: '',
+          cookie: ''
+        },
         selectedTask: 'user', // default task type
     }
   },
@@ -188,7 +195,13 @@ export default defineComponent({
             user_ids: this.userData.user_ids.split(','),
             cookie: this.userData.cookie
         }
-        axiosInstance.post('/run_weibo_user_spider', formData).then(response => {
+        console.log( JSON.stringify(formData))
+
+        axiosInstance.post('/run_weibo_user_spider', JSON.stringify(formData), {
+            headers: {
+              'Content-Type': 'application/json',
+            },
+        }).then(response => {
             message.success('User spider task submitted successfully')
             console.log(response)
         })
@@ -198,15 +211,23 @@ export default defineComponent({
         })
     },
     submitSearchSpider() {
+        // format the datetime strings to the desired format
+        //const formatted_start_time = moment(this.searchData.start_time).format('YYYY-MM-DD-HH');
+        //const formatted_end_time = moment(this.searchData.end_time).format('YYYY-MM-DD-HH');
         const formData = {
             keywords: this.searchData.keywords.split(','),
-            start_time: this.searchData.startTime,
-            end_time: this.searchData.endTime,
+            start_time: this.searchData.start_time,
+            end_time: this.searchData.end_time,
             is_sort_by_hot: this.searchData.is_sort_by_hot,
             is_search_with_specific_time_scope: this.searchData.is_search_with_specific_time_scope,
             cookie: this.searchData.cookie
         }
-        axiosInstance.post('/run_weibo_search_spider', formData)
+        console.log(JSON.stringify(formData))
+        axiosInstance.post('/run_weibo_search_spider', JSON.stringify(formData), {
+            headers: {
+              'Content-Type': 'application/json',
+            },
+        })
         .then(response => {
             message.success('Search spider task submitted successfully')
             console.log(response)
@@ -221,7 +242,11 @@ export default defineComponent({
             user_ids: this.fanData.user_ids.split(','),
             cookie: this.fanData.cookie
         }
-        axiosInstance.post('/run_weibo_fan_spider', formData)
+        axiosInstance.post('/run_weibo_fan_spider', JSON.stringify(formData), {
+            headers: {
+              'Content-Type': 'application/json',
+            },
+        })
         .then(response => {
             message.success('Fan spider task submitted successfully')
             console.log(response)
@@ -236,7 +261,11 @@ export default defineComponent({
             user_ids: this.tweetData.user_ids.split(','),
             cookie: this.tweetData.cookie
         }
-        axiosInstance.post('/run_weibo_tweet_spider', formData)
+        axiosInstance.post('/run_weibo_tweet_spider', JSON.stringify(formData), {
+            headers: {
+              'Content-Type': 'application/json',
+            },
+        })
         .then(response => {
             message.success('Tweet spider task submitted successfully')
             console.log(response)
@@ -251,7 +280,11 @@ export default defineComponent({
             user_ids: this.followerData.user_ids.split(','),
             cookie: this.followerData.cookie
         }
-        axiosInstance.post('/run_weibo_follower_spider', formData)
+        axiosInstance.post('/run_weibo_follower_spider', JSON.stringify(formData), {
+            headers: {
+              'Content-Type': 'application/json',
+            },
+        })
         .then(response => {
             message.success('Follower spider task submitted successfully')
             console.log(response)
@@ -266,7 +299,11 @@ export default defineComponent({
             tweet_ids: this.commentData.tweet_ids.split(','),
             cookie: this.commentData.cookie
         }
-        axiosInstance.post('/run_weibo_comment_spider', formData)
+        axiosInstance.post('/run_weibo_comment_spider', JSON.stringify(formData), {
+            headers: {
+              'Content-Type': 'application/json',
+            },
+        })
         .then(response => {
             message.success('Comment spider task submitted successfully')
             console.log(response)
@@ -281,7 +318,11 @@ export default defineComponent({
         tweet_ids: this.repostData.tweet_ids.split(','),
         cookie: this.repostData.cookie
       }
-      axiosInstance.post('/run_weibo_repost_spider', formData)
+      axiosInstance.post('/run_weibo_repost_spider', JSON.stringify(formData), {
+            headers: {
+              'Content-Type': 'application/json',
+            },
+        })
       .then(response => {
         message.success('Repost spider task submitted successfully')
         console.log(response)
@@ -295,3 +336,14 @@ export default defineComponent({
   }
 })
 </script>
+
+
+
+<style scoped>
+a-menu {
+  overflow-y: auto;
+  max-height: calc(100vh - 64px); /* assuming your header has a height of 64px */
+}
+
+
+</style>

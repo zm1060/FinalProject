@@ -53,6 +53,7 @@ export default {
           const token = response.data.access_token
           // Store the token in local storage
           localStorage.setItem("access_token", token);
+          localStorage.setItem("username", this.loginData.username)
           // Set isAuthenticated to true
           this.isAuthenticated = true;
           // Set the Authorization header for subsequent requests

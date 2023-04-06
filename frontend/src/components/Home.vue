@@ -4,7 +4,7 @@
     <ul>
       <li><router-link to="/weibo/run_tasks">Go to Weibo Spider Page</router-link></li>
       <li><router-link to="/weibo/analy">Go to Weibo Spider Data Analy Page</router-link></li>
-      <li><router-link to="/weibo/show">Go to Weibo Spider Data Show Page</router-link></li>
+      <li><router-link to="/show">Go to Weibo Spider Data Show Page</router-link></li>
     </ul>
   </div>
 </template>

@@ -81,7 +81,7 @@ class SearchSpider(Spider):
             yield Request(url, callback=self.parse, meta=response.meta, headers=self.headers, cookies=self.cookie)
 
     @staticmethod
-    def parse_tweet(self, response):
+    def parse_tweet(response):
         """
         解析推文
         """
@@ -90,6 +90,6 @@ class SearchSpider(Spider):
         item['keyword'] = response.meta['keyword']
         if item['isLongText']:
             url = "https://weibo.com/ajax/statuses/longtext?id=" + item['mblogid']
-            yield Request(url, callback=parse_long_tweet, meta={'item': item}, headers=self.headers, cookies=self.cookie)
+            yield Request(url, callback=parse_long_tweet, meta={'item': item})
         else:
             yield item

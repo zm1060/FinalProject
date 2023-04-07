@@ -16,12 +16,13 @@ class RepostSpider(Spider):
     tweet_ids = []
     cookie = []
     headers = []
+    task_id = ''
 
-    def __init__(self, tweet_ids=None, cookie=None, *args, **kwargs):
+    def __init__(self, tweet_ids=None, cookie=None, task_id=None, *args, **kwargs):
         super(RepostSpider, self).__init__(*args, **kwargs)
         self.tweet_ids = tweet_ids
         self.cookie = cookie
-
+        self.task_id = task_id
         # Set cookie in default headers
         if self.cookie is not None:
             self.headers = DEFAULT_REQUEST_HEADERS
@@ -35,7 +36,8 @@ class RepostSpider(Spider):
         for tweet_id in self.tweet_ids:
             mid = url_to_mid(tweet_id)
             url = f"https://weibo.com/ajax/statuses/repostTimeline?id={mid}&page=1&moduleID=feed&count=10"
-            yield Request(url, callback=self.parse, meta={'page_num': 1, 'mid': mid}, headers=self.headers, cookies=self.cookie)
+            yield Request(url, callback=self.parse, meta={'page_num': 1, 'mid': mid}, headers=self.headers,
+                          cookies=self.cookie)
 
     def parse(self, response, **kwargs):
         """
@@ -49,4 +51,5 @@ class RepostSpider(Spider):
             mid, page_num = response.meta['mid'], response.meta['page_num']
             page_num += 1
             url = f"https://weibo.com/ajax/statuses/repostTimeline?id={mid}&page={page_num}&moduleID=feed&count=10"
-            yield Request(url, callback=self.parse, meta={'page_num': page_num, 'mid': mid}, headers=self.headers, cookies=self.cookie)
+            yield Request(url, callback=self.parse, meta={'page_num': page_num, 'mid': mid}, headers=self.headers,
+                          cookies=self.cookie)

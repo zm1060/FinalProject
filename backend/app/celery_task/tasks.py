@@ -25,8 +25,9 @@ logging.basicConfig(
 )
 
 
-@celery.task(name='tasks.run_weibo_user_spider')
-def run_weibo_user_spider(user_ids: list = None, cookie: str = None):
+@celery.task(name='tasks.run_weibo_user_spider', bind=True)
+def run_weibo_user_spider(self, user_ids: list = None, cookie: str = None):
+    task_id = self.request.id # Access the task ID here
     spider_cls = UserSpider
 
     spider_kwargs = {}
@@ -34,7 +35,8 @@ def run_weibo_user_spider(user_ids: list = None, cookie: str = None):
         spider_kwargs['user_ids'] = user_ids
     if cookie:
         spider_kwargs['cookie'] = cookie
-
+    if task_id:
+        spider_kwargs['task_id'] = task_id
     settings = get_project_settings()
 
     runner = CrawlerRunner(settings)
@@ -55,12 +57,13 @@ def run_weibo_user_spider(user_ids: list = None, cookie: str = None):
     return {'message': f'Spider user finished running.'}
 
 
-@celery.task(name='tasks.run_weibo_search_spider')
-def run_weibo_search_spider(keywords: str = None,
+@celery.task(name='tasks.run_weibo_search_spider', bind=True)
+def run_weibo_search_spider(self, keywords: str = None,
                             start_time: str = None, end_time: str = None,
                             is_sort_by_hot: bool = True,
                             is_search_with_specific_time_scope: bool = False,
                             cookie: str = None):
+    task_id = self.request.id
     spider_cls = SearchSpider
     spider_kwargs = {}
     if keywords:
@@ -71,6 +74,9 @@ def run_weibo_search_spider(keywords: str = None,
         spider_kwargs['end_time'] = end_time
     if cookie:
         spider_kwargs['cookie'] = cookie
+    if task_id:
+        spider_kwargs['task_id'] = task_id
+
     spider_kwargs['is_sort_by_hot'] = is_sort_by_hot
     spider_kwargs['is_search_with_specific_time_scope'] = is_search_with_specific_time_scope
 
@@ -93,16 +99,18 @@ def run_weibo_search_spider(keywords: str = None,
     return {'message': f'Spider search finished running.'}
 
 
-@celery.task(name='tasks.run_weibo_fan_spider')
-def run_weibo_fan_spider(user_ids: list = None,
+@celery.task(name='tasks.run_weibo_fan_spider', bind=True)
+def run_weibo_fan_spider(self, user_ids: list = None,
                          cookie: str = None):
+    task_id = self.request.id
     spider_cls = FanSpider
     spider_kwargs = {}
     if user_ids:
         spider_kwargs['user_ids'] = user_ids
     if cookie:
         spider_kwargs['cookie'] = cookie
-
+    if task_id:
+        spider_kwargs['task_id'] = task_id
     settings = get_project_settings()
     runner = CrawlerRunner(settings)
     deferred = runner.crawl(spider_cls, **spider_kwargs)
@@ -122,15 +130,17 @@ def run_weibo_fan_spider(user_ids: list = None,
     return {'message': f'Spider fan finished running.'}
 
 
-@celery.task(name='tasks.run_weibo_tweet_spider')
-def run_weibo_tweet_spider(user_ids: list = None, cookie: str = None):
+@celery.task(name='tasks.run_weibo_tweet_spider', bind=True)
+def run_weibo_tweet_spider(self, user_ids: list = None, cookie: str = None):
+    task_id = self.request.id
     spider_cls = TweetSpider
     spider_kwargs = {}
     if user_ids:
         spider_kwargs['user_ids'] = user_ids
     if cookie:
         spider_kwargs['cookie'] = cookie
-
+    if task_id:
+        spider_kwargs['task_id'] = task_id
     settings = get_project_settings()
     runner = CrawlerRunner(settings)
     deferred = runner.crawl(spider_cls, **spider_kwargs)
@@ -150,16 +160,18 @@ def run_weibo_tweet_spider(user_ids: list = None, cookie: str = None):
     return {'message': f'Spider tweet finished running.'}
 
 
-@celery.task(name='tasks.run_weibo_follower_spider')
-def run_weibo_follower_spider(user_ids: list = None,
+@celery.task(name='tasks.run_weibo_follower_spider', bind=True)
+def run_weibo_follower_spider(self, user_ids: list = None,
                               cookie: str = None):
+    task_id = self.request.id
     spider_cls = FollowerSpider
     spider_kwargs = {}
     if user_ids:
         spider_kwargs['user_ids'] = user_ids
     if cookie:
         spider_kwargs['cookie'] = cookie
-
+    if task_id:
+        spider_kwargs['task_Id'] = task_id
     settings = get_project_settings()
     runner = CrawlerRunner(settings)
     deferred = runner.crawl(spider_cls, **spider_kwargs)
@@ -179,15 +191,17 @@ def run_weibo_follower_spider(user_ids: list = None,
     return {'message': f'Spider follower finished running.'}
 
 
-@celery.task(name='tasks.run_weibo_comment_spider')
-def run_weibo_comment_spider(tweet_ids: list = None, cookie: str = None):
+@celery.task(name='tasks.run_weibo_comment_spider', bind=True)
+def run_weibo_comment_spider(self, tweet_ids: list = None, cookie: str = None):
+    task_id = self.request.id
     spider_cls = CommentSpider
     spider_kwargs = {}
     if tweet_ids:
         spider_kwargs['tweet_ids'] = tweet_ids
     if cookie:
         spider_kwargs['cookie'] = cookie
-
+    if task_id:
+        spider_kwargs['task_id'] = task_id
     settings = get_project_settings()
     runner = CrawlerRunner(settings)
     deferred = runner.crawl(spider_cls, **spider_kwargs)
@@ -207,15 +221,17 @@ def run_weibo_comment_spider(tweet_ids: list = None, cookie: str = None):
     return {'message': f'Spider comment finished running.'}
 
 
-@celery.task(name='tasks.run_weibo_repost_spider')
-def run_weibo_repost_spider(tweet_ids=None, cookie=None):
+@celery.task(name='tasks.run_weibo_repost_spider', bind=True)
+def run_weibo_repost_spider(self, tweet_ids=None, cookie=None):
+    task_id = self.request.id
     spider_cls = RepostSpider
     spider_kwargs = {}
     if tweet_ids:
         spider_kwargs['tweet_ids'] = tweet_ids
     if cookie:
         spider_kwargs['cookie'] = cookie
-
+    if task_id:
+        spider_kwargs['task_id'] = task_id
     settings = get_project_settings()
     runner = CrawlerRunner(settings)
     deferred = runner.crawl(spider_cls, **spider_kwargs)

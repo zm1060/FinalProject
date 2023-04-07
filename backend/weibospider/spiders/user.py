@@ -17,12 +17,13 @@ class UserSpider(Spider):
     user_ids = []
     cookie = []
     headers = []
+    task_id = ''
 
-    def __init__(self, user_ids=None, cookie=None, *args, **kwargs):
+    def __init__(self, user_ids=None, cookie=None, task_id=None, *args, **kwargs):
         super(UserSpider, self).__init__(*args, **kwargs)
         self.user_ids = user_ids
         self.cookie = cookie
-
+        self.task_id = task_id
         # Set cookie in default headers
         if self.cookie is not None:
             self.headers = DEFAULT_REQUEST_HEADERS.copy()

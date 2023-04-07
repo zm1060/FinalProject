@@ -17,12 +17,13 @@ class FollowerSpider(Spider):
     user_ids = []
     cookie = []
     headers = []
+    task_id = ''
 
-    def __init__(self, user_ids=None, cookie=None, *args, **kwargs):
+    def __init__(self, user_ids=None, cookie=None, task_id=None, *args, **kwargs):
         super(FollowerSpider, self).__init__(*args, **kwargs)
         self.user_ids = user_ids
         self.cookie = cookie
-
+        self.task_id = task_id
         # Set cookie in default headers
         if self.cookie is not None:
             self.headers = DEFAULT_REQUEST_HEADERS
@@ -39,7 +40,8 @@ class FollowerSpider(Spider):
         """
         for user_id in self.user_ids:
             url = self.base_url + f"?page=1&uid={user_id}"
-            yield Request(url, callback=self.parse, meta={'user': user_id, 'page_num': 1}, headers=self.headers, cookies=self.cookie)
+            yield Request(url, callback=self.parse, meta={'user': user_id, 'page_num': 1}, headers=self.headers,
+                          cookies=self.cookie)
 
     def parse(self, response, **kwargs):
         """

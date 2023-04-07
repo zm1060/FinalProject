@@ -202,16 +202,6 @@ def protected_route2(current_user: User = Depends(get_current_user)):
     return {"message": f"Hello from protected route 2, {current_user.username}!"}
 
 
-@app.post('/schedule/{spider_name}')
-def schedule_spider(spider_name: str, keywords: str):
-    process = CrawlerProcess(get_project_settings())
-    spider_cls = process.spider_loader.load(spider_name)
-    spider = spider_cls(keywords=keywords)
-    process.crawl(spider)
-    process.start()
-    return {'status': 'ok'}
-
-
 # 微博用户
 @app.post('/run_weibo_user_spider')
 async def run_weibo_user_spider(user_data: dict = Body(...)):

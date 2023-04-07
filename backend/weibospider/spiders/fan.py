@@ -17,12 +17,13 @@ class FanSpider(Spider):
     headers = []
     cookie = []
     user_ids = []
+    task_id = ''
 
-    def __init__(self, user_ids=None, cookie=None, *args, **kwargs):
+    def __init__(self, user_ids=None, cookie=None, task_id=None, *args, **kwargs):
         super(FanSpider, self).__init__(*args, **kwargs)
         self.user_ids = user_ids
         self.cookie = cookie
-
+        self.task_id = task_id
         # Set cookie in default headers
         if self.cookie is not None:
             self.headers = DEFAULT_REQUEST_HEADERS
@@ -48,7 +49,8 @@ class FanSpider(Spider):
         for user_id in self.user_ids:
             url = self.base_url + f"?relate=fans&page=1&uid={user_id}&type=fans"
             print(url)
-            yield Request(url, callback=self.parse, meta={'user': user_id, 'page_num': 1}, cookies=self.cookie, headers=self.headers)
+            yield Request(url, callback=self.parse, meta={'user': user_id, 'page_num': 1}, cookies=self.cookie,
+                          headers=self.headers)
 
     def parse(self, response, **kwargs):
         """

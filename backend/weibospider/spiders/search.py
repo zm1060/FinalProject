@@ -21,10 +21,11 @@ class SearchSpider(Spider):
     end_time = "2023-04-05-23"
     is_sort_by_hot = True
     is_search_with_specific_time_scope = False
+    task_id = ''
 
     def __init__(self, keywords=None, start_time=None, end_time=None,
                  is_sort_by_hot=False, is_search_with_specific_time_scope=False,
-                 cookie=None, *args, **kwargs):
+                 cookie=None, task_id=None, *args, **kwargs):
         super(SearchSpider, self).__init__(*args, **kwargs)
         self.keywords = keywords
         self.start_time = start_time
@@ -39,6 +40,7 @@ class SearchSpider(Spider):
             self.is_search_with_specific_time_scope = False
         # self.cookie = self._parse_cookie(cookie)
         self.cookie = cookie
+        self.task_id = task_id
         # Set cookie in default headers
         if self.cookie is not None:
             self.headers = DEFAULT_REQUEST_HEADERS
@@ -64,7 +66,8 @@ class SearchSpider(Spider):
             print(url)
             print(self.headers)
             print(self.cookie)
-            yield Request(url, callback=self.parse, headers=self.headers, cookies=self.cookie, meta={'keyword': keyword})
+            yield Request(url, callback=self.parse, headers=self.headers, cookies=self.cookie,
+                          meta={'keyword': keyword})
 
     def parse(self, response, **kwargs):
         """

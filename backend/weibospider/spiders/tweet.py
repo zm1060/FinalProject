@@ -17,13 +17,14 @@ class TweetSpider(Spider):
     user_ids = []
     cookie = []
     headers = []
+    task_id = ''
 
-    def __init__(self, user_ids=None, cookie=None, *args, **kwargs):
+    def __init__(self, user_ids=None, cookie=None, task_id=None, *args, **kwargs):
         super(TweetSpider, self).__init__(*args, **kwargs)
-        self.user_ids = user_ids or []
-        #self.cookie = self._parse_cookie(cookie)
+        self.user_ids = user_ids
+        # self.cookie = self._parse_cookie(cookie)
         self.cookie = cookie
-
+        self.task_id = task_id
         # Set cookie in default headers
         if self.cookie is not None:
             self.headers = DEFAULT_REQUEST_HEADERS
@@ -40,7 +41,8 @@ class TweetSpider(Spider):
         """
         for user_id in self.user_ids:
             url = f"https://weibo.com/ajax/statuses/mymblog?uid={user_id}&page=1"
-            yield Request(url, callback=self.parse, meta={'user_id': user_id, 'page_num': 1}, headers=self.headers, cookies=self.cookie)
+            yield Request(url, callback=self.parse, meta={'user_id': user_id, 'page_num': 1}, headers=self.headers,
+                          cookies=self.cookie)
 
     def parse(self, response, **kwargs):
         """
@@ -53,11 +55,13 @@ class TweetSpider(Spider):
             del item['user']
             if item['isLongText']:
                 url = "https://weibo.com/ajax/statuses/longtext?id=" + item['mblogid']
-                yield Request(url, callback=parse_long_tweet, meta={'item': item}, headers=self.headers, cookies=self.cookie)
+                yield Request(url, callback=parse_long_tweet, meta={'item': item}, headers=self.headers,
+                              cookies=self.cookie)
             else:
                 yield item
         if tweets:
             user_id, page_num = response.meta['user_id'], response.meta['page_num']
             page_num += 1
             url = f"https://weibo.com/ajax/statuses/mymblog?uid={user_id}&page={page_num}"
-            yield Request(url, callback=self.parse, meta={'user_id': user_id, 'page_num': page_num}, headers=self.headers, cookies=self.cookie)
+            yield Request(url, callback=self.parse, meta={'user_id': user_id, 'page_num': page_num},
+                          headers=self.headers, cookies=self.cookie)

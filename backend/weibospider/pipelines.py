@@ -7,8 +7,6 @@ import time
 import pymongo
 import logging
 
-from celery import current_task
-
 
 class JsonWriterPipeline(object):
     """
@@ -41,6 +39,8 @@ class MongoDBPipeline(object):
     """
 
     def __init__(self, mongo_uri, mongo_db):
+        self.db = None
+        self.client = None
         self.mongo_uri = mongo_uri
         self.mongo_db = mongo_db
         self.logger = logging.getLogger(__name__)
@@ -69,7 +69,7 @@ class MongoDBPipeline(object):
         """
         处理item
         """
-        collection_name = spider.name
+        collection_name = spider.task_id
         item['crawl_time'] = int(time.time())
         self.db[collection_name].insert_one(dict(item))
         return item

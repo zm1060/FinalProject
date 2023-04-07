@@ -16,12 +16,13 @@ class CommentSpider(Spider):
     tweet_ids = []
     cookie = []
     headers = []
+    task_id = ''
 
-    def __init__(self, tweet_ids=None, cookie=None, *args, **kwargs):
+    def __init__(self, tweet_ids=None, cookie=None, task_id=None, *args, **kwargs):
         super(CommentSpider, self).__init__(*args, **kwargs)
         self.tweet_ids = tweet_ids
         self.cookie = cookie
-
+        self.task_id = task_id
         # Set cookie in default headers
         if self.cookie is not None:
             self.headers = DEFAULT_REQUEST_HEADERS.copy()

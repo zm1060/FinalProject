@@ -1,6 +1,7 @@
 <template>
-  <a-layout>
-    <a-layout-sider>
+  <a-layout class="main-layout">
+    <a-layout-sider class="sider">
+      <a-button type="primary" @click="$router.push('/home')">Back to Homepage</a-button>
       <a-menu :defaultSelectedKeys="['user']" :selectedKeys="[selectedTask]" @select="handleMenuSelect">
         <a-menu-item key="user">User Spider</a-menu-item>
         <a-menu-item key="search">Search Spider</a-menu-item>
@@ -11,7 +12,23 @@
         <a-menu-item key="repost">Repost Spider</a-menu-item>
       </a-menu>
     </a-layout-sider>
-    <a-layout-content style="padding: 24px">
+    <a-layout-header>
+      <a-menu>
+        <a-menu-item>
+          <a-button>数据展示</a-button>
+        </a-menu-item>
+        <a-menu-item>
+          <a-button>数据分析</a-button>
+        </a-menu-item>
+        <a-menu-item>
+          <a-button>系统日志</a-button>
+        </a-menu-item>
+        <a-menu-item>
+          <a-avatar></a-avatar>
+        </a-menu-item>
+      </a-menu>
+    </a-layout-header>
+    <a-layout-content style="padding: 23px" class="content">
       <a-card>
         <a-form :model="userData"  v-if="selectedTask === 'user'"  @submit.prevent="submitUserSpider">
           <a-form-item label="User IDs" :label-col="{ span: 4 }" :wrapper-col="{ span: 20 }">
@@ -126,8 +143,6 @@
 import { defineComponent } from 'vue'
 import { Menu, Layout, Form, Input, Button, message, DatePicker, Switch, Card } from 'ant-design-vue'
 import axiosInstance from "@/api/axiosInstance";
-//import moment from 'moment';
-
 
 export default defineComponent({
   name: 'RunTasks',
@@ -140,6 +155,7 @@ export default defineComponent({
     'a-button': Button,
     'a-layout': Layout,
     'a-layout-sider': Layout.Sider,
+    'a-layout-header': Layout.Header,
     'a-layout-content': Layout.Content,
     'a-switch': Switch,
     'a-card': Card,
@@ -340,10 +356,68 @@ export default defineComponent({
 
 
 <style scoped>
-a-menu {
-  overflow-y: auto;
-  max-height: calc(100vh - 64px); /* assuming your header has a height of 64px */
+/* General Layout */
+.main-layout {
+  min-height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+/* Sider */
+.sider {
+  background-color: #f0f2f5;
+}
+
+.sider a {
+  color: #f0f2f5;
+}
+
+/* Menu */
+.main-layout .ant-menu {
+  background-color: #f0f2f5;
+  border-right: none;
+}
+
+.main-layout .ant-menu-item {
+  height: 48px;
+  line-height: 48px;
+  font-size: 16px;
+}
+
+.main-layout .ant-menu-item-selected {
+  background-color: #4544ff;
+}
+
+/* Header */
+.main-layout .ant-layout-header {
+  background-color: #f0f2f5;
+  padding: 0;
+  height: auto;
+}
+
+/* Content */
+.content {
+  background-color: #f0f2f5;
+}
+
+/* Card */
+.a-card {
+  background-color: #fff;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Form */
+.a-form-item {
+  margin-bottom: 16px;
+}
+
+.a-form-item label {
+  font-weight: 500;
+}
+
+/* Buttons */
+.a-button {
+  font-weight: 500;
+}
 
 </style>

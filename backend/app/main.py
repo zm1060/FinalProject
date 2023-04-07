@@ -156,7 +156,7 @@ async def register(user_create: UserCreate, db: Session = Depends(get_db)):
 async def get_current_user_info(current_user: User = Depends(get_current_user)):
     return current_user
 
-
+#更新用户
 @app.put("/me")
 async def update_user_info(
         new_username: Optional[str] = Body(None),

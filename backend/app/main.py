@@ -176,6 +176,7 @@ async def update_user_info(
     return current_user
 
 
+# 删除用户
 @app.delete("/me")
 async def delete_user(current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
     db.delete(current_user)

@@ -152,6 +152,37 @@ async def register(user_create: UserCreate, db: Session = Depends(get_db)):
     return new_user
 
 
+@app.get("/me")
+async def get_current_user_info(current_user: User = Depends(get_current_user)):
+    return current_user
+
+
+@app.put("/me")
+async def update_user_info(
+        new_username: Optional[str] = Body(None),
+        new_email: Optional[str] = Body(None),
+        new_password: Optional[str] = Body(None),
+        current_user: User = Depends(get_current_user),
+        db: Session = Depends(get_db)
+):
+    if new_username:
+        current_user.username = new_username
+    if new_email:
+        current_user.email = new_email
+    if new_password:
+        current_user.password = hash_password(new_password)
+    db.commit()
+    db.refresh(current_user)
+    return current_user
+
+
+@app.delete("/me")
+async def delete_user(current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
+    db.delete(current_user)
+    db.commit()
+    return {"message": "User deleted successfully"}
+
+
 # 需要登录才能访问的 API
 @app.get("/protected")
 def protected_route(current_user: User = Depends(get_current_user)):
@@ -283,6 +314,7 @@ async def run_weibo_comment_spider(comment_data: dict = Body(...)):
         'cookie': cookie
     })
     return {'task_id': task.id}
+
 
 @app.post('/run_weibo_repost_spider')
 async def run_weibo_repost_spider(repost_data: dict = Body(...)):

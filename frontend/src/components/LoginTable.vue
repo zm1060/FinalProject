@@ -7,12 +7,14 @@
       <a-form-item label="密码" name="password" :rules="passwordRules">
         <a-input type="password" v-model:value="loginData.password" />
       </a-form-item>
-      <a-form-item>
-        <a-button type="primary" html-type="submit">登录</a-button>
-      </a-form-item>
-      <a-form-item>
-        <a-button type="primary" @click="goToRegister">注册</a-button>
-      </a-form-item>
+      <a-from-item>
+        <a-space>
+          <a-button type="primary" html-type="submit">登录</a-button>
+          <a-space style="width: 120px;"></a-space>
+          <a-button type="primary" @click="goToRegister">注册</a-button>
+        </a-space>
+      </a-from-item>
+
     </a-form>
   </div>
 </template>
@@ -80,5 +82,18 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+  margin: 0 auto;
+}
+
+a-form-item {
+  margin-bottom: 20px;
+}
+
+a-button[type="primary"] {
+  width: 100%;
+}
+
+a-space {
+  display: inline-block;
 }
 </style>

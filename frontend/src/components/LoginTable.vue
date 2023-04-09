@@ -21,6 +21,7 @@
 
 <script>
 import axios from "axios";
+import {setAuthToken} from "@/api/axiosInstance";
 
 export default {
   name: "LoginTable",
@@ -59,7 +60,7 @@ export default {
           // Set isAuthenticated to true
           this.isAuthenticated = true;
           // Set the Authorization header for subsequent requests
-          axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`;
+          setAuthToken(response.data.access_token);
           alert("登录成功");
           this.$router.push('/home')
         } catch (error) {

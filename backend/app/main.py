@@ -12,15 +12,14 @@ app = FastAPI()
 app.include_router(auth_router)
 app.include_router(protected_router)
 app.include_router(weibo_router)
-# 跨域资源共享中间件设置
-origins = ["*"]
+
+# Enable CORS for all origins
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
-    expose_headers=["Content-Type", "Authorization"],
 )
 
 ignore_dirs = ["mongodb/data", "static/images"]

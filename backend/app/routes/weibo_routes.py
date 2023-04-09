@@ -1,10 +1,15 @@
-from fastapi import APIRouter, Body
+from datetime import datetime
+
+from fastapi import APIRouter, Body, Depends
 from scrapy.crawler import CrawlerRunner
 from scrapy.utils.project import get_project_settings
 from twisted.internet import reactor
 
 from app.celery_task.tasks import celery
+from app.db.task_db import task_db
 from app.db.weibo_db import db
+from app.dependencies import get_current_user
+from app.models.user import User
 from weibospider.spiders import UserSpider
 
 router = APIRouter()
@@ -12,13 +17,22 @@ router = APIRouter()
 
 # 微博用户
 @router.post('/weibo/run_weibo_user_spider')
-async def run_weibo_user_spider(user_data: dict = Body(...)):
+async def run_weibo_user_spider(user_data: dict = Body(...), current_user: User = Depends(get_current_user)):
     user_ids = user_data.get('user_ids')
     cookie = user_data.get('cookie')
     task = celery.send_task('tasks.run_weibo_user_spider', kwargs={
         'user_ids': user_ids,
         'cookie': cookie
     })
+
+    user_id = current_user.id
+    task_time = datetime.now()
+    new_task = {
+        "task_id": task.id,
+        "user_id": user_id,
+        "task_time": task_time,
+    }
+    task_db["tasks"].insert_one(new_task)
     return {'task_id': task.id}
 
 
@@ -123,10 +137,65 @@ async def run_weibo_repost_spider(repost_data: dict = Body(...)):
         'tweet_ids': tweet_ids,
         'cookie': cookie
     })
+
     return {'task_id': task.id}
 
 
-@router.get("/weibo/data/users/{task_id}")
+@router.get("/weibo/data/user/{task_id}")
+async def get_users(task_id: str):
+    collection = db[task_id]
+    results = []
+    for result in collection.find():
+        results.append(result)
+    return results
+
+
+@router.get("/weibo/data/search/{task_id}")
+async def get_users(task_id: str):
+    collection = db[task_id]
+    results = []
+    for result in collection.find():
+        results.append(result)
+    return results
+
+
+@router.get("/weibo/data/comment/{task_id}")
+async def get_users(task_id: str):
+    collection = db[task_id]
+    results = []
+    for result in collection.find():
+        results.append(result)
+    return results
+
+
+@router.get("/weibo/data/repost/{task_id}")
+async def get_users(task_id: str):
+    collection = db[task_id]
+    results = []
+    for result in collection.find():
+        results.append(result)
+    return results
+
+
+@router.get("/weibo/data/fan/{task_id}")
+async def get_users(task_id: str):
+    collection = db[task_id]
+    results = []
+    for result in collection.find():
+        results.append(result)
+    return results
+
+
+@router.get("/weibo/data/follower/{task_id}")
+async def get_users(task_id: str):
+    collection = db[task_id]
+    results = []
+    for result in collection.find():
+        results.append(result)
+    return results
+
+
+@router.get("/weibo/data/tweet/{task_id}")
 async def get_users(task_id: str):
     collection = db[task_id]
     results = []

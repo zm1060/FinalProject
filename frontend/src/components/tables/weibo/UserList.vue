@@ -1,27 +1,110 @@
 <template>
-  <div class="user-list">
-    <h2>User List</h2>
-    <ul>
-      <li v-for="user in userList" :key="user._id">
-        <router-link :to="{ name: 'UserProfile', params: { id: user._id }}">
-          <h3>{{ user.name }}</h3>
-          <img :src="user.profile_image_url" :alt="user.name">
-        </router-link>
-      </li>
-    </ul>
+  <div>
+    <a-input v-model:value="taskId" placeholder="Enter Task ID" @pressEnter="getUserData" />
+    <a-button @click="getUserData">Fetch Data</a-button>
+    <a-table :columns="columns"
+             :dataSource="userData"
+             v-if="userData.length > 0"/>
   </div>
 </template>
 
 <script>
+import {Table, Input, Button, message} from 'ant-design-vue';
+import axiosInstance from "@/api/axiosInstance";
+
 export default {
   name: 'UserList',
-  props: {
-    userList: {
-      type: Array,
-      required: true
-    }
-  }
-}
+  components: {
+    'a-table': Table,
+    'a-input': Input,
+    'a-button': Button,
+  },
+  data() {
+    return {
+      taskId: '',
+      userData: [],
+      columns: [
+        {
+          title: 'Avatar',
+          dataIndex: 'avatar_hd',
+          scopedSlots: { customRender: 'avatar' },
+        },
+        {
+          title: 'Name',
+          dataIndex: 'nick_name',
+        },
+        {
+          title: 'Location',
+          dataIndex: 'location',
+        },
+        {
+          title: 'Gender',
+          dataIndex: 'gender',
+        },
+        {
+          title: 'Followers Count',
+          dataIndex: 'followers_count',
+        },
+        {
+          title: 'Friends Count',
+          dataIndex: 'friends_count',
+        },
+        {
+          title: 'Statuses Count',
+          dataIndex: 'statuses_count',
+        },
+        {
+          title: 'Verified Reason',
+          dataIndex: 'verified_reason',
+        },
+        {
+          title: 'Birthday',
+          dataIndex: 'birthday',
+        },
+        {
+          title: 'Created At',
+          dataIndex: 'created_at',
+        },
+        {
+          title: 'Description Text',
+          dataIndex: 'desc_text',
+        },
+        {
+          title: 'IP Location',
+          dataIndex: 'ip_location',
+        },
+        {
+          title: 'Sunshine Credit',
+          dataIndex: 'sunshine_credit',
+        },
+        {
+          title: 'Label Desc',
+          dataIndex: 'label_desc',
+          scopedSlots: { customRender: 'label_desc' },
+        },
+        {
+          title: 'Crawl Time',
+          dataIndex: 'crawl_time',
+          slots: { customRender: 'crawl_time' },
+        },
+      ],
+
+    };
+  },
+  methods: {
+    getUserData() {
+      axiosInstance.get(`/weibo/data/user/${this.taskId}`).then(response => {
+        this.userData = [response.data];
+        message.success('加载数据成功!')
+        console.log(response)
+      }).catch(error => {
+        message.error('加载数据失败!')
+        console.log(error)
+      })
+
+    },
+  },
+};
 </script>
 
 <style>

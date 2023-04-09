@@ -15,7 +15,10 @@
     <a-layout-header>
       <a-menu>
         <a-menu-item>
-          <a-button>数据展示</a-button>
+          <a-button>任务列表</a-button>
+        </a-menu-item>
+        <a-menu-item>
+          <a-button @click="showData = !showData">数据展示</a-button>
         </a-menu-item>
         <a-menu-item>
           <a-button>数据分析</a-button>
@@ -134,15 +137,26 @@
             <a-button type="primary" html-type="submit">Submit</a-button>
           </a-form-item>
         </a-form>
+
+        <component v-if="showData === true" :is="component"></component>
       </a-card>
+
     </a-layout-content>
+
   </a-layout>
 </template>
 
 <script>
 import { defineComponent } from 'vue'
-import { Menu, Layout, Form, Input, Button, message, DatePicker, Switch, Card } from 'ant-design-vue'
+import { Menu, Layout, Form, Input, Button, message, DatePicker, Switch, Card, Avatar } from 'ant-design-vue'
 import axiosInstance from "@/api/axiosInstance";
+import UserList from "@/components/tables/weibo/UserList.vue";
+import SearchList from "@/components/tables/weibo/SearchList.vue";
+import FanList from "@/components/tables/weibo/FanList.vue";
+import TweetList from "@/components/tables/weibo/TweetList.vue";
+import FollowerList from "@/components/tables/weibo/FollowerList.vue";
+import CommentList from "@/components/tables/weibo/CommentList.vue";
+import RepostList from "@/components/tables/weibo/RepostList.vue";
 
 export default defineComponent({
   name: 'RunTasks',
@@ -159,7 +173,8 @@ export default defineComponent({
     'a-layout-content': Layout.Content,
     'a-switch': Switch,
     'a-card': Card,
-    'a-date-picker': DatePicker
+    'a-date-picker': DatePicker,
+    'a-avatar': Avatar,
   },
   data() {
     return {
@@ -200,11 +215,22 @@ export default defineComponent({
           cookie: ''
         },
         selectedTask: 'user', // default task type
+        componentMap: {
+          user: UserList,
+          search: SearchList,
+          fan: FanList,
+          tweet: TweetList,
+          follower: FollowerList,
+          comment: CommentList,
+          repost: RepostList,
+        },
+        showData: true
     }
   },
   methods: {
     handleMenuSelect({ key }) {
-      this.selectedTask = key
+      this.selectedTask = key;
+      this.component = this.componentMap[key];
     },
     submitUserSpider() {
         const formData = {
@@ -213,7 +239,7 @@ export default defineComponent({
         }
         console.log( JSON.stringify(formData))
 
-        axiosInstance.post('/run_weibo_user_spider', JSON.stringify(formData), {
+        axiosInstance.post('/weibo/run_weibo_user_spider', JSON.stringify(formData), {
             headers: {
               'Content-Type': 'application/json',
             },
@@ -239,7 +265,7 @@ export default defineComponent({
             cookie: this.searchData.cookie
         }
         console.log(JSON.stringify(formData))
-        axiosInstance.post('/run_weibo_search_spider', JSON.stringify(formData), {
+        axiosInstance.post('/weibo/run_weibo_search_spider', JSON.stringify(formData), {
             headers: {
               'Content-Type': 'application/json',
             },
@@ -258,7 +284,7 @@ export default defineComponent({
             user_ids: this.fanData.user_ids.split(','),
             cookie: this.fanData.cookie
         }
-        axiosInstance.post('/run_weibo_fan_spider', JSON.stringify(formData), {
+        axiosInstance.post('/weibo/run_weibo_fan_spider', JSON.stringify(formData), {
             headers: {
               'Content-Type': 'application/json',
             },
@@ -277,7 +303,7 @@ export default defineComponent({
             user_ids: this.tweetData.user_ids.split(','),
             cookie: this.tweetData.cookie
         }
-        axiosInstance.post('/run_weibo_tweet_spider', JSON.stringify(formData), {
+        axiosInstance.post('/weibo/run_weibo_tweet_spider', JSON.stringify(formData), {
             headers: {
               'Content-Type': 'application/json',
             },
@@ -296,7 +322,7 @@ export default defineComponent({
             user_ids: this.followerData.user_ids.split(','),
             cookie: this.followerData.cookie
         }
-        axiosInstance.post('/run_weibo_follower_spider', JSON.stringify(formData), {
+        axiosInstance.post('/weibo/run_weibo_follower_spider', JSON.stringify(formData), {
             headers: {
               'Content-Type': 'application/json',
             },
@@ -315,7 +341,7 @@ export default defineComponent({
             tweet_ids: this.commentData.tweet_ids.split(','),
             cookie: this.commentData.cookie
         }
-        axiosInstance.post('/run_weibo_comment_spider', JSON.stringify(formData), {
+        axiosInstance.post('/weibo/run_weibo_comment_spider', JSON.stringify(formData), {
             headers: {
               'Content-Type': 'application/json',
             },
@@ -334,7 +360,7 @@ export default defineComponent({
         tweet_ids: this.repostData.tweet_ids.split(','),
         cookie: this.repostData.cookie
       }
-      axiosInstance.post('/run_weibo_repost_spider', JSON.stringify(formData), {
+      axiosInstance.post('/weibo/run_weibo_repost_spider', JSON.stringify(formData), {
             headers: {
               'Content-Type': 'application/json',
             },

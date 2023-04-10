@@ -5,6 +5,7 @@ import LoginTable from './components/LoginTable.vue'
 import RegisterTable from './components/RegisterTable.vue'
 import Home from './components/Home.vue'
 import RunTasks from "./components/spider/weibo/RunTasks.vue";
+import TaskList from "./components/tasks/TaskList.vue";
 
 const routes = [
   {
@@ -26,6 +27,10 @@ const routes = [
   {
     path: '/weibo/run_tasks',
     component: RunTasks
+  },
+  {
+    path: '/task_center',
+    component: TaskList
   }
 ]
 

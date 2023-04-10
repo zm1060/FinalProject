@@ -117,7 +117,7 @@ export default {
   methods: {
     getSearchData() {
       axiosInstance.get(`/weibo/data/search/${this.taskId}`).then(response => {
-        this.searchData = [response.data][0];
+        this.searchData = response.data;
         console.log(toRaw(this.searchData)); // access the raw array data
         message.success('加载数据成功!')
       }).catch(error => {

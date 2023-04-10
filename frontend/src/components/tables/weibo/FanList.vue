@@ -1,58 +1,145 @@
 <template>
   <div>
-    <a-input v-model="taskId" placeholder="Enter Task ID" @pressEnter="getUserData" />
-    <a-card v-if="userData._id" title="User Info">
-      <a-avatar :src="userData.avatar_hd" />
-      <p>{{ userData.nick_name }}</p>
-      <p>{{ userData.verified_reason }}</p>
-      <p>{{ userData.description }}</p>
-      <p>{{ userData.location }}</p>
-      <p>{{ userData.gender }}</p>
-      <p>{{ userData.birthday }}</p>
-      <p>{{ userData.followers_count }}</p>
-      <p>{{ userData.friends_count }}</p>
-      <p>{{ userData.statuses_count }}</p>
-      <p>{{ userData.mbrank }}</p>
-      <p>{{ userData.mbtype }}</p>
-      <p>{{ userData.verified }}</p>
-      <p>{{ userData.verified_type }}</p>
-      <p>{{ userData.desc_text }}</p>
-      <p>{{ userData.ip_location }}</p>
-      <p>{{ userData.sunshine_credit }}</p>
-      <div v-for="(label, index) in userData.label_desc" :key="index">
-        <p>{{ label }}</p>
-      </div>
-    </a-card>
+    <a-input v-model:value="taskId" placeholder="Enter Task ID" @pressEnter="getFanData" />
+    <a-button @click="getFanData">Fetch Data</a-button>
+    <a-table :columns="columns"
+             :dataSource="fanData"
+             v-if="fanData.length > 0"/>
   </div>
 </template>
 
+
+
 <script>
-import { ACard, AAvatar, AInput } from 'ant-design-vue';
-import axios from 'axios';
+import {Table, Input, Button, message, Tooltip} from 'ant-design-vue';
+import axiosInstance from "@/api/axiosInstance";
 
 export default {
   name: 'FanList',
   components: {
-    ACard,
-    AAvatar,
-    AInput,
+    'a-table': Table,
+    'a-input': Input,
+    'a-button': Button,
   },
   data() {
     return {
       taskId: '',
-      userData: {},
+      fanData: [],
+      columns: [
+        {
+          title: "ID",
+          dataIndex: "_id",
+          key: "_id",
+        },
+        {
+          title: "Follower ID",
+          dataIndex: "follower_id",
+          key: "follower_id",
+        },
+        {
+          title: "Fan ID",
+          dataIndex: ["fan_info", "_id"],
+          key: "fan_id",
+        },
+        {
+          title: "Avatar",
+          dataIndex: ["fan_info", "avatar_hd"],
+          key: "avatar",
+          customRender: (text) => {
+            if (text.length > 20) {
+              return (
+                <Tooltip title={text}>
+                  {text.slice(0, 20)}...
+                </Tooltip>
+              );
+            } else {
+              return text;
+            }
+          }
+        },
+        {
+          title: "Nick Name",
+          dataIndex: ["fan_info", "nick_name"],
+          key: "nick_name",
+        },
+        {
+          title: "Verified",
+          dataIndex: ["fan_info", "verified"],
+          key: "verified",
+        },
+        {
+          title: "Description",
+          dataIndex: ["fan_info", "description"],
+          key: "description",
+        },
+        {
+          title: "Followers Count",
+          dataIndex: ["fan_info", "followers_count"],
+          key: "followers_count",
+        },
+        {
+          title: "Friends Count",
+          dataIndex: ["fan_info", "friends_count"],
+          key: "friends_count",
+        },
+        {
+          title: "Statuses Count",
+          dataIndex: ["fan_info", "statuses_count"],
+          key: "statuses_count",
+        },
+        {
+          title: "Gender",
+          dataIndex: ["fan_info", "gender"],
+          key: "gender",
+        },
+        {
+          title: "Location",
+          dataIndex: ["fan_info", "location"],
+          key: "location",
+        },
+        {
+          title: "MB Rank",
+          dataIndex: ["fan_info", "mbrank"],
+          key: "mbrank",
+        },
+        {
+          title: "MB Type",
+          dataIndex: ["fan_info", "mbtype"],
+          key: "mbtype",
+        },
+        {
+          title: "Credit Score",
+          dataIndex: ["fan_info", "credit_score"],
+          key: "credit_score",
+        },
+        {
+          title: "Created At",
+          dataIndex: ["fan_info", "created_at"],
+          key: "created_at",
+        },
+        {
+          title: "Crawl Time",
+          dataIndex: "crawl_time",
+          key: "crawl_time",
+        },
+      ],
     };
   },
   methods: {
-    getUserData() {
-      axios.get(`http://localhost:8080/weibo/data/users?task_id=${this.taskId}`).then((response) => {
-        this.userData = response.data[0];
-      });
+    getFanData() {
+      axiosInstance.get(`/weibo/data/fan/${this.taskId}`).then(response => {
+        this.fanData = response.data;
+        message.success('加载数据成功!')
+        console.log(JSON.stringify(this.fanData))
+      }).catch(error => {
+        message.error('加载数据失败!')
+        console.log(error)
+      })
+
     },
   },
 };
 </script>
-
 
 <style>
 .user-list {

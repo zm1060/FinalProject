@@ -3,6 +3,7 @@ from typing import Optional
 from fastapi import APIRouter, Depends, Body
 from sqlalchemy.orm import Session
 
+from app.db.task_db import task_db
 from app.dependencies import get_current_user, get_db
 from app.models.user import User
 from app.security import hash_password
@@ -41,3 +42,13 @@ async def delete_user(current_user: User = Depends(get_current_user), db: Sessio
     db.delete(current_user)
     db.commit()
     return {"message": "User deleted successfully"}
+
+
+@router.get("/user/tasks")
+async def get_current_user_tasks(current_user: User = Depends(get_current_user)):
+    tasks_collection = task_db['tasks']
+    tasks = []
+    for task in tasks_collection.find({"user_id": current_user.id}):
+        task['_id'] = str(task['_id']) # Convert ObjectId to string
+        tasks.append(task)
+    return tasks

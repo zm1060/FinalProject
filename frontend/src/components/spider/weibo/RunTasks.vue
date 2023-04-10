@@ -1,4 +1,21 @@
 <template>
+  <a-menu mode="horizontal">
+      <a-menu-item>
+        <a-button @click="showTaskList = !showTaskList">任务列表</a-button>
+      </a-menu-item>
+      <a-menu-item>
+        <a-button @click="showData = !showData">数据展示</a-button>
+      </a-menu-item>
+      <a-menu-item>
+        <a-button>数据分析</a-button>
+      </a-menu-item>
+      <a-menu-item>
+        <a-button>系统日志</a-button>
+      </a-menu-item>
+      <a-menu-item>
+        <a-avatar></a-avatar>
+      </a-menu-item>
+  </a-menu>
   <a-layout class="main-layout">
     <a-layout-sider class="sider">
       <a-button type="primary" @click="$router.push('/home')">Back to Homepage</a-button>
@@ -12,25 +29,6 @@
         <a-menu-item key="repost">Repost Spider</a-menu-item>
       </a-menu>
     </a-layout-sider>
-    <a-layout-header>
-      <a-menu>
-        <a-menu-item>
-          <a-button>任务列表</a-button>
-        </a-menu-item>
-        <a-menu-item>
-          <a-button @click="showData = !showData">数据展示</a-button>
-        </a-menu-item>
-        <a-menu-item>
-          <a-button>数据分析</a-button>
-        </a-menu-item>
-        <a-menu-item>
-          <a-button>系统日志</a-button>
-        </a-menu-item>
-        <a-menu-item>
-          <a-avatar></a-avatar>
-        </a-menu-item>
-      </a-menu>
-    </a-layout-header>
     <a-layout-content style="padding: 23px" class="content">
       <a-card>
         <a-form :model="userData"  v-if="selectedTask === 'user'"  @submit.prevent="submitUserSpider">
@@ -138,11 +136,11 @@
           </a-form-item>
         </a-form>
 
-        <component v-if="showData === true" :is="component"></component>
+
       </a-card>
 
     </a-layout-content>
-
+    <component v-if="showData === true" :is="showDataComponent"></component>
   </a-layout>
 </template>
 
@@ -224,13 +222,14 @@ export default defineComponent({
           comment: CommentList,
           repost: RepostList,
         },
-        showData: true
+        showData: false,
+        showTaskList: false,
     }
   },
   methods: {
     handleMenuSelect({ key }) {
       this.selectedTask = key;
-      this.component = this.componentMap[key];
+      this.showDataComponent = this.componentMap[key];
     },
     submitUserSpider() {
         const formData = {

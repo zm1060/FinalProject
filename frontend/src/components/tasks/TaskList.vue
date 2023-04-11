@@ -1,89 +1,52 @@
 <template>
   <div>
-    <a-card title="Task Counter">
-      <a-row>
-        <a-col v-for="(count, taskType) in taskCounts" :key="taskType" :span="6">
-          <div class="counter" @click="showTasks(taskType)">
-            <div>{{ taskType }}</div>
-            <div>{{ count }}</div>
-          </div>
-        </a-col>
-      </a-row>
-    </a-card>
-
-    <a-table :columns="taskColumns" :dataSource="tasks" v-if="showTaskTable">
-    </a-table>
-
-    <a-table :columns="dataColumns" :dataSource="data" v-if="showDataTable">
-    </a-table>
-
-    <div ref="chart" style="height: 300px;"></div>
+    <h1>My Tasks</h1>
+    <a-table :columns="columns" :data-source="tasks"></a-table>
   </div>
 </template>
 
 <script>
-import axios from 'axios';
-import echarts from 'echarts';
-import { Card, Row, Col, Table } from 'ant-design-vue';
+import {message, Table} from "ant-design-vue";
+import axiosInstance from "@/api/axiosInstance";
 
 export default {
-  name: 'TaskList',
+  name: "MyTasks",
   components: {
-    'a-card': Card,
-    'a-row': Row,
-    'a-col': Col,
-    'a-table': Table,
+    "a-table": Table,
   },
   data() {
     return {
-      taskCounts: {},
       tasks: [],
-      data: [],
-      taskColumns: [
-        // Define your columns for task table
+      columns: [
+        {
+          title: "Task ID",
+          dataIndex: "task_id",
+          key: "task_id",
+        },
+        {
+          title: "Task Type",
+          dataIndex: "task_type",
+          key: "task_type",
+        },
+        {
+          title: "Task Time",
+          dataIndex: "task_time",
+          key: "task_time",
+        },
       ],
-      dataColumns: [
-        // Define your columns for data table
-      ],
-      showTaskTable: false,
-      showDataTable: false,
     };
   },
   created() {
-    this.fetchTaskCounts();
     this.fetchTasks();
   },
   methods: {
-    fetchTaskCounts() {
-      axios.get('/user/tasks').then(response => {
-        this.taskCounts = response.data.length();
-        this.renderChart();
-      });
-    },
-    renderChart() {
-      const chart = echarts.init(this.$refs.chart);
-      chart.setOption({
-        // Define your chart options and data
-      });
-      chart.on('click', params => {
-        this.showTasks(params.name);
-      });
-    },
     fetchTasks() {
-      axios.get('/tasks').then(response => {
+      axiosInstance.get("/user/tasks").then((response) => {
         this.tasks = response.data;
-      });
-    },
-    showTasks(taskType) {
-      this.showTaskTable = true;
-      axios.get(`/tasks?type=${taskType}`).then(response => {
-        this.tasks = response.data;
-      });
-    },
-    showData(taskId) {
-      this.showDataTable = true;
-      axios.get(`/tasks/${taskId}/data`).then(response => {
-        this.data = response.data;
+        message.success("加载任务列表成功!")
+      }).catch(error => {
+        message.error('加载失败!(当前用户token过期)')
+        console.log(error)
       });
     },
   },

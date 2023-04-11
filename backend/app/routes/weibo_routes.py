@@ -26,7 +26,7 @@ async def run_weibo_user_spider(user_data: dict = Body(...), current_user: User 
     new_task = {
         "task_id": task.id,
         "user_id": user_id,
-        "task_type": "weibo_user",
+        "task_type": "weibo_search",
         "task_time": task_time,
     }
     task_db["tasks"].insert_one(new_task)

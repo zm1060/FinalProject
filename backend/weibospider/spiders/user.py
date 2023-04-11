@@ -4,6 +4,7 @@ import json
 from scrapy import Spider
 from scrapy.http import Request
 
+from app.db.task_db import tasks_collection
 from weibospider.settings import DEFAULT_REQUEST_HEADERS
 from weibospider.spiders.common import parse_user_info
 
@@ -15,19 +16,30 @@ class UserSpider(Spider):
     name = "user_spider"
     base_url = "https://weibo.cn"
     user_ids = []
+    user_id = ''
     cookie = []
     headers = []
     task_id = ''
+    stats_info = {}
 
-    def __init__(self, user_ids=None, cookie=None, task_id=None, *args, **kwargs):
+    def __init__(self, user_ids=None, user_id=None, cookie=None, task_id=None, *args, **kwargs):
         super(UserSpider, self).__init__(*args, **kwargs)
         self.user_ids = user_ids
+        self.user_id = user_id
         self.cookie = cookie
         self.task_id = task_id
         # Set cookie in default headers
         if self.cookie is not None:
             self.headers = DEFAULT_REQUEST_HEADERS.copy()
             self.headers['Cookie'] = self.cookie
+
+    # def closed(self, reason):
+    #     self.stats_info = self.crawler.stats.get_stats()
+    #     self.stats_info['task_id'] = self.task_id
+    #     self.stats_info['user_id'] = self.user_id
+    #     print(f"Spider closed, reason: {reason}")
+    #     print(f"Stats info: {self.stats_info}")
+    #     # tasks_collection.update_one({'task_id': self.task_id}, {'$set': {'stats': self.stats_info}}, upsert=True)
 
     def _parse_cookie(self, cookie_str):
         # if cookie_str is None:
@@ -59,6 +71,7 @@ class UserSpider(Spider):
         data = json.loads(response.text)
         item = parse_user_info(data['data']['user'])
         url = f"https://weibo.com/ajax/profile/detail?uid={item['_id']}"
+
         yield Request(url, callback=self.parse_detail, headers=self.headers, cookies=self.cookie, meta={'item': item})
 
     @staticmethod

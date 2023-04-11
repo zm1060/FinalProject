@@ -4,3 +4,4 @@ from weibospider.settings import MONGO_URI
 client = MongoClient(MONGO_URI)
 
 task_db = client['users']
+tasks_collection = task_db['tasks']

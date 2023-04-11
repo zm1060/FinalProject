@@ -6,6 +6,7 @@ from scrapy.utils.project import get_project_settings
 from twisted.internet import reactor
 from celery import Celery
 
+from app.db.task_db import tasks_collection
 from weibospider.spiders import UserSpider, TweetSpider, FollowerSpider, CommentSpider, RepostSpider, FanSpider, \
     SearchSpider
 from app.config.config import BROKER_URL, BACKEND_URL
@@ -27,9 +28,9 @@ logging.basicConfig(
 
 @celery.task(name='tasks.run_weibo_user_spider', bind=True)
 def run_weibo_user_spider(self, user_ids: list = None, cookie: str = None):
-    task_id = self.request.id # Access the task ID here
+    task_id = self.request.id
+    task_type = 'weibo_user'
     spider_cls = UserSpider
-
     spider_kwargs = {}
     if user_ids:
         spider_kwargs['user_ids'] = user_ids
@@ -38,7 +39,6 @@ def run_weibo_user_spider(self, user_ids: list = None, cookie: str = None):
     if task_id:
         spider_kwargs['task_id'] = task_id
     settings = get_project_settings()
-
     runner = CrawlerRunner(settings)
     deferred = runner.crawl(spider_cls, **spider_kwargs)
 
@@ -47,14 +47,20 @@ def run_weibo_user_spider(self, user_ids: list = None, cookie: str = None):
 
     deferred.addBoth(stop_reactor)
 
-    # Add signal handler to stop the reactor when the Celery worker is terminated
     def stop_task(signum, frame):
         reactor.callFromThread(reactor.stop)
 
     signal.signal(signal.SIGTERM, stop_task)
 
-    reactor.run()
-    return {'message': f'Spider user finished running.'}
+    try:
+        reactor.run()
+    except Exception as e:
+        return {'message': f'Spider {task_type} failed to run.'}
+
+    # stats = runner.stats.get_stats()
+    # tasks_collection.update_one({'task_id': task_id}, {'$set': {'stats': stats}}, upsert=True)
+
+    return {'message': f'Spider {task_type} finished running.'}
 
 
 @celery.task(name='tasks.run_weibo_search_spider', bind=True)

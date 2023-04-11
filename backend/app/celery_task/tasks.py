@@ -6,14 +6,14 @@ from scrapy.utils.project import get_project_settings
 from twisted.internet import reactor
 from celery import Celery
 
-from app.db.task_db import tasks_collection
+from jdspider.spiders.JDcomment import JDcommentSpider
+from jdspider.spiders.JDspider import JDspider
 from weibospider.spiders import UserSpider, TweetSpider, FollowerSpider, CommentSpider, RepostSpider, FanSpider, \
     SearchSpider
 from app.config.config import BROKER_URL, BACKEND_URL
 
 celery = Celery('tasks', broker=BROKER_URL, backend=BACKEND_URL)
 celery.conf.task_routes = {'celery_task.tasks.*': {'queue': 'celery'}}
-os.environ['SCRAPY_SETTINGS_MODULE'] = 'weibospider.settings'
 
 import logging
 from scrapy.utils.log import configure_logging
@@ -38,6 +38,7 @@ def run_weibo_user_spider(self, user_ids: list = None, cookie: str = None):
         spider_kwargs['cookie'] = cookie
     if task_id:
         spider_kwargs['task_id'] = task_id
+    os.environ['SCRAPY_SETTINGS_MODULE'] = 'weibospider.settings'  # set the settings module for weibospider
     settings = get_project_settings()
     runner = CrawlerRunner(settings)
     deferred = runner.crawl(spider_cls, **spider_kwargs)
@@ -85,7 +86,7 @@ def run_weibo_search_spider(self, keywords: str = None,
 
     spider_kwargs['is_sort_by_hot'] = is_sort_by_hot
     spider_kwargs['is_search_with_specific_time_scope'] = is_search_with_specific_time_scope
-
+    os.environ['SCRAPY_SETTINGS_MODULE'] = 'weibospider.settings' # set the settings module for weibospider
     settings = get_project_settings()
     runner = CrawlerRunner(settings)
     deferred = runner.crawl(spider_cls, **spider_kwargs)
@@ -117,6 +118,7 @@ def run_weibo_fan_spider(self, user_ids: list = None,
         spider_kwargs['cookie'] = cookie
     if task_id:
         spider_kwargs['task_id'] = task_id
+    os.environ['SCRAPY_SETTINGS_MODULE'] = 'weibospider.settings' # set the settings module for weibospider
     settings = get_project_settings()
     runner = CrawlerRunner(settings)
     deferred = runner.crawl(spider_cls, **spider_kwargs)
@@ -147,6 +149,7 @@ def run_weibo_tweet_spider(self, user_ids: list = None, cookie: str = None):
         spider_kwargs['cookie'] = cookie
     if task_id:
         spider_kwargs['task_id'] = task_id
+    os.environ['SCRAPY_SETTINGS_MODULE'] = 'weibospider.settings' # set the settings module for weibospider
     settings = get_project_settings()
     runner = CrawlerRunner(settings)
     deferred = runner.crawl(spider_cls, **spider_kwargs)
@@ -178,6 +181,7 @@ def run_weibo_follower_spider(self, user_ids: list = None,
         spider_kwargs['cookie'] = cookie
     if task_id:
         spider_kwargs['task_Id'] = task_id
+    os.environ['SCRAPY_SETTINGS_MODULE'] = 'weibospider.settings' # set the settings module for weibospider
     settings = get_project_settings()
     runner = CrawlerRunner(settings)
     deferred = runner.crawl(spider_cls, **spider_kwargs)
@@ -208,6 +212,7 @@ def run_weibo_comment_spider(self, tweet_ids: list = None, cookie: str = None):
         spider_kwargs['cookie'] = cookie
     if task_id:
         spider_kwargs['task_id'] = task_id
+    os.environ['SCRAPY_SETTINGS_MODULE'] = 'weibospider.settings' # set the settings module for weibospider
     settings = get_project_settings()
     runner = CrawlerRunner(settings)
     deferred = runner.crawl(spider_cls, **spider_kwargs)
@@ -238,6 +243,7 @@ def run_weibo_repost_spider(self, tweet_ids=None, cookie=None):
         spider_kwargs['cookie'] = cookie
     if task_id:
         spider_kwargs['task_id'] = task_id
+    os.environ['SCRAPY_SETTINGS_MODULE'] = 'weibospider.settings' # set the settings module for weibospider
     settings = get_project_settings()
     runner = CrawlerRunner(settings)
     deferred = runner.crawl(spider_cls, **spider_kwargs)
@@ -255,3 +261,63 @@ def run_weibo_repost_spider(self, tweet_ids=None, cookie=None):
 
     reactor.run()
     return {'message': f'Spider repost finished running.'}
+
+
+@celery.task(name='tasks.run_jd_product_spider', bind=True)
+def run_jd_product_spider(self, search_name=None):
+    task_id = self.request.id
+    spider_cls = JDspider
+    spider_kwargs = {}
+    if search_name:
+        spider_kwargs['search_name'] = search_name
+    if task_id:
+        spider_kwargs['task_id'] = task_id
+    os.environ['SCRAPY_SETTINGS_MODULE'] = 'jdspider.settings' # set the settings module for jdspider
+    settings = get_project_settings()
+    runner = CrawlerRunner(settings)
+    deferred = runner.crawl(spider_cls, **spider_kwargs)
+
+    def stop_reactor():
+        reactor.stop()
+
+    deferred.addBoth(stop_reactor)
+
+    # Add signal handler to stop the reactor when the Celery worker is terminated
+    def stop_task(signum, frame):
+        reactor.callFromThread(reactor.stop)
+
+    signal.signal(signal.SIGTERM, stop_task)
+
+    reactor.run()
+    return {'message': f'Spider JD Product finished running.'}
+
+
+@celery.task(name='tasks.run_jd_comment_spider', bind=True)
+def run_jd_comment_spider(self, urls=None, pages=None):
+    task_id = self.request.id
+    spider_cls = JDcommentSpider
+    spider_kwargs = {}
+    if urls:
+        spider_kwargs['urls'] = urls
+    if pages:
+        spider_kwargs['pages'] = pages
+    if task_id:
+        spider_kwargs['task_id'] = task_id
+    os.environ['SCRAPY_SETTINGS_MODULE'] = 'jdspider.settings' # set the settings module for jdspider
+    settings = get_project_settings()
+    runner = CrawlerRunner(settings)
+    deferred = runner.crawl(spider_cls, **spider_kwargs)
+
+    def stop_reactor():
+        reactor.stop()
+
+    deferred.addBoth(stop_reactor)
+
+    # Add signal handler to stop the reactor when the Celery worker is terminated
+    def stop_task(signum, frame):
+        reactor.callFromThread(reactor.stop)
+
+    signal.signal(signal.SIGTERM, stop_task)
+
+    reactor.run()
+    return {'message': f'Spider JD Comment Spider finished running.'}

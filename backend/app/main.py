@@ -6,6 +6,8 @@ from app.routes.auth_routes import router as auth_router
 from app.routes.protected_routes import router as protected_router
 from app.routes.weibo_routes import router as weibo_router
 from app.routes.user_routes import router as user_router
+from app.routes.jd_routes import router as jd_router
+
 logging.basicConfig(level=logging.DEBUG)
 app = FastAPI()
 
@@ -13,6 +15,7 @@ app.include_router(auth_router)
 app.include_router(protected_router)
 app.include_router(weibo_router)
 app.include_router(user_router)
+app.include_router(jd_router)
 # Enable CORS for all origins
 app.add_middleware(
     CORSMiddleware,

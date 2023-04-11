@@ -10,13 +10,20 @@ from jdspider.items import JdcommentItem
 
 
 # 评论抓取
-class JdcommentSpider(scrapy.Spider):
-    name = 'JDcomment'
+class JDcommentSpider(scrapy.Spider):
+    name = 'JDcommentspider'
     allowed_domains = ['jd.com']
-    # start_urls = ['https://item.jd.com/11856959514.html']
+    start_urls = []
+    custom_settings = {
+        'ITEM_PIPELINES': {
+            'jdspider.pipelines.JDcommentPipeline': 300,
+        },
+        'DEPTH_PRIORITY': 1,
+        'DEPTH_LIMIT': 3,
+    }
 
     def __init__(self, urls, pages):
-        super(JdcommentSpider, self).__init__()
+        super(JDcommentSpider, self).__init__()
         self.pages = int(pages)
         if type(urls) == str:
             self.start_urls = [urls]

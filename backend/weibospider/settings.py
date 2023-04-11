@@ -31,10 +31,7 @@ DOWNLOADER_MIDDLEWARES = {
     'weibospider.middlewares.IPProxyMiddleware': 100,
     'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware': 101,
 }
-#
-# ITEM_PIPELINES = {
-#     'weibospider.pipelines.JsonWriterPipeline': 300,
-# }
+
 ITEM_PIPELINES = {
     'weibospider.pipelines.MongoDBPipeline': 300,
 }

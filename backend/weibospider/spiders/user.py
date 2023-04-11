@@ -4,7 +4,6 @@ import json
 from scrapy import Spider
 from scrapy.http import Request
 
-from app.db.task_db import tasks_collection
 from weibospider.settings import DEFAULT_REQUEST_HEADERS
 from weibospider.spiders.common import parse_user_info
 

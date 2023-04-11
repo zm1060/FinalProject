@@ -1,5 +1,7 @@
 import pymongo
 
+from settings import MONGO_URI, MONGO_DATABASE
+
 
 class JDspiderPipeline(object):
     def __init__(self, mongo_uri, mongo_db):
@@ -9,8 +11,8 @@ class JDspiderPipeline(object):
     @classmethod
     def from_crawler(cls, crawler):
         return cls(
-            mongo_uri=crawler.settings.get('MONGO_URI'),
-            mongo_db=crawler.settings.get('MONGO_DATABASE', 'items')
+            mongo_uri=MONGO_URI,
+            mongo_db=MONGO_DATABASE
         )
 
     def open_spider(self, spider):
@@ -53,7 +55,7 @@ class JDcommentPipeline(object):
         self.client.close()
 
     def process_item(self, item, spider):
-        if spider.name == 'JDcomment':
+        if spider.name == 'JDcommentspider':
             collection_name = 'jd_comments'
             collection = self.db[collection_name]
             data = {

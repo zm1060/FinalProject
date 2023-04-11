@@ -10,40 +10,36 @@ from scrapy.spiders import CrawlSpider, Rule
 from jdspider.items import JdspiderItem
 
 
-#提取一种类别商品信息
-class JdSpider(CrawlSpider):
+# 提取一种类别商品信息
+class JDspider(CrawlSpider):
     name = 'JDspider'
     allowed_domains = ['jd.com']
 
     custom_settings = {
         'ITEM_PIPELINES': {
-            'jdspider.pipelines.JdspiderPipeline': 300,
+            'jdspider.pipelines.JDspiderPipeline': 300,
         },
-        'DEPTH_PRIORITY' : 1,
+        'DEPTH_PRIORITY': 1,
         'DEPTH_LIMIT': 3,
     }
 
     linkExtractor = LinkExtractor(allow=(r'jd\.com/\d+\.html',))
     rules = [
-        Rule(linkExtractor,callback='JDparse',follow=True),
+        Rule(linkExtractor, callback='JDparse', follow=True),
     ]
 
-    def __init__(self,serach_name = '笔记本'):
-        super(JdSpider, self).__init__()
+    def __init__(self, serach_name=None):
+        super(JDspider, self).__init__()
         self.start_urls = [
             'https://search.jd.com/Search?keyword=%s&enc=utf-8&wq=bjb&pvid=39022e74e5c345b5955e121fdca849b7' % serach_name]
 
-
     def JDparse(self, response):
 
-        namelist= []
+        namelist = []
         contentlist = []
 
         item = JdspiderItem()
-        url = response.url
-        response = requests.get(url)
-
-        html = lxml.etree.HTML(response.text)
+        html = lxml.etree.HTML(response.body)
 
         infolist = html.xpath("//*[@id=\"detail\"]/div[2]/div//dl")
 
@@ -55,7 +51,7 @@ class JdSpider(CrawlSpider):
         # item['name'] = name
 
         try:
-            baozhuang = html.xpath("//div[@class='package-list']/p/text()")[0].strip().replace("\n",'、')
+            baozhuang = html.xpath("//div[@class='package-list']/p/text()")[0].strip().replace("\n", '、')
         except:
             baozhuang = "未列明"
         # print("包装清单：", baozhuang)
@@ -97,4 +93,3 @@ class JdSpider(CrawlSpider):
         item['url'] = response.url
 
         yield item
-

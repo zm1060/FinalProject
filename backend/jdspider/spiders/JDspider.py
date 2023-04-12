@@ -13,7 +13,7 @@ from jdspider.items import JdspiderItem
 # 提取一种类别商品信息
 class JDspider(CrawlSpider):
     name = 'JDspider'
-    allowed_domains = ['jd.com']
+    allowed_domains = ['jd.com', '3.cn']
     search_name = ''
     task_id = ''
     custom_settings = {

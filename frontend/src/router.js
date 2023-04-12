@@ -7,6 +7,7 @@ import Home from './components/Home.vue'
 import TaskList from "./components/tasks/TaskList.vue";
 import RunWeiboTasks from "@/components/spider/weibo/RunWeiboTasks.vue";
 import RunJDTasks from "@/components/spider/jd/RunJDTasks.vue";
+import UserCenter from "@/components/UserCenter.vue";
 
 const routes = [
   {
@@ -24,6 +25,10 @@ const routes = [
   {
     path: '/home',
     component: Home
+  },
+  {
+    path: '/user_center',
+    component: UserCenter
   },
   {
     path: '/weibo/run_tasks',

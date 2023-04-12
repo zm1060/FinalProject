@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 # encoding: utf-8
+import requests
+
 class IPProxyMiddleware(object):
     """
     代理IP中间件
@@ -10,8 +12,12 @@ class IPProxyMiddleware(object):
         """
         获取一个代理IP
         """
-        # You need to rewrite this function if you want to add proxy pool
-        # the function should return an ip in the format of "ip:port" like "12.34.1.4:9090"
+        api_url = 'https://your-api-url.com/proxies'
+        response = requests.get(api_url)
+        if response.status_code == 200:
+            proxy_data = response.json().get('proxy')
+            if proxy_data:
+                return proxy_data
         return None
 
     def process_request(self, request, spider):

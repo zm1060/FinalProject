@@ -49,3 +49,11 @@ async def run_jd_comment_spider(comment_data: dict = Body(...), current_user: Us
     }
     task_db["tasks"].insert_one(new_task)
     return {'task_id': task.id}
+
+# @router.get('/jd/run_jd_product_direct')
+# async def run_jd_product_direct():
+#     settings = get_project_settings()
+#     process = CrawlerProcess(settings=settings)
+#     process.crawl(JDspider, 'iphone', '123123-213123')
+#
+#     process.start()

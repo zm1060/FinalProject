@@ -59,10 +59,10 @@ EXTENSIONS = {
 
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
-# ITEM_PIPELINES = {
-#     'jdspider.pipelines.JDspiderPipeline': 290,
-#     'jdspider.pipelines.JDcommentPipeline': 290,
-# }
+ITEM_PIPELINES = {
+    'jdspider.pipelines.JDspiderPipeline': 290,
+    'jdspider.pipelines.JDcommentPipeline': 290,
+}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See http://doc.scrapy.org/en/latest/topics/autothrottle.html

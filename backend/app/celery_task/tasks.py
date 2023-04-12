@@ -6,7 +6,7 @@ from scrapy.utils.project import get_project_settings
 from twisted.internet import reactor
 from celery import Celery
 
-from jdspider.spiders.JDcomment import JDcommentSpider
+from jdspider.spiders.JDcomment import JDcommentspider
 from jdspider.spiders.JDspider import JDspider
 from weibospider.spiders import UserSpider, TweetSpider, FollowerSpider, CommentSpider, RepostSpider, FanSpider, \
     SearchSpider
@@ -295,7 +295,7 @@ def run_jd_product_spider(self, search_name=None):
 @celery.task(name='tasks.run_jd_comment_spider', bind=True)
 def run_jd_comment_spider(self, urls=None, pages=None):
     task_id = self.request.id
-    spider_cls = JDcommentSpider
+    spider_cls = JDcommentspider
     spider_kwargs = {}
     if urls:
         spider_kwargs['urls'] = urls

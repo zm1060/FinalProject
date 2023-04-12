@@ -14,7 +14,8 @@ from jdspider.items import JdspiderItem
 class JDspider(CrawlSpider):
     name = 'JDspider'
     allowed_domains = ['jd.com']
-
+    search_name = ''
+    task_id = ''
     custom_settings = {
         'ITEM_PIPELINES': {
             'jdspider.pipelines.JDspiderPipeline': 300,
@@ -28,16 +29,18 @@ class JDspider(CrawlSpider):
         Rule(linkExtractor, callback='JDparse', follow=True),
     ]
 
-    def __init__(self, serach_name=None):
+    def __init__(self, search_name=None, task_id=None):
         super(JDspider, self).__init__()
+        self.search_name = search_name
+        self.task_id = task_id
         self.start_urls = [
-            'https://search.jd.com/Search?keyword=%s&enc=utf-8&wq=bjb&pvid=39022e74e5c345b5955e121fdca849b7' % serach_name]
+            'https://search.jd.com/Search?keyword=%s&enc=utf-8&wq=bjb&pvid=39022e74e5c345b5955e121fdca849b7' % self.search_name]
 
     def JDparse(self, response):
 
         namelist = []
         contentlist = []
-
+        url = response.url
         item = JdspiderItem()
         html = lxml.etree.HTML(response.body)
 

@@ -1,6 +1,6 @@
 import pymongo
 
-from settings import MONGO_URI, MONGO_DATABASE
+from jdspider.settings import MONGO_URI, MONGO_DATABASE
 
 
 class JDspiderPipeline(object):

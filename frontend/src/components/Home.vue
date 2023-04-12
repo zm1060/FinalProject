@@ -7,6 +7,7 @@
           <li><router-link to="/user_center">用户中心</router-link></li>
           <li><router-link to="/task_center">任务中心</router-link></li>
           <li><router-link to="/weibo/run_tasks">微博爬虫</router-link></li>
+          <li><router-link to="/jd/run_tasks">京东爬虫</router-link></li>
           <li><router-link to="/data_analysis">数据分析</router-link></li>
           <li><router-link to="/data_management">数据管理</router-link></li>
         </ul>
@@ -20,7 +21,8 @@
         </div>
         <div class="info">
           <h2>{{ currentUser.name }}</h2>
-          <p>{{ currentUser.email }}</p>
+          <a class="link" href="mailto:{{ currentUser.email }}">{{ currentUser.email }}</a>
+          <br>
           <a class="button" href="#">Edit Profile</a>
         </div>
       </div>
@@ -68,8 +70,8 @@ export default {
   data() {
       return {
           currentUser: {
-              name: 'John Doe',
-              email: 'johndoe@example.com',
+              name: 'Ming Zuo',
+              email: 'zm1575098153@gmail.com',
           },
           taskCounts: {
               completed: 10,
@@ -172,6 +174,11 @@ export default {
 }
 
 .info p {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.link{
   font-size: 24px;
   margin-bottom: 20px;
 }

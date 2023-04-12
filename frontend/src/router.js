@@ -4,8 +4,9 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 import LoginTable from './components/LoginTable.vue'
 import RegisterTable from './components/RegisterTable.vue'
 import Home from './components/Home.vue'
-import RunTasks from "./components/spider/weibo/RunTasks.vue";
 import TaskList from "./components/tasks/TaskList.vue";
+import RunWeiboTasks from "@/components/spider/weibo/RunWeiboTasks.vue";
+import RunJDTasks from "@/components/spider/jd/RunJDTasks.vue";
 
 const routes = [
   {
@@ -26,7 +27,11 @@ const routes = [
   },
   {
     path: '/weibo/run_tasks',
-    component: RunTasks
+    component: RunWeiboTasks
+  },
+  {
+    path: '/jd/run_tasks',
+    component: RunJDTasks
   },
   {
     path: '/task_center',

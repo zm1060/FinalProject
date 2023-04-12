@@ -1,6 +1,9 @@
 <template>
   <a-menu mode="horizontal">
       <a-menu-item>
+        <a-button type="primary" @click="$router.push('/home')">Back to Homepage</a-button>
+      </a-menu-item>
+      <a-menu-item>
         <a-button @click="showTaskList = !showTaskList">任务列表</a-button>
       </a-menu-item>
       <a-menu-item>
@@ -18,7 +21,6 @@
   </a-menu>
   <a-layout class="main-layout">
     <a-layout-sider class="sider">
-      <a-button type="primary" @click="$router.push('/home')">Back to Homepage</a-button>
       <a-menu :defaultSelectedKeys="['user']" :selectedKeys="[selectedTask]" @select="handleMenuSelect">
         <a-menu-item key="user">User Spider</a-menu-item>
         <a-menu-item key="search">Search Spider</a-menu-item>
@@ -157,7 +159,7 @@ import CommentList from "@/components/tables/weibo/CommentList.vue";
 import RepostList from "@/components/tables/weibo/RepostList.vue";
 
 export default defineComponent({
-  name: 'RunTasks',
+  name: 'RunWeiboTasks',
   components: {
     'a-menu': Menu,
     'a-menu-item': Menu.Item,
@@ -237,7 +239,7 @@ export default defineComponent({
             cookie: this.userData.cookie
         }
         console.log( JSON.stringify(formData))
-
+        message.loading('User spider task is Loading!',0.2)
         axiosInstance.post('/weibo/run_weibo_user_spider', JSON.stringify(formData), {
             headers: {
               'Content-Type': 'application/json',

@@ -8,7 +8,7 @@ import random
 
 from scrapy import signals
 from scrapy.downloadermiddlewares.useragent import UserAgentMiddleware
-from .useragents import USER_AGENTS
+from jdspider.useragents import USER_AGENTS
 
 
 class JdspiderSpiderMiddleware(object):

@@ -95,4 +95,4 @@ class JDspider(CrawlSpider):
         item['content'] = contentlist
         item['url'] = response.url
 
-        yield
+        yield item

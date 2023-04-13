@@ -118,6 +118,7 @@ async def run_weibo_follower_spider(follower_data: dict = Body(...), current_use
         'user_ids': user_ids,
         'cookie': cookie
     })
+
     user_id = current_user.id
     task_time = datetime.now()
     new_task = {
@@ -184,7 +185,7 @@ async def get_users(task_id: str):
 
 
 @router.get("/weibo/data/search/{task_id}")
-async def get_users(task_id: str):
+async def get_search(task_id: str):
     collection = db[task_id]
     results = []
     for result in collection.find():
@@ -193,7 +194,7 @@ async def get_users(task_id: str):
 
 
 @router.get("/weibo/data/comment/{task_id}")
-async def get_users(task_id: str):
+async def get_comments(task_id: str):
     collection = db[task_id]
     results = []
     for result in collection.find():
@@ -202,7 +203,7 @@ async def get_users(task_id: str):
 
 
 @router.get("/weibo/data/repost/{task_id}")
-async def get_users(task_id: str):
+async def get_reposts(task_id: str):
     collection = db[task_id]
     results = []
     for result in collection.find():
@@ -211,7 +212,7 @@ async def get_users(task_id: str):
 
 
 @router.get("/weibo/data/fan/{task_id}")
-async def get_users(task_id: str):
+async def get_fans(task_id: str):
     collection = db[task_id]
     results = []
     for result in collection.find():
@@ -220,7 +221,7 @@ async def get_users(task_id: str):
 
 
 @router.get("/weibo/data/follower/{task_id}")
-async def get_users(task_id: str):
+async def get_followers(task_id: str):
     collection = db[task_id]
     results = []
     for result in collection.find():
@@ -229,7 +230,7 @@ async def get_users(task_id: str):
 
 
 @router.get("/weibo/data/tweet/{task_id}")
-async def get_users(task_id: str):
+async def get_tweets(task_id: str):
     collection = db[task_id]
     results = []
     for result in collection.find():

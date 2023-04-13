@@ -18,6 +18,7 @@ class FanSpider(Spider):
     cookie = []
     user_ids = []
     task_id = ''
+    stats_info = {}
 
     def __init__(self, user_ids=None, cookie=None, task_id=None, *args, **kwargs):
         super(FanSpider, self).__init__(*args, **kwargs)

@@ -22,6 +22,7 @@ class SearchSpider(Spider):
     is_sort_by_hot = True
     is_search_with_specific_time_scope = False
     task_id = ''
+    stats_info = {}
 
     def __init__(self, keywords=None, start_time=None, end_time=None,
                  is_sort_by_hot=False, is_search_with_specific_time_scope=False,

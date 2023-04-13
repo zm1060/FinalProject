@@ -180,7 +180,7 @@ def run_weibo_follower_spider(self, user_ids: list = None,
     if cookie:
         spider_kwargs['cookie'] = cookie
     if task_id:
-        spider_kwargs['task_Id'] = task_id
+        spider_kwargs['task_id'] = task_id
     os.environ['SCRAPY_SETTINGS_MODULE'] = 'weibospider.settings' # set the settings module for weibospider
     settings = get_project_settings()
     runner = CrawlerRunner(settings)

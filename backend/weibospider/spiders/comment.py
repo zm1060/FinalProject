@@ -17,6 +17,7 @@ class CommentSpider(Spider):
     cookie = []
     headers = []
     task_id = ''
+    stats_info = {}
 
     def __init__(self, tweet_ids=None, cookie=None, task_id=None, *args, **kwargs):
         super(CommentSpider, self).__init__(*args, **kwargs)

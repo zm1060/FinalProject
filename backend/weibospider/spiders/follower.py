@@ -18,6 +18,7 @@ class FollowerSpider(Spider):
     cookie = []
     headers = []
     task_id = ''
+    stats_info = {}
 
     def __init__(self, user_ids=None, cookie=None, task_id=None, *args, **kwargs):
         super(FollowerSpider, self).__init__(*args, **kwargs)

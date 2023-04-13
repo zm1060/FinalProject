@@ -12,12 +12,12 @@ class IPProxyMiddleware(object):
         """
         获取一个代理IP
         """
-        api_url = 'https://your-api-url.com/proxies'
-        response = requests.get(api_url)
-        if response.status_code == 200:
-            proxy_data = response.json().get('proxy')
-            if proxy_data:
-                return proxy_data
+        # api_url = 'https://your-api-url.com/proxies'
+        # response = requests.get(api_url)
+        # if response.status_code == 200:
+        #     proxy_data = response.json().get('proxy')
+        #     if proxy_data:
+        #         return proxy_data
         return None
 
     def process_request(self, request, spider):

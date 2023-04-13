@@ -42,7 +42,6 @@ class MongoDBPipeline(object):
         # 从爬虫对象中获取统计信息、task_id和user_id
         stats_info = spider.crawler.stats.get_stats()
         task_id = spider.task_id
-
         # 获取当前时间作为finish_time，并将其添加到stats_info字典中
         finish_time = datetime.datetime.now()
         stats_info['finish_time'] = finish_time
@@ -56,7 +55,7 @@ class MongoDBPipeline(object):
         """
         处理item
         """
-        collection_name = spider.task_id
+        collection_name = str(spider.task_id)
         item['crawl_time'] = int(time.time())
         self.db[collection_name].insert_one(dict(item))
         return item

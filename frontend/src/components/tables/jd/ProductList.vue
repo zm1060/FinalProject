@@ -1,17 +1,15 @@
 <template>
   <div>
-    <a-input v-model:value="taskId" placeholder="Enter Task ID" @pressEnter="getFanData" />
-    <a-button @click="getFanData">Fetch Data</a-button>
+    <a-input v-model:value="taskId" placeholder="Enter Task ID" @pressEnter="getProductData" />
+    <a-button @click="getProductData">Fetch Data</a-button>
     <a-table :columns="columns"
-             :dataSource="fanData"
-             v-if="fanData.length > 0"/>
+             :dataSource="productData"
+             v-if="productData.length > 0"/>
   </div>
 </template>
 
-
-
 <script>
-import {Table, Input, Button, message, Tooltip} from 'ant-design-vue';
+import {Table, Input, Button, message} from 'ant-design-vue';
 import axiosInstance from "@/api/axiosInstance";
 
 export default {
@@ -24,122 +22,51 @@ export default {
   data() {
     return {
       taskId: '',
-      fanData: [],
-      columns: [
-        {
-          title: "ID",
-          dataIndex: "_id",
-          key: "_id",
-        },
-        {
-          title: "Follower ID",
-          dataIndex: "follower_id",
-          key: "follower_id",
-        },
-        {
-          title: "Fan ID",
-          dataIndex: ["fan_info", "_id"],
-          key: "fan_id",
-        },
-        {
-          title: "Avatar",
-          dataIndex: ["fan_info", "avatar_hd"],
-          key: "avatar",
-          customRender: (text) => {
-            if (text.length > 20) {
-              return (
-                <Tooltip title={text}>
-                  {text.slice(0, 20)}...
-                </Tooltip>
-              );
-            } else {
-              return text;
-            }
-          }
-        },
-        {
-          title: "Nick Name",
-          dataIndex: ["fan_info", "nick_name"],
-          key: "nick_name",
-        },
-        {
-          title: "Verified",
-          dataIndex: ["fan_info", "verified"],
-          key: "verified",
-        },
-        {
-          title: "Description",
-          dataIndex: ["fan_info", "description"],
-          key: "description",
-        },
-        {
-          title: "Followers Count",
-          dataIndex: ["fan_info", "followers_count"],
-          key: "followers_count",
-        },
-        {
-          title: "Friends Count",
-          dataIndex: ["fan_info", "friends_count"],
-          key: "friends_count",
-        },
-        {
-          title: "Statuses Count",
-          dataIndex: ["fan_info", "statuses_count"],
-          key: "statuses_count",
-        },
-        {
-          title: "Gender",
-          dataIndex: ["fan_info", "gender"],
-          key: "gender",
-        },
-        {
-          title: "Location",
-          dataIndex: ["fan_info", "location"],
-          key: "location",
-        },
-        {
-          title: "MB Rank",
-          dataIndex: ["fan_info", "mbrank"],
-          key: "mbrank",
-        },
-        {
-          title: "MB Type",
-          dataIndex: ["fan_info", "mbtype"],
-          key: "mbtype",
-        },
-        {
-          title: "Credit Score",
-          dataIndex: ["fan_info", "credit_score"],
-          key: "credit_score",
-        },
-        {
-          title: "Created At",
-          dataIndex: ["fan_info", "created_at"],
-          key: "created_at",
-        },
-        {
-          title: "Crawl Time",
-          dataIndex: "crawl_time",
-          key: "crawl_time",
-        },
-      ],
+      productData: [],
+      columns: [],
     };
   },
   methods: {
-    getFanData() {
-      axiosInstance.get(`/weibo/data/fan/${this.taskId}`).then(response => {
-        this.fanData = response.data;
-        message.success('加载数据成功!')
-        console.log(JSON.stringify(this.fanData))
+    getProductData() {
+      axiosInstance.get(`/jd/data/product/${this.taskId}`).then(response => {
+        const rawData = response.data;
+        this.productData = rawData.map(item => {
+          const contentObj = item.name.reduce((acc, name, index) => {
+            acc[name] = item.content[index];
+            return acc;
+          }, {});
+          return {
+            ...contentObj,
+            _id: item._id,
+            url: item.url,
+          };
+        });
+        const columns = rawData[0].name.map((header) => ({
+          title: header,
+          dataIndex: header,
+          key: header,
+        }));
+        columns.unshift({
+          title: 'ID',
+          dataIndex: '_id',
+          key: '_id'
+        });
+        columns.push({
+          title: 'URL',
+          dataIndex: 'url',
+          key: 'url'
+        });
+        this.columns = columns;
+        message.success('加载数据成功!');
       }).catch(error => {
-        message.error('加载数据失败!')
-        console.log(error)
-      })
-
+        message.error('加载数据失败!');
+        console.log(error);
+      });
     },
   },
 };
 </script>
+
 
 <style>
 .user-list {

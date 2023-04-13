@@ -4,7 +4,7 @@
         <a-button type="primary" @click="$router.push('/home')">Back to Homepage</a-button>
       </a-menu-item>
       <a-menu-item>
-        <a-button @click="showTaskList = !showTaskList">任务列表</a-button>
+        <a-button @click="$router.push('/task_center')">任务列表</a-button>
       </a-menu-item>
       <a-menu-item>
         <a-button @click="showData = !showData">数据展示</a-button>
@@ -17,6 +17,9 @@
       </a-menu-item>
       <a-menu-item>
         <a-avatar></a-avatar>
+      </a-menu-item>
+      <a-menu-item>
+        <a-button @click="$router.push('/login')">退出登录</a-button>
       </a-menu-item>
   </a-menu>
   <a-layout class="main-layout">
@@ -48,9 +51,9 @@
           </a-form-item>
         </a-form>
       </a-card>
+    <component v-if="showData === true" :is="Component"></component>
 
     </a-layout-content>
-    <component v-if="showData === true" :is="JDComponent"></component>
   </a-layout>
 </template>
 
@@ -93,7 +96,7 @@ export default defineComponent({
           product: ProductList,
           comment: CommentList,
         },
-        showData: false,
+        showData: true,
         showTaskList: false,
     }
   },

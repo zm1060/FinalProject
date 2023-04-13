@@ -86,7 +86,7 @@ class JDcommentPipeline(object):
 
     def process_item(self, item, spider):
         if spider.name == 'JDcommentspider':
-            collection_name = 'jd_comments'
+            collection_name = str(spider.task_id)
             collection = self.db[collection_name]
             data = {
                 'name': item['name'],

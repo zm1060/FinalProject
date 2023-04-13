@@ -50,6 +50,27 @@ async def run_jd_comment_spider(comment_data: dict = Body(...), current_user: Us
     task_db["tasks"].insert_one(new_task)
     return {'task_id': task.id}
 
+
+@router.get("/jd/data/product/{task_id}")
+async def get_jd_product(task_id: str, current_user: User = Depends(get_current_user)):
+    collection = db[task_id]
+    results = []
+    for result in collection.find():
+        result['_id'] = str(result['_id'])  # convert ObjectId to string
+        results.append(result)
+    return results
+
+
+@router.get("/jd/data/comment/{task_id}")
+async def get_jd_comments(task_id: str, current_user: User = Depends(get_current_user)):
+    collection = db[task_id]
+    results = []
+    for result in collection.find():
+        result['_id'] = str(result['_id'])  # convert ObjectId to string
+        results.append(result)
+    return results
+
+
 # @router.get('/jd/run_jd_product_direct')
 # async def run_jd_product_direct():
 #     settings = get_project_settings()

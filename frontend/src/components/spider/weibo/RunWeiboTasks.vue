@@ -4,7 +4,7 @@
         <a-button type="primary" @click="$router.push('/home')">Back to Homepage</a-button>
       </a-menu-item>
       <a-menu-item>
-        <a-button @click="showTaskList = !showTaskList">任务列表</a-button>
+        <a-button @click="$router.push('/task_center')">任务列表</a-button>
       </a-menu-item>
       <a-menu-item>
         <a-button @click="showData = !showData">数据展示</a-button>
@@ -17,6 +17,9 @@
       </a-menu-item>
       <a-menu-item>
         <a-avatar></a-avatar>
+      </a-menu-item>
+      <a-menu-item>
+        <a-button @click="$router.push('/login')">退出登录</a-button>
       </a-menu-item>
   </a-menu>
   <a-layout class="main-layout">
@@ -128,7 +131,7 @@
 
         <a-form :form="repostData" v-else-if="selectedTask === 'repost'" @submit.prevent="submitRepostSpider">
           <a-form-item label="Tweet IDs" :label-col="{ span: 4 }" :wrapper-col="{ span: 20 }">
-            <a-input v-model:value="repostData.tweetIds" placeholder="Enter tweet IDs separated by comma" />
+            <a-input v-model:value="repostData.tweet_ids" placeholder="Enter tweet IDs separated by comma" />
           </a-form-item>
           <a-form-item label="Cookie" :label-col="{ span: 4 }" :wrapper-col="{ span: 20 }">
             <a-input v-model:value="repostData.cookie" placeholder="Enter cookie" />
@@ -140,9 +143,9 @@
 
 
       </a-card>
+    <component v-if="showData === true" :is="Component"></component>
 
     </a-layout-content>
-    <component v-if="showData === true" :is="showDataComponent"></component>
   </a-layout>
 </template>
 
@@ -224,14 +227,14 @@ export default defineComponent({
           comment: CommentList,
           repost: RepostList,
         },
-        showData: false,
+        showData: true,
         showTaskList: false,
     }
   },
   methods: {
     handleMenuSelect({ key }) {
       this.selectedTask = key;
-      this.showDataComponent = this.componentMap[key];
+      this.Component = this.componentMap[key];
     },
     submitUserSpider() {
         const formData = {

@@ -1,58 +1,143 @@
 <template>
   <div>
-    <a-input v-model="taskId" placeholder="Enter Task ID" @pressEnter="getUserData" />
-    <a-card v-if="userData._id" title="User Info">
-      <a-avatar :src="userData.avatar_hd" />
-      <p>{{ userData.nick_name }}</p>
-      <p>{{ userData.verified_reason }}</p>
-      <p>{{ userData.description }}</p>
-      <p>{{ userData.location }}</p>
-      <p>{{ userData.gender }}</p>
-      <p>{{ userData.birthday }}</p>
-      <p>{{ userData.followers_count }}</p>
-      <p>{{ userData.friends_count }}</p>
-      <p>{{ userData.statuses_count }}</p>
-      <p>{{ userData.mbrank }}</p>
-      <p>{{ userData.mbtype }}</p>
-      <p>{{ userData.verified }}</p>
-      <p>{{ userData.verified_type }}</p>
-      <p>{{ userData.desc_text }}</p>
-      <p>{{ userData.ip_location }}</p>
-      <p>{{ userData.sunshine_credit }}</p>
-      <div v-for="(label, index) in userData.label_desc" :key="index">
-        <p>{{ label }}</p>
-      </div>
-    </a-card>
+    <a-input v-model:value="taskId" placeholder="Enter Task ID" @pressEnter="getRepostData" />
+    <a-button @click="getRepostData">Fetch Data</a-button>
+    <a-table :columns="columns"
+             :dataSource="repostData"
+             v-if="repostData.length > 0"/>
   </div>
 </template>
 
+
+
 <script>
-import { ACard, AAvatar, AInput } from 'ant-design-vue';
-import axios from 'axios';
+import {Table, Input, Button, message} from 'ant-design-vue';
+import axiosInstance from "@/api/axiosInstance";
 
 export default {
   name: 'RepostList',
   components: {
-    ACard,
-    AAvatar,
-    AInput,
+    'a-table': Table,
+    'a-input': Input,
+    'a-button': Button,
   },
   data() {
     return {
       taskId: '',
-      userData: {},
+      repostData: [],
+      columns: [
+        {
+          title: "ID",
+          dataIndex: "_id",
+          key: "_id",
+        },
+        {
+          title: "Blog ID",
+          dataIndex: "mblogid",
+          key: "mblogid",
+        },
+        {
+          title: "Created At",
+          dataIndex: "created_at",
+          key: "created_at",
+        },
+        {
+          title: "Geo",
+          dataIndex: "geo",
+          key: "geo",
+        },
+        {
+          title: "IP Location",
+          dataIndex: "ip_location",
+          key: "ip_location",
+        },
+        {
+          title: "Reposts Count",
+          dataIndex: "reposts_count",
+          key: "reposts_count",
+        },
+        {
+          title: "Comments Count",
+          dataIndex: "comments_count",
+          key: "comments_count",
+        },
+        {
+          title: "Attitudes Count",
+          dataIndex: "attitudes_count",
+          key: "attitudes_count",
+        },
+        {
+          title: "Source",
+          dataIndex: "source",
+          key: "source",
+        },
+        {
+          title: "Content",
+          dataIndex: "content",
+          key: "content",
+        },
+        {
+          title: "Is Long Text",
+          dataIndex: "isLongText",
+          key: "isLongText",
+        },
+        {
+          title: "User ID",
+          dataIndex: ["user", "_id"],
+          key: "user_id",
+        },
+        {
+          title: "Avatar",
+          dataIndex: ["fan_info", "avatar_hd"],
+          key: "avatar",
+        },
+        {
+          title: "Nick Name",
+          dataIndex: ["user", "nick_name"],
+          key: "nick_name",
+        },
+        {
+          title: "Verified",
+          dataIndex: ["user", "verified"],
+          key: "verified",
+        },
+        {
+          title: "Mbrank",
+          dataIndex: ["user", "mbrank"],
+          key: "mbrank",
+        },
+        {
+          title: "Mbtype",
+          dataIndex: ["user", "mbtype"],
+          key: "mbtype",
+        },
+        {
+          title: "URL",
+          dataIndex: "url",
+          key: "url",
+        },
+        {
+          title: "Crawl Time",
+          dataIndex: "crawl_time",
+          key: "crawl_time",
+        },
+      ],
     };
   },
   methods: {
-    getUserData() {
-      axios.get(`http://localhost:8080/weibo/data/users?task_id=${this.taskId}`).then((response) => {
-        this.userData = response.data[0];
-      });
+    getRepostData() {
+      axiosInstance.get(`/weibo/data/repost/${this.taskId}`).then(response => {
+        this.repostData = response.data;
+        message.success('加载数据成功!')
+        console.log(JSON.stringify(this.repostData))
+      }).catch(error => {
+        message.error('加载数据失败!')
+        console.log(error)
+      })
     },
   },
 };
 </script>
-
 
 <style>
 .user-list {

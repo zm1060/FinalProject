@@ -158,7 +158,7 @@ import SearchList from "@/components/tables/weibo/SearchList.vue";
 import FanList from "@/components/tables/weibo/FanList.vue";
 import TweetList from "@/components/tables/weibo/TweetList.vue";
 import FollowerList from "@/components/tables/weibo/FollowerList.vue";
-import CommentList from "@/components/tables/weibo/CommentList.vue";
+import CommentList from "@/components/tables/weibo/WeiboCommentList.vue";
 import RepostList from "@/components/tables/weibo/RepostList.vue";
 
 export default defineComponent({

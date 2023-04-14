@@ -1,6 +1,7 @@
 <template>
   <div>
-    <a-input v-model:value="taskId" placeholder="Enter Task ID" @pressEnter="getCommentData" />
+    <a-button type="primary" @click="$router.push('/home')">Back to Homepage</a-button>
+    <a-input v-model:value="inputtaskId" placeholder="Enter Task ID" @pressEnter="getCommentData" />
     <a-button @click="getCommentData">Fetch Data</a-button>
     <a-table :columns="columns"
              :dataSource="commentData"
@@ -15,15 +16,24 @@ import {Table, Input, Button, message} from 'ant-design-vue';
 import axiosInstance from "@/api/axiosInstance";
 
 export default {
-  name: 'CommentList',
+  name: 'JDCommentList',
   components: {
     'a-table': Table,
     'a-input': Input,
     'a-button': Button,
   },
+  created() {
+    this.getCommentData();
+  },
+  computed: {
+    taskId() {
+      return this.$route.params.taskId;
+    },
+  },
   data() {
     return {
-      taskId: '',
+      inputtaskId: '',
+      idToFetch: '',
       commentData: [],
       columns: [
         {
@@ -56,7 +66,8 @@ export default {
   },
   methods: {
     getCommentData() {
-      axiosInstance.get(`/jd/data/comment/${this.taskId}`).then(response => {
+      this.idToFetch = this.inputtaskId || this.taskId;
+      axiosInstance.get(`/jd/data/comment/${this.idToFetch}`).then(response => {
         this.commentData = response.data;
         message.success('加载数据成功!')
         console.log(JSON.stringify(this.commentData))

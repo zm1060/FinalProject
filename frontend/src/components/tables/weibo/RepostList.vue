@@ -1,6 +1,7 @@
 <template>
   <div>
-    <a-input v-model:value="taskId" placeholder="Enter Task ID" @pressEnter="getRepostData" />
+    <a-button type="primary" @click="$router.push('/home')">Back to Homepage</a-button>
+    <a-input v-model:value="inputtaskId" placeholder="Enter Task ID" @pressEnter="getRepostData" />
     <a-button @click="getRepostData">Fetch Data</a-button>
     <a-table :columns="columns"
              :dataSource="repostData"
@@ -21,9 +22,18 @@ export default {
     'a-input': Input,
     'a-button': Button,
   },
+  created() {
+    this.getRepostData();
+  },
+  computed: {
+    taskId() {
+      return this.$route.params.taskId;
+    },
+  },
   data() {
     return {
-      taskId: '',
+      inputtaskId: '',
+      idToFetch: '',
       repostData: [],
       columns: [
         {
@@ -126,7 +136,8 @@ export default {
   },
   methods: {
     getRepostData() {
-      axiosInstance.get(`/weibo/data/repost/${this.taskId}`).then(response => {
+      this.idToFetch = this.inputtaskId || this.taskId;
+      axiosInstance.get(`/weibo/data/repost/${this.idToFetch}`).then(response => {
         this.repostData = response.data;
         message.success('加载数据成功!')
         console.log(JSON.stringify(this.repostData))

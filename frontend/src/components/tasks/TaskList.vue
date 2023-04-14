@@ -1,6 +1,6 @@
 <template>
   <div>
-    <router-link to="/home">返回主页</router-link>
+    <a-button type="primary" @click="$router.push('/home')">Back to Homepage</a-button>
     <h1>My Tasks</h1>
     <a-table :columns="columns" :data-source="tasks" :loading="loading">
       <template v-slot:action="{ record }">
@@ -124,9 +124,15 @@ export default {
       }
     },
     handleView(taskId, taskType) {
-      this.navigateToComponent(taskType);
+      const routeName = `${taskType}_list`;
+      console.log('Generated route name:', routeName);
+
       // pass the taskId to the component as a route parameter
-      this.$router.push({ name: `${taskType}_list`, params: { taskId } });
+      this.$router
+        .push(`/${routeName}/${taskId}`)
+        .catch((error) => {
+          console.error('Navigation failed:', error);
+        });
     },
     handleDelete(taskId) {
       axiosInstance
@@ -141,6 +147,7 @@ export default {
           console.log(error);
         });
     },
+
   },
 };
 </script>

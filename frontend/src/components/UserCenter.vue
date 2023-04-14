@@ -2,7 +2,11 @@
   <div>
     <a-layout style="min-height: 100vh">
       <a-layout-header>
+
         <a-menu mode="horizontal" theme="dark">
+          <a-menu-item>
+              <a-button type="primary" @click="$router.push('/home')">Back to Homepage</a-button>
+          </a-menu-item>
           <a-menu-item>用户中心</a-menu-item>
         </a-menu>
       </a-layout-header>
@@ -11,21 +15,23 @@
           <a-breadcrumb-item>用户中心</a-breadcrumb-item>
           <a-breadcrumb-item>个人信息</a-breadcrumb-item>
         </a-breadcrumb>
-        <a-form :model="{}" :label-col="{span: 4}" :wrapper-col="{span: 14}">
+        <a-form :model="userData" :label-col="{span: 4}" :wrapper-col="{span: 14}">
           <a-form-item label="用户名">
-            <a-input v-model="username"></a-input>
+            <a-input v-model:value="userData.username"></a-input>
           </a-form-item>
           <a-form-item label="邮箱">
-            <a-input v-model="email"></a-input>
+            <a-input v-model:value="userData.email"></a-input>
           </a-form-item>
           <a-form-item label="密码">
-            <a-input type="password" v-model="password"></a-input>
+            <a-input type="password" v-model:value="userData.password"></a-input>
           </a-form-item>
           <a-form-item>
-            <a-button type="primary" @click="updateUser">更新信息</a-button>
+            <a-button class="update-button" type="primary" @click="updateUser">更新信息</a-button>
+          </a-form-item>
+          <a-form-item>
+            <a-button class="delete-button" type="danger" @click="deleteUser">注销该账号</a-button>
           </a-form-item>
         </a-form>
-        <a-button type="danger" @click="deleteUser">删除用户</a-button>
       </a-layout-content>
     </a-layout>
   </div>
@@ -33,8 +39,8 @@
 
 <script>
 import { defineComponent } from 'vue'
-import { Layout, Menu, Breadcrumb, Form, Input, Button } from 'ant-design-vue'
-import axios from 'axios'
+import {Layout, Menu, Breadcrumb, Form, Input, Button, message} from 'ant-design-vue'
+import axiosInstance from "@/api/axiosInstance";
 
 export default defineComponent({
   name: 'UserCenter',
@@ -48,42 +54,52 @@ export default defineComponent({
   },
   data() {
     return {
-      username: '',
-      email: '',
-      password: '',
+        userData: {
+          username: '',
+          email: '',
+          password: '',
+        },
+
     }
   },
   methods: {
     async getUserInfo() {
       try {
-        const response = await axios.get('/me')
-        this.username = response.data.username
+        const response = await axiosInstance.get('/me')
+        this.username = response.data.user_name
         this.email = response.data.email
+        message.success("获取用户信息成功!")
       } catch (error) {
         console.error(error)
+        message.error("获取用户信息失败!")
       }
     },
     async updateUser() {
       try {
         const data = {
-          new_username: this.username,
-          new_email: this.email,
-          new_password: this.password,
+          username: this.userData.username,
+          email: this.userData.email,
+          password: this.userData.password,
         }
-        const response = await axios.put('/me', data)
-        this.username = response.data.username
+        const response = await axiosInstance.put('/me', data)
+        this.username = response.data.user_name
         this.email = response.data.email
         this.password = ''
+        message.success("更新用户信息成功!")
+        this.$router.push('/login')
       } catch (error) {
         console.error(error)
+        message.error("更新用户信息失败!")
       }
     },
     async deleteUser() {
       try {
-        await axios.delete('/me')
-        // Redirect to login page or display a message
+        await axiosInstance.delete('/me')
+          this.$router.push('/login')
+          message.success("删除用户成功!")
       } catch (error) {
-        console.error(error)
+          console.error(error)
+          message.error("删除用户失败!")
       }
     },
   },

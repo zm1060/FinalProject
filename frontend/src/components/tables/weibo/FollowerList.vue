@@ -1,6 +1,7 @@
 <template>
   <div>
-    <a-input v-model:value="taskId" placeholder="Enter Task ID" @pressEnter="getFollowerData" />
+    <a-button type="primary" @click="$router.push('/home')">Back to Homepage</a-button>
+    <a-input v-model:value="inputtaskId" placeholder="Enter Task ID" @pressEnter="getFollowerData" />
     <a-button @click="getFollowerData">Fetch Data</a-button>
     <a-table :columns="columns"
              :dataSource="followerData"
@@ -21,9 +22,18 @@ export default {
     'a-input': Input,
     'a-button': Button,
   },
+  created() {
+    this.getFollowerData();
+  },
+  computed: {
+    taskId() {
+      return this.$route.params.taskId;
+    },
+  },
   data() {
     return {
-      taskId: '',
+      inputtaskId: '',
+      idToFetch: '',
       followerData: [],
       columns: [
         {
@@ -103,7 +113,7 @@ export default {
           key: "verified_type",
         },
         {
-          title: "Verified Type",
+          title: "Verified Reason",
           dataIndex: ["follower_info", "verified_reason"],
           key: "verified_reason",
         },
@@ -117,7 +127,8 @@ export default {
   },
   methods: {
     getFollowerData() {
-      axiosInstance.get(`/weibo/data/follower/${this.taskId}`).then(response => {
+      this.idToFetch = this.inputtaskId || this.taskId;
+      axiosInstance.get(`/weibo/data/follower/${this.idToFetch}`).then(response => {
         this.followerData = response.data;
         message.success('加载数据成功!')
         console.log(JSON.stringify(this.followerData))

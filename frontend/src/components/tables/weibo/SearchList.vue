@@ -1,6 +1,7 @@
 <template>
   <div>
-    <a-input v-model:value="taskId" placeholder="Enter Task ID" @pressEnter="getSearchData" />
+    <a-button type="primary" @click="$router.push('/home')">Back to Homepage</a-button>
+    <a-input v-model:value="inputtaskId" placeholder="Enter Task ID" @pressEnter="getSearchData" />
     <a-button @click="getSearchData">Fetch Data</a-button>
     <a-table :columns="columns"
              :dataSource="searchData"
@@ -20,103 +21,133 @@ export default {
     'a-input': Input,
     'a-button': Button,
   },
+  created() {
+    this.getSearchData();
+  },
+  computed: {
+    taskId() {
+      return this.$route.params.taskId;
+    },
+  },
   data() {
     return {
-      taskId: '',
+      inputtaskId: '',
+      idToFetch: '',
       searchData: [],
       columns: [
         {
           title: "ID",
           dataIndex: "_id",
-          scopedSlots: { customRender: "content" }
+          key: "_id",
         },
         {
-          title: "MBlog ID",
-          dataIndex: "mblogid",
-          scopedSlots: { customRender: "content" }
+          title: "Avatar",
+          dataIndex: "avatar_hd",
+          key: "follower_avatar",
+        },
+        {
+          title: "Nick Name",
+          dataIndex: "nick_name",
+          key: "nick_name",
+        },
+        {
+          title: "Verified",
+          dataIndex: "verified",
+          key: "verified",
+        },
+        {
+          title: "Description",
+          dataIndex: "description",
+          key: "description",
+        },
+        {
+          title: "Followers Count",
+          dataIndex: "followers_count",
+          key: "followers_count",
+        },
+        {
+          title: "Friends Count",
+          dataIndex: "friends_count",
+          key: "friends_count",
+        },
+        {
+          title: "Statuses Count",
+          dataIndex: "status_count",
+          key: "status_count",
+        },
+        {
+          title: "Gender",
+          dataIndex: "gender",
+          key: "gender",
+        },
+        {
+          title: "Location",
+          dataIndex: "location",
+          key: "location",
+        },
+        {
+          title: "Verified Type",
+          dataIndex: "verified_type",
+          key: "verified_type",
+        },
+        {
+          title: "Verified Reason",
+          dataIndex: "verified_reason",
+          key: "verified_reason",
+        },
+        {
+          title: "Birthday",
+          dataIndex: "birthday",
+          key: "birthday",
         },
         {
           title: "Created At",
           dataIndex: "created_at",
-          scopedSlots: { customRender: "content" }
+          key: "created_at",
         },
         {
-          title: "Geo",
-          dataIndex: "geo",
-          scopedSlots: { customRender: "content" }
+          title: "Desc Text",
+          dataIndex: "desc_text",
+          key: "desc_text",
         },
         {
-          title: "IP Location",
+          title: "IP Loaction",
           dataIndex: "ip_location",
-          scopedSlots: { customRender: "content" }
+          key: "ip_location",
         },
         {
-          title: "Reposts Count",
-          dataIndex: "reposts_count",
-          scopedSlots: { customRender: "content" }
+          title: "Sunshine Credit",
+          dataIndex: "sunshine_credit",
+          key: "sunshine_credit",
         },
         {
-          title: "Comments Count",
-          dataIndex: "comments_count",
-          scopedSlots: { customRender: "content" }
+          title: "Label Desc",
+          dataIndex: "label_desc",
+          key: "label_desc",
         },
         {
-          title: "Attitudes Count",
-          dataIndex: "attitudes_count",
-          scopedSlots: { customRender: "content" }
+          title: "Company",
+          dataIndex: "company",
+          key: "company",
         },
         {
-          title: "Source",
-          dataIndex: "source",
-          scopedSlots: { customRender: "content" }
-        },
-        {
-          title: "Content",
-          dataIndex: "content",
-          scopedSlots: { customRender: "content" }
-        },
-        {
-          title: "Pic URLs",
-          dataIndex: "pic_urls",
-          scopedSlots: { customRender: "content" }
-        },
-        {
-          title: "Pic Number",
-          dataIndex: "pic_num",
-          scopedSlots: { customRender: "content" }
-        },
-        {
-          title: "Is Long Text",
-          dataIndex: "isLongText",
-          scopedSlots: { customRender: "content" }
-        },
-        {
-          title: "User",
-          dataIndex: "user",
-          scopedSlots: { customRender: "content" }
-        },
-        {
-          title: "URL",
-          dataIndex: "url",
-          scopedSlots: { customRender: "content" }
-        },
-        {
-          title: "Keyword",
-          dataIndex: "keyword",
-          scopedSlots: { customRender: "content" }
+          title: "Eduction",
+          dataIndex: ["eduction", "school"],
+          key: "eduction",
         },
         {
           title: "Crawl Time",
           dataIndex: "crawl_time",
-          scopedSlots: { customRender: "content" }
-        }
+          key: "crawl_time",
+        },
       ],
 
     };
   },
   methods: {
     getSearchData() {
-      axiosInstance.get(`/weibo/data/search/${this.taskId}`).then(response => {
+      this.idToFetch = this.inputtaskId || this.taskId;
+      axiosInstance.get(`/weibo/data/search/${this.idToFetch}`).then(response => {
         this.searchData = response.data;
         console.log(toRaw(this.searchData)); // access the raw array data
         message.success('加载数据成功!')

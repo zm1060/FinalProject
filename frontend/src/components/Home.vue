@@ -26,12 +26,7 @@
           <router-link to="/data_management">数据管理</router-link>
         </a-menu-item>
         <a-menu-item>
-          <div class="avatar">
-            <img src="/img/avatar.jpg" alt="User Avatar">
-          </div>
-        </a-menu-item>
-        <a-menu-item>
-          <p>{{ currentUser.name }}</p>
+          <router-link to="/user_center">{{currentUser.username}}</router-link>
         </a-menu-item>
         <a-menu-item>
           <a class="link" href="mailto:{{ currentUser.email }}">{{ currentUser.email }}</a>
@@ -42,57 +37,79 @@
       </a-menu>
 
       <a-layout-content style="padding: 0 50px">
-        <div class="stats">
-          <div class="stat">
-            <h3 class="stat_completed">Tasks Completed</h3>
-            <p class="stat_completed">{{ taskCounts.completed }}</p>
-          </div>
-          <div class="stat">
-            <h3 class="stat_failed">Tasks Failed</h3>
-            <p class="stat_failed">{{ taskCounts.failed }}</p>
-          </div>
-          <div class="stat">
-            <h3 class="stat_running">Tasks Running</h3>
-            <p class="stat_running">{{ taskCounts.running }}</p>
-          </div>
-        </div>
+<!--        <div class="stats">-->
+<!--          <div class="stat">-->
+<!--            <h3 class="stat_completed">Tasks Completed</h3>-->
+<!--            <p class="stat_completed">{{ taskCounts.completed }}</p>-->
+<!--          </div>-->
+<!--          <div class="stat">-->
+<!--            <h3 class="stat_failed">Tasks Failed</h3>-->
+<!--            <p class="stat_failed">{{ taskCounts.failed }}</p>-->
+<!--          </div>-->
+<!--          <div class="stat">-->
+<!--            <h3 class="stat_running">Tasks Running</h3>-->
+<!--            <p class="stat_running">{{ taskCounts.running }}</p>-->
+<!--          </div>-->
+<!--        </div>-->
 
         <div class="visualization">
           <h2>Data Visualization</h2>
           <div class="chart">
-            <echarts :options="chartOptions"></echarts>
+            <v-chart ref="myChart" :option="chartOptions" autoresize></v-chart>
           </div>
         </div>
 
         <div class="table">
           <h2>Task List</h2>
-          <a-table :columns="columns" :data-source="tasks">
+          <a-table :columns="columns" :data-source="tasks" :loading="loading">
+            <template v-slot:action="{ record }">
+              <span>
+                <a-button type="primary" @click="handleView(record.task_id, record.task_type)">
+                  View
+                </a-button>
+                <a-popconfirm
+                  title="Are you sure to delete this task?"
+                  @confirm="handleDelete(record.task_id)"
+                >
+                  <a-button type="danger">Delete</a-button>
+                </a-popconfirm>
+              </span>
+            </template>
           </a-table>
         </div>
 
       </a-layout-content>
     </a-layout>
   </div>
-
-
-
-
 </template>
 
 <script>
-import { Table } from 'ant-design-vue';
+import {message, Table} from 'ant-design-vue';
 import axiosInstance from "@/api/axiosInstance";
+
+import { GridComponent } from "echarts/components";
+import ECharts from "vue-echarts";
+import "echarts/lib/chart/bar";
+import "echarts/lib/component/tooltip";
+import "echarts/lib/component/title";
+import "echarts/lib/component/legend";
+import 'zrender/lib/canvas/canvas';
+import {use} from "echarts";
+
+use([GridComponent]); // Use GridComponent
+
 
 export default {
   name: 'HomePage',
   components: {
     'a-table': Table,
+    'v-chart': ECharts
   },
   data() {
       return {
           currentUser: {
-              name: 'Ming Zuo',
-              email: 'zm1575098153@gmail.com',
+              username: '',
+              email: '',
           },
           taskCounts: {
               completed: 10,
@@ -100,35 +117,142 @@ export default {
               running: 4,
           },
           chartOptions: {
-              // Define your chart options and data
+
           },
+          loading: false,
           columns: [
-              // Define your columns for the task table
+            {
+              title: "Task ID",
+              dataIndex: "task_id",
+              key: "task_id",
+            },
+            {
+              title: "Task Type",
+              dataIndex: "task_type",
+              key: "task_type",
+            },
+            {
+              title: "Task Time",
+              dataIndex: "task_time",
+              key: "task_time",
+            },
+            {
+              title: "Finish Time",
+              dataIndex: ["stats", "finish_time"],
+              key: "finish_time",
+            },
+            {
+              title: "Item Scraped Count",
+              dataIndex: ["stats", "item_scraped_count"],
+              key: "item_scraped_count",
+            },
+            {
+              title: "Action",
+              key: "action",
+              slots: { customRender: "action" },
+            },
           ],
-          tasks: [
-              // Define your tasks data here
-          ],
+          tasks: [],
       };
   },
+
+
   methods: {
-      fetchTasks()
-      {
-          axiosInstance.get('/user/tasks').then(response => {
-              const tasks = response.data;
-              const columns = [
-                  // Define your columns for the task table
-              ];
-              this.tasks = tasks.map(task => ({
-                  ...task,
-                  key: task.task_id,
-              }));
-              this.columns = columns;
-          });
-      },
+    setChartData() {
+      const data = {};
+
+      this.tasks.forEach(task => {
+        if (data[task.task_type]) {
+          data[task.task_type]++;
+        } else {
+          data[task.task_type] = 1;
+        }
+      });
+
+      const xAxisData = Object.keys(data);
+      const seriesData = xAxisData.map(key => data[key]);
+
+      this.chartOptions.title = {
+        text: 'Task Types'
+      };
+      this.chartOptions.tooltip = {};
+      this.chartOptions.legend = {
+        data: ['Task Types']
+      };
+      this.chartOptions.xAxis = {
+        type: 'category',
+        data: xAxisData
+      };
+      this.chartOptions.yAxis = {
+        type: 'value'
+      };
+      this.chartOptions.series = [{
+        name: 'Task Types',
+        type: 'bar',
+        data: seriesData
+      }];
+
+      this.$nextTick(() => {
+        this.$refs.myChart.resize();
+      });
+    },
+    async fetchTasks() {
+      this.loading = true;
+      axiosInstance
+        .get("/user/tasks")
+        .then((response) => {
+          this.tasks = response.data;
+          this.setChartData(); // Call this method here
+          message.success("加载任务列表成功!",0.3);
+        })
+        .catch((error) => {
+          message.error("加载失败!(当前用户token过期)");
+          console.log(error);
+        })
+        .finally(() => {
+          this.loading = false;
+        });
+    },
+    async getUserInfo() {
+      try {
+        const response = await axiosInstance.get('/me')
+        this.currentUser.username = response.data.username
+        this.currentUser.email = response.data.email
+        message.success("加载用户信息成功!",0.2)
+      } catch (error) {
+        console.error(error)
+        message.error("加载用户信息失败!请检查登录状态!")
+      }
+    },
+    handleView(taskId, taskType) {
+      const routeName = `${taskType}_list`;
+      console.log('Generated route name:', routeName);
+
+      // pass the taskId to the component as a route parameter
+      this.$router
+        .push(`/${routeName}/${taskId}`)
+        .catch((error) => {
+          console.error('Navigation failed:', error);
+        });
+    },
+    handleDelete(taskId) {
+      axiosInstance
+        .delete(`/user/tasks/${taskId}`)
+        .then((response) => {
+          message.success("删除成功!");
+          this.fetchTasks();
+          console.log(response);
+        })
+        .catch((error) => {
+          message.error("删除失败!");
+          console.log(error);
+        });
+    },
 
   },
   mounted()
   {
+      this.getUserInfo();
       this.fetchTasks();
   }
 };

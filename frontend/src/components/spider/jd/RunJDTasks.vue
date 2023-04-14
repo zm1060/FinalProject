@@ -62,7 +62,7 @@ import { defineComponent } from 'vue'
 import { Menu, Layout, Form, Input, Button, message, DatePicker, Card, Avatar } from 'ant-design-vue'
 import axiosInstance from "@/api/axiosInstance";
 import ProductList from "@/components/tables/jd/ProductList.vue";
-import CommentList from "@/components/tables/jd/CommentList.vue";
+import CommentList from "@/components/tables/jd/JDCommentList.vue";
 
 
 export default defineComponent({

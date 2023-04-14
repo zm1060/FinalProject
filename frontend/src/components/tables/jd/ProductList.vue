@@ -1,6 +1,7 @@
 <template>
   <div>
-    <a-input v-model:value="taskId" placeholder="Enter Task ID" @pressEnter="getProductData" />
+    <a-button type="primary" @click="$router.push('/home')">Back to Homepage</a-button>
+    <a-input v-model:value="inputtaskId" placeholder="Enter Task ID" @pressEnter="getProductData" />
     <a-button @click="getProductData">Fetch Data</a-button>
     <a-table :columns="columns"
              :dataSource="productData"
@@ -19,16 +20,26 @@ export default {
     'a-input': Input,
     'a-button': Button,
   },
+  created() {
+    this.getProductData();
+  },
+  computed: {
+    taskId() {
+      return this.$route.params.taskId;
+    },
+  },
   data() {
     return {
-      taskId: '',
+      inputtaskId: '',
+      idToFetch: '',
       productData: [],
       columns: [],
     };
   },
   methods: {
     getProductData() {
-      axiosInstance.get(`/jd/data/product/${this.taskId}`).then(response => {
+      this.idToFetch = this.inputtaskId || this.taskId;
+      axiosInstance.get(`/jd/data/product/${this.idToFetch}`).then(response => {
         const rawData = response.data;
         this.productData = rawData.map(item => {
           const contentObj = item.name.reduce((acc, name, index) => {

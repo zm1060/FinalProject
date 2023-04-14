@@ -1,6 +1,7 @@
 <template>
   <div>
-    <a-input v-model:value="taskId" placeholder="Enter Task ID" @pressEnter="getUserData" />
+    <a-button type="primary" @click="$router.push('/home')">Back to Homepage</a-button>
+    <a-input v-model:value="inputtaskId" placeholder="Enter Task ID" @pressEnter="getUserData" />
     <a-button @click="getUserData">Fetch Data</a-button>
     <a-table :columns="columns"
              :dataSource="userData"
@@ -19,9 +20,18 @@ export default {
     'a-input': Input,
     'a-button': Button,
   },
+  created() {
+    this.getUserData();
+  },
+  computed: {
+    taskId() {
+      return this.$route.params.taskId;
+    },
+  },
   data() {
     return {
-      taskId: '',
+      inputtaskId: '',
+      idToFetch: '',
       userData: [],
       columns: [
         {
@@ -93,7 +103,8 @@ export default {
   },
   methods: {
     getUserData() {
-      axiosInstance.get(`/weibo/data/user/${this.taskId}`).then(response => {
+      this.idToFetch = this.inputtaskId || this.taskId;
+      axiosInstance.get(`/weibo/data/user/${this.idToFetch}`).then(response => {
         this.userData = [response.data];
         message.success('加载数据成功!')
         console.log(response)

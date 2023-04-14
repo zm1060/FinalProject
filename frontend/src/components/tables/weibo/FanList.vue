@@ -1,6 +1,7 @@
 <template>
   <div>
-    <a-input v-model:value="taskId" placeholder="Enter Task ID" @pressEnter="getFanData" />
+    <a-button type="primary" @click="$router.push('/home')">Back to Homepage</a-button>
+    <a-input v-model:value="inputtaskId" placeholder="Enter Task ID" @pressEnter="getFanData" />
     <a-button @click="getFanData">Fetch Data</a-button>
     <a-table :columns="columns"
              :dataSource="fanData"
@@ -21,9 +22,18 @@ export default {
     'a-input': Input,
     'a-button': Button,
   },
+  created() {
+    this.getFanData();
+  },
+  computed: {
+    taskId() {
+      return this.$route.params.taskId;
+    },
+  },
   data() {
     return {
-      taskId: '',
+      inputtaskId: '',
+      idToFetch: '',
       fanData: [],
       columns: [
         {
@@ -127,7 +137,8 @@ export default {
   },
   methods: {
     getFanData() {
-      axiosInstance.get(`/weibo/data/fan/${this.taskId}`).then(response => {
+      this.idToFetch = this.inputtaskId || this.taskId;
+      axiosInstance.get(`/weibo/data/fan/${this.idToFetch}`).then(response => {
         this.fanData = response.data;
         message.success('加载数据成功!')
         console.log(JSON.stringify(this.fanData))

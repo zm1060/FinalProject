@@ -25,6 +25,8 @@ LOG_FILE = "scrapy.log"
 CONCURRENT_REQUESTS = 16
 DOWNLOAD_DELAY = 1
 
+CONCURRENT_REQUESTS_PER_DOMAIN = 16
+CONCURRENT_REQUESTS_PER_IP = 0
 # Disable cookies (enabled by default)
 COOKIES_ENABLED = False
 
@@ -48,7 +50,6 @@ SPIDER_MIDDLEWARES = {
 DOWNLOADER_MIDDLEWARES = {
     # 'jdspiders.middlewares.MyCustomDownloaderMiddleware': 543,
     'jdspider.middlewares.UserAgentmiddleware': 400,
-    'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware': 101,
 }
 
 # Enable or disable extensions

@@ -19,9 +19,7 @@ class JDcommentspider(scrapy.Spider):
     custom_settings = {
         'ITEM_PIPELINES': {
             'jdspider.pipelines.JDcommentPipeline': 300,
-        },
-        'DEPTH_PRIORITY': 1,
-        'DEPTH_LIMIT': 3,
+        }
     }
 
     def __init__(self, urls, pages, task_id):
@@ -38,7 +36,7 @@ class JDcommentspider(scrapy.Spider):
             raise RuntimeError("参数必须为字符串或者列表")
         number = re.findall(r"com/(\d+)\.html", self.start_urls[0])[0]
         # 'https://club.jd.com/comment/productPageComments.action?callback=fetchJSON_comment98&productId=' + number +'&score=0&sortType=5&page=0&pageSize=10&isShadowSku=0&fold=1'
-        self.comment_page_baseurl = 'https://club.jd.com/comment/productPageComments.action?productId=' + number + '&score=0&sortType=5&page={0}&pageSize=10'
+        self.comment_page_baseurl = 'https://sclub.jd.com/comment/productPageComments.action?productId=' + number + '&score=0&sortType=5&page={0}&pageSize=10'
 
     def parse(self, response):
 
@@ -54,7 +52,7 @@ class JDcommentspider(scrapy.Spider):
 
             yield item
         #     self.parseCom(response)
-        page = 1
+        page = 0
         while True:
             if self.pages == page:
                 break
@@ -65,7 +63,6 @@ class JDcommentspider(scrapy.Spider):
                 response_json = json.loads(comment_response_str)
 
                 comments = response_json['comments']
-
                 # 获取不到数据结束循环
                 if not comments:
                     break
@@ -77,7 +74,6 @@ class JDcommentspider(scrapy.Spider):
                     item['name'] = name
 
                     yield item
-                time.sleep(3)
             except:
                 # 请求失败结束循环
                 break

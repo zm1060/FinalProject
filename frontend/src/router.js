@@ -16,15 +16,26 @@ const routes = [
   },
   {
     path: '/login',
-    component: LoginTable
+    component: LoginTable,
+    meta: {
+      public: true,
+      title: "用户登录"
+    }
   },
   {
     path: '/register',
-    component: RegisterTable
+    component: RegisterTable,
+    meta: {
+      public: true,
+      title: "用户注册"
+    }
   },
   {
     path: '/home',
-    component: Home
+    component: Home,
+    meta: {
+      title: "主页"
+    }
   },
   {
     path: '/user_center',

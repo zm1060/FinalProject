@@ -5,7 +5,7 @@
     <a-table :columns="columns" :data-source="tasks" :loading="loading">
       <template v-slot:action="{ record }">
         <span>
-          <a-button type="primary" @click="handleView(record.task_id)">
+          <a-button type="primary" @click="handleView(record.task_id, record.task_type)">
             View
           </a-button>
           <a-popconfirm
@@ -89,9 +89,44 @@ export default {
           this.loading = false;
         });
     },
-    handleView(taskId) {
-      // Navigate to the view task page with the given taskId
-      this.$router.push(`/view-task/${taskId}`);
+    navigateToComponent(taskType) {
+      switch (taskType) {
+        case "jd_product":
+          this.$router.push("/jd_product_list");
+          break;
+        case "jd_comment":
+          this.$router.push("/jd_comment_list");
+          break;
+        case "weibo_user":
+          this.$router.push("/weibo_user_list");
+          break;
+        case "weibo_comment":
+          this.$router.push("/weibo_comment_list");
+          break;
+        case "weibo_repost":
+          this.$router.push("/weibo_repost_list");
+          break;
+        case "weibo_tweet":
+          this.$router.push("/weibo_tweet_list");
+          break;
+        case "weibo_fan":
+          this.$router.push("/weibo_fan_list");
+          break;
+        case "weibo_follower":
+          this.$router.push("/weibo_follower_list");
+          break;
+        case "weibo_search":
+          this.$router.push("/weibo_search_list");
+          break;
+        default:
+          // handle unknown task type
+          break;
+      }
+    },
+    handleView(taskId, taskType) {
+      this.navigateToComponent(taskType);
+      // pass the taskId to the component as a route parameter
+      this.$router.push({ name: `${taskType}_list`, params: { taskId } });
     },
     handleDelete(taskId) {
       axiosInstance

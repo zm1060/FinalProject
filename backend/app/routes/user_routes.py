@@ -1,9 +1,12 @@
 from typing import Optional
 
-from fastapi import APIRouter, Depends, Body
+from bson import ObjectId
+from fastapi import APIRouter, Depends, Body, HTTPException
 from sqlalchemy.orm import Session
 
 from app.db.task_db import task_db
+from app.db.jd_db import db as jd_db
+from app.db.weibo_db import db as weibo_db
 from app.dependencies import get_current_user, get_db
 from app.models.user import User
 from app.security import hash_password
@@ -49,6 +52,28 @@ async def get_current_user_tasks(current_user: User = Depends(get_current_user))
     tasks_collection = task_db['tasks']
     tasks = []
     for task in tasks_collection.find({"user_id": current_user.id}):
-        task['_id'] = str(task['_id']) # Convert ObjectId to string
+        task['_id'] = str(task['_id'])  # Convert ObjectId to string
         tasks.append(task)
     return tasks
+
+
+@router.delete("/user/tasks/{task_id}")
+async def delete_task(task_id: str, current_user: User = Depends(get_current_user)):
+    tasks_collection = task_db['tasks']
+    task = tasks_collection.find_one({"_id": ObjectId(task_id)})
+    if task["user_id"] != current_user.id:
+        raise HTTPException(status_code=403, detail="You are not authorized to perform this delete action.")
+
+    if task:
+        task_type = task['task_type']
+        if task_type.startswith('weibo'):
+            weibo_collection = weibo_db[str(task_id)]
+            weibo_collection.delete_one({'_id': ObjectId(task_id)})
+        elif task_type.startswith('jd'):
+            jd_collection = jd_db[str(task_id)]
+            jd_collection.delete_one({'_id': ObjectId(task_id)})
+        result = await tasks_collection.delete_one({'_id': ObjectId(task_id)})
+    if result.deleted_count == 1:
+        return {"message": "Task deleted successfully."}
+    else:
+        raise HTTPException(status_code=404, detail="Task not found.")

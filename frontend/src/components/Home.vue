@@ -206,7 +206,7 @@ export default {
           message.success("加载任务列表成功!",0.3);
         })
         .catch((error) => {
-          message.error("加载失败!(当前用户token过期)");
+          message.error("加载失败!(当前用户token过期)",1);
           console.log(error);
         })
         .finally(() => {
@@ -221,7 +221,7 @@ export default {
         message.success("加载用户信息成功!",0.2)
       } catch (error) {
         console.error(error)
-        message.error("加载用户信息失败!请检查登录状态!")
+        message.error("加载用户信息失败!请检查登录状态!",1)
       }
     },
     handleView(taskId, taskType) {

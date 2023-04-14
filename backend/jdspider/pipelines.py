@@ -40,7 +40,7 @@ class JDspiderPipeline(object):
 
     def process_item(self, item, spider):
         if spider.name == 'JDspider':
-            collection_name = 'jd_products'
+            collection_name = str(spider.task_id)
             collection = self.db[collection_name]
             data = {
                 'name': item['name'],
@@ -83,16 +83,14 @@ class JDcommentPipeline(object):
         self.task_db['tasks'].update_one({'task_id': task_id}, {'$set': {'stats': stats_info}}, upsert=True)
         self.client.close()
 
-
     def process_item(self, item, spider):
-        if spider.name == 'JDcommentspider':
-            collection_name = str(spider.task_id)
-            collection = self.db[collection_name]
-            data = {
-                'name': item['name'],
-                'url': item['url'],
-                'date': item['date'],
-                'content': item['content']
-            }
-            collection.insert_one(data)
+        collection_name = str(spider.task_id)
+        collection = self.db[collection_name]
+        data = {
+            'name': item['name'],
+            'url': item['url'],
+            'date': item['date'],
+            'content': item['content']
+        }
+        collection.insert_one(data)
         return item

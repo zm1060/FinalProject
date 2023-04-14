@@ -30,12 +30,15 @@ class JDcommentspider(scrapy.Spider):
         self.task_id = task_id
         if type(urls) == str:
             self.start_urls = [urls]
+            print(self.start_urls)
         elif type(urls) == list:
             self.start_urls = urls
+            print(self.start_urls)
         else:
             raise RuntimeError("参数必须为字符串或者列表")
         number = re.findall(r"com/(\d+)\.html", self.start_urls[0])[0]
-        self.comment_page_baseurl = 'https://sclub.jd.com/comment/productPageComments.action?productId=' + number + '&score=0&sortType=5&page={0}&pageSize=10'
+        # 'https://club.jd.com/comment/productPageComments.action?callback=fetchJSON_comment98&productId=' + number +'&score=0&sortType=5&page=0&pageSize=10&isShadowSku=0&fold=1'
+        self.comment_page_baseurl = 'https://club.jd.com/comment/productPageComments.action?productId=' + number + '&score=0&sortType=5&page={0}&pageSize=10'
 
     def parse(self, response):
 

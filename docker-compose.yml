@@ -55,8 +55,11 @@ services:
 
   elasticsearch:
     build: ./elasticsearch
+    environment:
+      - discovery.type=single-node
     ports:
-      - "9200"
+      - "9200:9200"
+      - "9300:9300"
 
   rabbitmq:
     build: ./rabbitmq
@@ -73,3 +76,61 @@ services:
 
   spacy:
     build: ./spacy
+
+
+
+  master:
+    image: my-spark-image
+    container_name: spark-master
+    command: bin/spark-class org.apache.spark.deploy.master.Master --ip spark-master
+    ports:
+      - "8080:8080"
+      - "7077:7077"
+      - "50070:50070"
+    volumes:
+      - ./data:/data
+      - ./logs:/opt/hadoop/logs
+      - ./spark-logs:/opt/spark/logs
+    environment:
+      - SPARK_MASTER_HOST=spark-master
+      - SPARK_LOCAL_IP=spark-master
+      - HADOOP_HOME=/opt/hadoop
+      - HADOOP_CONF_DIR=/opt/hadoop/etc/hadoop
+      - SPARK_HOME=/opt/spark
+    depends_on:
+      - worker1
+      - worker2
+
+  worker1:
+    image: my-spark-image
+    container_name: spark-worker1
+    command: bin/spark-class org.apache.spark.deploy.worker.Worker --ip spark-worker1 --webui-port 8081 spark://spark-master:7077
+    volumes:
+      - ./data:/data
+      - ./logs:/opt/hadoop/logs
+      - ./spark-logs:/opt/spark/logs
+    environment:
+      - SPARK_MASTER_HOST=spark-master
+      - SPARK_LOCAL_IP=spark-worker1
+      - HADOOP_HOME=/opt/hadoop
+      - HADOOP_CONF_DIR=/opt/hadoop/etc/hadoop
+      - SPARK_HOME=/opt/spark
+
+  worker2:
+    image: my-spark-image
+    container_name: spark-worker2
+    command: bin/spark-class org.apache.spark.deploy.worker.Worker --ip spark-worker2 --webui-port 8081 spark://spark-master:7077
+    volumes:
+      - ./data:/data
+      - ./logs:/opt/hadoop/logs
+      - ./spark-logs:/opt/spark/logs
+    environment:
+      - SPARK_MASTER_HOST=spark-master
+      - SPARK_LOCAL_IP=spark-worker2
+      - HADOOP_HOME=/opt/hadoop
+      - HADOOP_CONF_DIR=/opt/hadoop/etc/hadoop
+      - SPARK_HOME=/opt/spark
+
+networks:
+  es-net:
+    driver: bridge

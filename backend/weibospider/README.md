@@ -1,8 +1,4 @@
-<p align="center">
-    <br>
-    <img src="./.github/weibospider.png" width="400"/>
-    <br>
-<p>
+
 <p align="center">
   <a href="https://www.codacy.com/gh/nghuyong/WeiboSpider/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=nghuyong/WeiboSpider&amp;utm_campaign=Badge_Grade">
     <img src="https://app.codacy.com/project/badge/Grade/cf88a8b1e6e44c5d993d2cbea7d44c85"
@@ -329,16 +325,3 @@ python run_spider.py search
   "url": "https://weibo.com/1259570181/Mch46rqPr"
 }
 ...
-```
-
-## 更新日志
-
-- 2022.11: 支持针对单个关键词获取单天超过1200页的检索结果 [#257](https://github.com/nghuyong/WeiboSpider/issues/257)
-- 2022.11: 支持长微博全文的获取
-- 2022.11: 基于关键词微博搜索支持指定时间范围
-- 2022.10: 添加IP归属地信息的采集，包括用户数据，微博数据和微博评论数据
-- 2022.10: 基于weibo.com站点对项目进行重构
-
-## 其他工作
-
-- 已构建超大规模数据集WeiboCOV，可免费申请，包含2千万微博活跃用户以及6千万推文数据，参见[这里](https://github.com/nghuyong/weibo-public-opinion-datasets)

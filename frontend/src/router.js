@@ -17,6 +17,7 @@ import FollowerList from "@/components/tables/weibo/FollowerList.vue";
 import FanList from "@/components/tables/weibo/FanList.vue";
 import ProductList from "@/components/tables/jd/ProductList.vue";
 import JDCommentList from "@/components/tables/jd/JDCommentList.vue";
+import TestComponent from "@/components/TestComponent.vue";
 
 const routes = [
   {
@@ -52,7 +53,7 @@ const routes = [
   },
   {
     path: '/data_analysis',
-    component: UserCenter
+    component: TestComponent
   },
   {
     path: '/data_management',

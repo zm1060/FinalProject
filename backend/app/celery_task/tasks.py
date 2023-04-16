@@ -321,3 +321,10 @@ def run_jd_comment_spider(self, urls=None, pages=None):
 
     reactor.run()
     return {'message': f'Spider JD Comment Spider finished running.'}
+
+
+@celery.task(name="tasks.analyze_weibo_comment")
+def analyze_weibo_comment_task(comment):
+    result = analyze_weibo_comment(comment)
+    # do something with the result
+    return result

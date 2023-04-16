@@ -36,6 +36,10 @@ Backend framework.
 ``
  celery -A app.celery_task.tasks worker --loglevel=info -P solo --result-backend=rpc:// -E
 ``
+### Celery in Linux
+```
+celery -A app.celery_task.tasks worker --loglevel=info
+```
 #### use this to delete all history tasks
 ``
 celery -A app.celery_task.tasks purge 

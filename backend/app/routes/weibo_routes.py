@@ -28,7 +28,7 @@ async def run_weibo_user_spider(user_data: dict = Body(...), current_user: User 
     new_task = {
         "task_id": task.id,
         "user_id": user_id,
-        "task_type": "weibo_search",
+        "task_type": "weibo_user",
         "task_time": task_time,
     }
     task_db["tasks"].insert_one(new_task)
@@ -240,8 +240,8 @@ async def get_tweets(task_id: str):
     return results
 
 
-@router.post('/weibo/run_weibo_user_spider')
-async def run_weibo_user_spider(user_data: dict = Body(...), current_user: User = Depends(get_current_user)):
+@router.post('/weibo/run_cmoplex_weibo_user_spider')
+async def run_complex_weibo_user_spider(user_data: dict = Body(...), current_user: User = Depends(get_current_user)):
     user_ids = user_data.get('user_ids')
     cookie = user_data.get('cookie')
     spider_name = 'weibo_user_spider'
@@ -253,7 +253,7 @@ async def run_weibo_user_spider(user_data: dict = Body(...), current_user: User 
     new_task = {
         "task_id": result['jobid'],
         "user_id": user_id,
-        "task_type": "weibo_search",
+        "task_type": "weibo_user",
         "task_time": task_time,
     }
     task_db["tasks"].insert_one(new_task)

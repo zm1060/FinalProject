@@ -12,7 +12,7 @@ class RepostSpider(Spider):
     """
     微博转发数据采集
     """
-    name = "repost"
+    name = "repost_spider"
     tweet_ids = []
     cookie = []
     headers = []

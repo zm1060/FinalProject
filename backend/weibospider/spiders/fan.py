@@ -12,7 +12,7 @@ class FanSpider(Spider):
     """
     微博粉丝数据采集
     """
-    name = "fan"
+    name = "fan_spider"
     base_url = 'https://weibo.com/ajax/friendships/friends'
     headers = []
     cookie = []

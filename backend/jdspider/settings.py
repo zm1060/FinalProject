@@ -1,4 +1,6 @@
+SCRAPYD_PROJECT_NAME = 'jd'
 BOT_NAME = 'jdspider'
+
 
 SPIDER_MODULES = ['jdspider.spiders']
 NEWSPIDER_MODULE = 'jdspider.spiders'
@@ -54,26 +56,20 @@ DOWNLOADER_MIDDLEWARES = {
     'scrapy.downloadermiddlewares.retry.RetryMiddleware': None,
 }
 
-
-
 SCRAPEOPS_API_KEY = 'f2a6e395-b730-498d-a642-ae125870cf32'
 
-# Enable or disable extensions
-# See http://scrapy.readthedocs.org/en/latest/topics/extensions.html
 EXTENSIONS = {
     'scrapeops_scrapy.extension.ScrapeOpsMonitor': 500,
     'scrapy.extensions.telnet.TelnetConsole': None,
 }
 
-# Configure item pipelines
-# See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
+
 ITEM_PIPELINES = {
     'jdspider.pipelines.JDspiderPipeline': 290,
     'jdspider.pipelines.JDcommentPipeline': 290,
 }
 
-# Enable and configure the AutoThrottle extension (disabled by default)
-# See http://doc.scrapy.org/en/latest/topics/autothrottle.html
+
 AUTOTHROTTLE_ENABLED = True
 # The initial download delay
 AUTOTHROTTLE_START_DELAY = 5

@@ -12,7 +12,7 @@ class CommentSpider(Spider):
     """
     微博评论数据采集
     """
-    name = "comment"
+    name = "comment_spider"
     tweet_ids = []
     cookie = []
     headers = []

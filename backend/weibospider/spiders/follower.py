@@ -12,7 +12,7 @@ class FollowerSpider(Spider):
     """
     微博关注数据采集
     """
-    name = "follower"
+    name = "follower_spider"
     base_url = 'https://weibo.com/ajax/friendships/friends'
     user_ids = []
     cookie = []

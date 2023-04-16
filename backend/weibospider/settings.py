@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-
+SCRAPYD_PROJECT_NAME = 'weibo'
 BOT_NAME = 'weibospider'
 
 SPIDER_MODULES = ['weibospider.spiders']

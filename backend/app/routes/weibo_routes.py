@@ -7,6 +7,8 @@ from app.db.task_db import task_db
 from app.db.weibo_db import db
 from app.dependencies import get_current_user
 from app.models.user import User
+from app.scrapyd import deploy_spider
+from weibospider.settings import SCRAPYD_PROJECT_NAME
 
 router = APIRouter()
 
@@ -236,3 +238,23 @@ async def get_tweets(task_id: str):
     for result in collection.find():
         results.append(result)
     return results
+
+
+@router.post('/weibo/run_weibo_user_spider')
+async def run_weibo_user_spider(user_data: dict = Body(...), current_user: User = Depends(get_current_user)):
+    user_ids = user_data.get('user_ids')
+    cookie = user_data.get('cookie')
+    spider_name = 'weibo_user_spider'
+
+    result = deploy_spider(SCRAPYD_PROJECT_NAME, spider_name)
+
+    user_id = current_user.id
+    task_time = datetime.now()
+    new_task = {
+        "task_id": result['jobid'],
+        "user_id": user_id,
+        "task_type": "weibo_search",
+        "task_time": task_time,
+    }
+    task_db["tasks"].insert_one(new_task)
+    return {'task_id': result['jobid']}

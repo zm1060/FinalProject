@@ -6,13 +6,13 @@ ENV PYTHONPATH=/backend/pre_process
 
 WORKDIR /backend
 
-RUN apt-get update && apt-get install -y \
-    default-jre \
-    default-jdk \
-    git \
-    build-essential \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+#RUN apt-get update && apt-get install -y \
+#    default-jre \
+#    default-jdk \
+#    git \
+#    build-essential \
+#    && apt-get clean \
+#    && rm -rf /var/lib/apt/lists/*
 
 
 

@@ -1,7 +1,7 @@
 from pymongo import MongoClient
-from weibospider.settings import MONGO_URI
+from weibospider.settings import MONGODB_URL
 
-client = MongoClient(MONGO_URI)
+client = MongoClient(MONGODB_URL)
 
 task_db = client['users']
 tasks_collection = task_db['tasks']

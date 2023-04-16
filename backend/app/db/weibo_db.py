@@ -1,5 +1,5 @@
 from pymongo import MongoClient
-from weibospider.settings import MONGO_URI, MONGO_DATABASE
-client = MongoClient(MONGO_URI)
+from weibospider.settings import MONGODB_URL, MONGODB_DATABASE
+client = MongoClient(MONGODB_URL)
 
-db = client[MONGO_DATABASE]
+db = client[MONGODB_DATABASE]

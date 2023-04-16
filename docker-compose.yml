@@ -6,26 +6,50 @@ services:
     depends_on:
       - backend
     environment:
-      MONGO_URI: "mongodb://mongodb:27017"
-      CELERY_BROKER_URL: "amqp://guest:guest@rabbitmq:5672//"
+      API_URL: http://backend:8080
+
 
   backend:
     build: ./backend
     ports:
       - "8080:8080"
     environment:
+      - CELERY_BROKER_URL=amqp://guest:guest@rabbitmq:5672/
       - RABBITMQ_DEFAULT_USER=admin
       - RABBITMQ_DEFAULT_PASS=admin
       - RABBITMQ_DEFAULT_VHOST=/
+      - BACKEND_URL=rpc://
+      - BROKER_URL=amqp://admin:admin@localhost:5672/
+      - REDIS_BACKEND_URL=redis://redis:6379/0
+      - DB_USER=root
+      - DB_PASSWORD=Zm.1575098153
+      - DB_HOST=mysql
+      - DB_PORT=3306
+      - DB_NAME=fast
+      - DB_CHARSET=utf8
+      - DB_AUTH_PLUGIN=mysql_native_password
       - CELERY_BROKER_URL=amqp://admin:admin@rabbitmq:5672/
       - CELERY_RESULT_BACKEND=rpc://
       - CELERY_LOG_LEVEL=debug
       - FLOWER_BASIC_AUTH=admin:password
+      - MONGODB_URL=mongodb://mongodb:27017
     depends_on:
       - mysql
       - mongodb
       - rabbitmq
       - flower
+      - celery
+      - elasticsearch
+#    command: celery -A app.celery_task.tasks worker --loglevel=info
+
+  celery:
+    build: ./backend
+    environment:
+      - CELERY_BROKER_URL=amqp://admin:admin@rabbitmq:5672/
+      - CELERY_RESULT_BACKEND=rpc://
+      - CELERY_LOG_LEVEL=info
+    depends_on:
+      - backend
     command: celery -A app.celery_task.tasks worker --loglevel=info
 
   flower:
@@ -68,7 +92,6 @@ services:
       - "15672:15672"
 
 
-
   redis:
     build: ./redis
     ports:
@@ -77,60 +100,3 @@ services:
   spacy:
     build: ./spacy
 
-
-
-  master:
-    image: my-spark-image
-    container_name: spark-master
-    command: bin/spark-class org.apache.spark.deploy.master.Master --ip spark-master
-    ports:
-      - "8080:8080"
-      - "7077:7077"
-      - "50070:50070"
-    volumes:
-      - ./data:/data
-      - ./logs:/opt/hadoop/logs
-      - ./spark-logs:/opt/spark/logs
-    environment:
-      - SPARK_MASTER_HOST=spark-master
-      - SPARK_LOCAL_IP=spark-master
-      - HADOOP_HOME=/opt/hadoop
-      - HADOOP_CONF_DIR=/opt/hadoop/etc/hadoop
-      - SPARK_HOME=/opt/spark
-    depends_on:
-      - worker1
-      - worker2
-
-  worker1:
-    image: my-spark-image
-    container_name: spark-worker1
-    command: bin/spark-class org.apache.spark.deploy.worker.Worker --ip spark-worker1 --webui-port 8081 spark://spark-master:7077
-    volumes:
-      - ./data:/data
-      - ./logs:/opt/hadoop/logs
-      - ./spark-logs:/opt/spark/logs
-    environment:
-      - SPARK_MASTER_HOST=spark-master
-      - SPARK_LOCAL_IP=spark-worker1
-      - HADOOP_HOME=/opt/hadoop
-      - HADOOP_CONF_DIR=/opt/hadoop/etc/hadoop
-      - SPARK_HOME=/opt/spark
-
-  worker2:
-    image: my-spark-image
-    container_name: spark-worker2
-    command: bin/spark-class org.apache.spark.deploy.worker.Worker --ip spark-worker2 --webui-port 8081 spark://spark-master:7077
-    volumes:
-      - ./data:/data
-      - ./logs:/opt/hadoop/logs
-      - ./spark-logs:/opt/spark/logs
-    environment:
-      - SPARK_MASTER_HOST=spark-master
-      - SPARK_LOCAL_IP=spark-worker2
-      - HADOOP_HOME=/opt/hadoop
-      - HADOOP_CONF_DIR=/opt/hadoop/etc/hadoop
-      - SPARK_HOME=/opt/spark
-
-networks:
-  es-net:
-    driver: bridge

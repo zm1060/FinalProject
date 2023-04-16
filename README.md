@@ -14,7 +14,8 @@
     <p>持续维护</p>
 </h4>
 
-
+pypiwin32==223
+pywin32==305
 ## Crawler
 This moudle will collect information from websites like JD, weibo...
 ### modern crawler frameworks.

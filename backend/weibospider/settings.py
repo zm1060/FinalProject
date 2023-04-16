@@ -35,5 +35,9 @@ DOWNLOADER_MIDDLEWARES = {
 ITEM_PIPELINES = {
     'weibospider.pipelines.MongoDBPipeline': 300,
 }
-MONGO_URI = 'mongodb://localhost:27017/'
-MONGO_DATABASE = 'weibo'
+import os
+
+MONGODB_URL = os.getenv('MONGODB_URL', 'mongodb://localhost:27017')
+# MONGO_URI = 'mongodb://localhost:27017/'
+# MONGO_URI = 'mongodb://mongodb:27017/'
+MONGODB_DATABASE = 'weibo'

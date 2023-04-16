@@ -85,5 +85,9 @@ AUTOTHROTTLE_DEBUG = False
 # HTTPCACHE_DIR = 'httpcache'
 # HTTPCACHE_IGNORE_HTTP_CODES = []
 # HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
-MONGO_URI = 'mongodb://localhost:27017/'
-MONGO_DATABASE = 'jd'
+import os
+
+MONGODB_URL = os.getenv('MONGODB_URL', 'mongodb://localhost:27017')
+# MONGO_URI = 'mongodb://localhost:27017/'
+# MONGO_URI = 'mongodb://mongodb:27017/'
+MONGODB_DATABASE = 'jd'

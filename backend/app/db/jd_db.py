@@ -1,6 +1,7 @@
 from pymongo import MongoClient
-from jdspider.settings import MONGO_URI, MONGO_DATABASE
 
-client = MongoClient(MONGO_URI)
+from jdspider.settings import MONGODB_DATABASE, MONGODB_URL
 
-db = client[MONGO_DATABASE]
+client = MongoClient(MONGODB_URL)
+
+db = client[MONGODB_DATABASE]

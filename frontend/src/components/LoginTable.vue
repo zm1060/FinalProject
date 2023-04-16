@@ -20,8 +20,7 @@
   </div>
 </template>
 <script>
-import axios from "axios";
-import {setAuthToken} from "@/api/axiosInstance";
+import axiosInstance, {setAuthToken} from "@/api/axiosInstance";
 
 export default {
   name: "LoginTable",
@@ -47,7 +46,7 @@ export default {
   methods: {
     async login() {
       try {
-        const response = await axios.post("http://localhost:8080/login", this.loginData, {
+        const response = await axiosInstance.post("/login", this.loginData, {
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
             'accept': 'application/json'

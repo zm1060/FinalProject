@@ -3,16 +3,20 @@ import os
 # RabbitMQ Configuration
 # rabbitmq is container's name
 # if you want to run it local, you should set it too localhost
-# BROKER_URL = 'pyamqp://admin:admin@rabbitmq//'
 
-BROKER_URL = 'amqp://admin:admin@localhost:5672/'
-BACKEND_URL = 'rpc://'
-CELERY_RESULT_BACKEND = 'amqp://admin:admin@localhost:5672/'
-# BACKEND_URL = 'amqp://guest:guest@localhost:5672/'
-REDIS_BACKEND_URL = 'redis://localhost:6379/0'
+BROKER_URL = os.getenv("BROKER_URL", "amqp://admin:admin@localhost/")
+
+# BROKER_URL = os.getenv("BROKER_URL", "amqp://admin:admin@localhost:5672/")
+BACKEND_URL = os.getenv("BACKEND_URL", "rpc://")
+# CELERY_RESULT_BACKEND = os.getenv("CELERY_RESULT_BACKEND", "amqp://admin:admin@localhost:5672/")
+CELERY_RESULT_BACKEND = os.getenv("CELERY_RESULT_BACKEND", "amqp://admin:admin@localhost:5672/")
+
+# BACKEND_URL = os.getenv("BACKEND_URL", "amqp://guest:guest@localhost:5672/")
+REDIS_BACKEND_URL = os.getenv("REDIS_BACKEND_URL", "redis://localhost:6379/0")
 # Database Configuration
 DB_USER = os.getenv("DB_USER", "root")
 DB_PASSWORD = os.getenv("DB_PASSWORD", "Zm.1575098153")
+
 # DB_HOST = os.getenv("DB_HOST", "mysql")
 DB_HOST = os.getenv("DB_HOST", "localhost")
 DB_PORT = os.getenv("DB_PORT", "3306")

@@ -40,7 +40,6 @@ services:
       - flower
       - celery
       - elasticsearch
-#    command: celery -A app.celery_task.tasks worker --loglevel=info
 
   celery:
     build: ./backend
@@ -48,8 +47,7 @@ services:
       - CELERY_BROKER_URL=amqp://admin:admin@rabbitmq:5672/
       - CELERY_RESULT_BACKEND=rpc://
       - CELERY_LOG_LEVEL=info
-    depends_on:
-      - backend
+      - MONGODB_URL=mongodb://mongodb:27017
     command: celery -A app.celery_task.tasks worker --loglevel=info
 
   flower:

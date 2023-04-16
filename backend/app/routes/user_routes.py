@@ -3,6 +3,7 @@ from typing import Optional
 from fastapi import APIRouter, Depends, Body, HTTPException
 from sqlalchemy.orm import Session
 
+from app.celery_task.tasks import celery
 from app.db.task_db import task_db, tasks_collection
 from app.db.jd_db import db as jd_db
 from app.db.weibo_db import db as weibo_db
@@ -79,5 +80,14 @@ async def delete_task(task_id: str, current_user: User = Depends(get_current_use
     database.drop_collection(collection_name)
 
     return {"message": "Task deleted successfully."}
+
+@router.post("/tasks/stop/{task_id}")
+def stop_task(task_id: str):
+    result = celery.AsyncResult(task_id)
+    task_data = result.result  # get the data of the task
+    result.revoke(terminate=True)  # terminate the task
+    # save the task data to a persistent storage
+    # save_task_data_to_database(task_data)
+    return {"status": "Task stopped successfully."}
 
 

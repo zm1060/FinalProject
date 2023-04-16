@@ -36,9 +36,7 @@ services:
     depends_on:
       - mysql
       - mongodb
-      - rabbitmq
       - flower
-      - celery
       - elasticsearch
 
   celery:
@@ -48,6 +46,8 @@ services:
       - CELERY_RESULT_BACKEND=rpc://
       - CELERY_LOG_LEVEL=info
       - MONGODB_URL=mongodb://mongodb:27017
+    depends_on:
+      - rabbitmq
     command: celery -A app.celery_task.tasks worker --loglevel=info
 
   flower:
@@ -57,7 +57,7 @@ services:
     ports:
       - "5555:5555"
     depends_on:
-      - rabbitmq
+      - celery
     command: flower --app=app.celery_task.tasks --broker=amqp://admin:admin@rabbitmq:5672// --port=5555
 
   mysql:
@@ -98,3 +98,44 @@ services:
   spacy:
     build: ./spacy
 
+  master:
+    image: crawlabteam/crawlab:latest
+    container_name: crawlab_example_master
+    environment:
+      CRAWLAB_NODE_MASTER: "Y"
+      CRAWLAB_MONGO_HOST: "mongo"
+    volumes:
+      - "./.crawlab/master:/root/.crawlab"
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mongo
+
+  worker01:
+    image: crawlabteam/crawlab:latest
+    container_name: crawlab_example_worker01
+    environment:
+      CRAWLAB_NODE_MASTER: "N"
+      CRAWLAB_GRPC_ADDRESS: "master"
+      CRAWLAB_FS_FILER_URL: "http://master:8080/api/filer"
+    volumes:
+      - "./.crawlab/worker01:/root/.crawlab"
+    depends_on:
+      - master
+
+  worker02:
+    image: crawlabteam/crawlab:latest
+    container_name: crawlab_example_worker02
+    environment:
+      CRAWLAB_NODE_MASTER: "N"
+      CRAWLAB_GRPC_ADDRESS: "master"
+      CRAWLAB_FS_FILER_URL: "http://master:8080/api/filer"
+    volumes:
+      - "./.crawlab/worker02:/root/.crawlab"
+    depends_on:
+      - master
+
+  mongo:
+    image: mongo:4.2
+    container_name: crawlab_example_mongo
+    restart: always

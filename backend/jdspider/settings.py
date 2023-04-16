@@ -50,12 +50,19 @@ SPIDER_MIDDLEWARES = {
 DOWNLOADER_MIDDLEWARES = {
     # 'jdspiders.middlewares.MyCustomDownloaderMiddleware': 543,
     'jdspider.middlewares.UserAgentmiddleware': 400,
+    'scrapeops_scrapy.middleware.retry.RetryMiddleware': 550,
+    'scrapy.downloadermiddlewares.retry.RetryMiddleware': None,
 }
+
+
+
+SCRAPEOPS_API_KEY = 'f2a6e395-b730-498d-a642-ae125870cf32'
 
 # Enable or disable extensions
 # See http://scrapy.readthedocs.org/en/latest/topics/extensions.html
 EXTENSIONS = {
-   'scrapy.extensions.telnet.TelnetConsole': None,
+    'scrapeops_scrapy.extension.ScrapeOpsMonitor': 500,
+    'scrapy.extensions.telnet.TelnetConsole': None,
 }
 
 # Configure item pipelines

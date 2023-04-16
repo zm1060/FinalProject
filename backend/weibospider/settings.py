@@ -30,7 +30,15 @@ DOWNLOADER_MIDDLEWARES = {
     'scrapy.extensions.telnet.TelnetConsole': 500,
     'weibospider.middlewares.IPProxyMiddleware': 100,
     'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware': 101,
+    'scrapeops_scrapy.middleware.retry.RetryMiddleware': 550,
+    'scrapy.downloadermiddlewares.retry.RetryMiddleware': None,
 }
+SCRAPEOPS_API_KEY = 'f2a6e395-b730-498d-a642-ae125870cf32'
+EXTENSIONS = {
+    'scrapeops_scrapy.extension.ScrapeOpsMonitor': 500,
+    'scrapy.extensions.telnet.TelnetConsole': None,
+}
+
 
 ITEM_PIPELINES = {
     'weibospider.pipelines.MongoDBPipeline': 300,

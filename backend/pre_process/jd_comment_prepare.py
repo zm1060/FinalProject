@@ -54,7 +54,7 @@ def generate_charts(df, word_counts, task_id):
     plt.close()
 
     # Create a word cloud of the most common words
-    font_path = "C:/Windows/Fonts/simhei.ttf"
+    font_path = "../SimHei.ttf"
     wordcloud = WordCloud(
         background_color='white',
         max_words=50,
@@ -80,7 +80,7 @@ def generate_charts(df, word_counts, task_id):
 # Connect to MongoDB
 client = pymongo.MongoClient("mongodb://localhost:27017")
 db = client['weibo']
-task_id = '4dc92e7d-1152-4fdf-b105-ba1401dedce8'
+task_id = '2013ec2e-a68f-4de3-a0ec-8bc03437b5fe'
 collection = db[task_id]
 
 # Find the data that matches the query

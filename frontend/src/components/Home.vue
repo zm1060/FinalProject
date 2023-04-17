@@ -60,18 +60,19 @@
         </div>
 
         <div class="table">
-          <h2>Task List</h2>
+          <h2>任务列表</h2>
           <a-table :columns="columns" :data-source="tasks" :loading="loading">
             <template v-slot:action="{ record }">
               <span>
                 <a-button type="primary" @click="handleView(record.task_id, record.task_type)">
-                  View
+                  查看
                 </a-button>
+                <a-button type="primary" @click="handleAnalyze(record.task_id)">分析</a-button>
                 <a-popconfirm
                   title="Are you sure to delete this task?"
                   @confirm="handleDelete(record.task_id)"
                 >
-                  <a-button type="danger">Delete</a-button>
+                  <a-button type="danger">删除</a-button>
                 </a-popconfirm>
               </span>
             </template>
@@ -122,32 +123,32 @@ export default {
           loading: false,
           columns: [
             {
-              title: "Task ID",
+              title: "任务ID",
               dataIndex: "task_id",
               key: "task_id",
             },
             {
-              title: "Task Type",
+              title: "任务种类",
               dataIndex: "task_type",
               key: "task_type",
             },
             {
-              title: "Task Time",
+              title: "开始时间",
               dataIndex: "task_time",
               key: "task_time",
             },
             {
-              title: "Finish Time",
+              title: "完成时间",
               dataIndex: ["stats", "finish_time"],
               key: "finish_time",
             },
             {
-              title: "Item Scraped Count",
+              title: "爬取条目数量",
               dataIndex: ["stats", "item_scraped_count"],
               key: "item_scraped_count",
             },
             {
-              title: "Action",
+              title: "操作",
               key: "action",
               slots: { customRender: "action" },
             },
@@ -173,7 +174,7 @@ export default {
       const seriesData = xAxisData.map(key => data[key]);
 
       this.chartOptions.title = {
-        text: 'Task Types'
+        text: '任务种类'
       };
       this.chartOptions.tooltip = {};
       this.chartOptions.legend = {
@@ -247,6 +248,18 @@ export default {
           message.error("删除失败!");
           console.log(error);
         });
+    },
+    handleAnalyze(taskId){
+      axiosInstance.get(`/weibo/analyze/${taskId}`)
+          .then((response)=>{
+            message.success("Success!");
+            console.log(response);
+          })
+          .catch((error)=>{
+              message.error("Error!");
+              console.log(error);
+          })
+
     },
 
   },

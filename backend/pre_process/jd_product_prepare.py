@@ -2,15 +2,11 @@ import pymongo
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
-from sklearn.cluster import KMeans
-from sklearn.linear_model import LinearRegression
-from sklearn.model_selection import train_test_split
-from nltk.sentiment import SentimentIntensityAnalyzer
 
 # Connect to MongoDB
 client = pymongo.MongoClient("mongodb://localhost:27017")
 db = client['jd']
-task_id = 'ed44f3ac-3a7d-4897-b05b-e59005dbba3b'
+task_id = '71218c68-c7cf-4451-9e34-2d8547458611'
 collection = db[task_id]
 
 # 读取所有商品数据

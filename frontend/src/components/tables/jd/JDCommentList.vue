@@ -1,8 +1,8 @@
 <template>
   <div>
-    <a-button type="primary" @click="$router.push('/home')">Back to Homepage</a-button>
+    <a-button type="primary" @click="$router.push('/home')">回到主页</a-button>
     <a-input v-model:value="inputtaskId" placeholder="Enter Task ID" @pressEnter="getCommentData" />
-    <a-button @click="getCommentData">Fetch Data</a-button>
+    <a-button @click="getCommentData">获取数据</a-button>
     <a-table :columns="columns"
              :dataSource="commentData"
              v-if="commentData.length > 0"/>
@@ -52,12 +52,12 @@ export default {
           key: "url",
         },
         {
-          title: "Date",
+          title: "日期",
           dataIndex: "date",
           key: "date",
         },
         {
-          title: "Content",
+          title: "评论内容",
           dataIndex: "content",
           key: "content",
         },

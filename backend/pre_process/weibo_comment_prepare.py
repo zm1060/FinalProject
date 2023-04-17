@@ -54,7 +54,7 @@ def generate_charts(df, word_counts, task_id):
     plt.close()
 
     # Create a word cloud of the most common words
-    font_path = "C:/Windows/Fonts/simhei.ttf"
+    font_path = "C:/Windows/Fonts/SimHei.ttf"
     wordcloud = WordCloud(
         background_color='white',
         max_words=50,

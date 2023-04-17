@@ -1,8 +1,8 @@
 <template>
   <div>
-    <a-button type="primary" @click="$router.push('/home')">Back to Homepage</a-button>
+    <a-button type="primary" @click="$router.push('/home')">回到主页</a-button>
     <a-input v-model:value="inputtaskId" placeholder="Enter Task ID" @pressEnter="getFanData" />
-    <a-button @click="getFanData">Fetch Data</a-button>
+    <a-button @click="getFanData">获取数据</a-button>
     <a-table :columns="columns"
              :dataSource="fanData"
              v-if="fanData.length > 0"/>
@@ -68,7 +68,7 @@ export default {
           }
         },
         {
-          title: "Nick Name",
+          title: "昵称",
           dataIndex: ["fan_info", "nick_name"],
           key: "nick_name",
         },
@@ -83,12 +83,12 @@ export default {
           key: "description",
         },
         {
-          title: "Followers Count",
+          title: "粉丝数量",
           dataIndex: ["fan_info", "followers_count"],
           key: "followers_count",
         },
         {
-          title: "Friends Count",
+          title: "朋友数量",
           dataIndex: ["fan_info", "friends_count"],
           key: "friends_count",
         },
@@ -98,12 +98,12 @@ export default {
           key: "statuses_count",
         },
         {
-          title: "Gender",
+          title: "性别",
           dataIndex: ["fan_info", "gender"],
           key: "gender",
         },
         {
-          title: "Location",
+          title: "位置",
           dataIndex: ["fan_info", "location"],
           key: "location",
         },
@@ -118,7 +118,7 @@ export default {
           key: "mbtype",
         },
         {
-          title: "Credit Score",
+          title: "信用分",
           dataIndex: ["fan_info", "credit_score"],
           key: "credit_score",
         },

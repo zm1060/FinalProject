@@ -1,8 +1,8 @@
 <template>
   <div>
-    <a-button type="primary" @click="$router.push('/home')">Back to Homepage</a-button>
+    <a-button type="primary" @click="$router.push('/home')">回到主页</a-button>
     <a-input v-model:value="inputtaskId" placeholder="Enter Task ID" @pressEnter="getSearchData" />
-    <a-button @click="getSearchData">Fetch Data</a-button>
+    <a-button @click="getSearchData">获取数据</a-button>
     <a-table :columns="columns"
              :dataSource="searchData"
               v-if="searchData.length > 0"/>
@@ -46,7 +46,7 @@ export default {
           key: "follower_avatar",
         },
         {
-          title: "Nick Name",
+          title: "昵称",
           dataIndex: "nick_name",
           key: "nick_name",
         },
@@ -61,12 +61,12 @@ export default {
           key: "description",
         },
         {
-          title: "Followers Count",
+          title: "关注数量",
           dataIndex: "followers_count",
           key: "followers_count",
         },
         {
-          title: "Friends Count",
+          title: "朋友数量",
           dataIndex: "friends_count",
           key: "friends_count",
         },
@@ -76,27 +76,27 @@ export default {
           key: "status_count",
         },
         {
-          title: "Gender",
+          title: "性别",
           dataIndex: "gender",
           key: "gender",
         },
         {
-          title: "Location",
+          title: "位置",
           dataIndex: "location",
           key: "location",
         },
         {
-          title: "Verified Type",
+          title: "认证种类",
           dataIndex: "verified_type",
           key: "verified_type",
         },
         {
-          title: "Verified Reason",
+          title: "认证原因",
           dataIndex: "verified_reason",
           key: "verified_reason",
         },
         {
-          title: "Birthday",
+          title: "生日",
           dataIndex: "birthday",
           key: "birthday",
         },
@@ -106,12 +106,12 @@ export default {
           key: "created_at",
         },
         {
-          title: "Desc Text",
+          title: "描述文本",
           dataIndex: "desc_text",
           key: "desc_text",
         },
         {
-          title: "IP Loaction",
+          title: "IP地址",
           dataIndex: "ip_location",
           key: "ip_location",
         },
@@ -126,12 +126,12 @@ export default {
           key: "label_desc",
         },
         {
-          title: "Company",
+          title: "公司",
           dataIndex: "company",
           key: "company",
         },
         {
-          title: "Eduction",
+          title: "教育",
           dataIndex: ["eduction", "school"],
           key: "eduction",
         },

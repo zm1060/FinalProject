@@ -1,8 +1,8 @@
 <template>
   <div>
-    <a-button type="primary" @click="$router.push('/home')">Back to Homepage</a-button>
+    <a-button type="primary" @click="$router.push('/home')">回到主页</a-button>
     <a-input v-model:value="inputtaskId" placeholder="Enter Task ID" @pressEnter="getUserData" />
-    <a-button @click="getUserData">Fetch Data</a-button>
+    <a-button @click="getUserData">获取数据</a-button>
     <a-table :columns="columns"
              :dataSource="userData"
              v-if="userData.length > 0"/>
@@ -40,23 +40,23 @@ export default {
           scopedSlots: { customRender: 'avatar' },
         },
         {
-          title: 'Name',
+          title: '昵称',
           dataIndex: 'nick_name',
         },
         {
-          title: 'Location',
+          title: '地址',
           dataIndex: 'location',
         },
         {
-          title: 'Gender',
+          title: '性别',
           dataIndex: 'gender',
         },
         {
-          title: 'Followers Count',
+          title: '关注数量',
           dataIndex: 'followers_count',
         },
         {
-          title: 'Friends Count',
+          title: '朋友数量',
           dataIndex: 'friends_count',
         },
         {
@@ -64,11 +64,11 @@ export default {
           dataIndex: 'statuses_count',
         },
         {
-          title: 'Verified Reason',
+          title: '验证原因',
           dataIndex: 'verified_reason',
         },
         {
-          title: 'Birthday',
+          title: '生日',
           dataIndex: 'birthday',
         },
         {
@@ -80,7 +80,7 @@ export default {
           dataIndex: 'desc_text',
         },
         {
-          title: 'IP Location',
+          title: 'IP地址',
           dataIndex: 'ip_location',
         },
         {

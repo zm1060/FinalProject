@@ -1,7 +1,7 @@
 <template>
   <a-menu mode="horizontal">
       <a-menu-item>
-        <a-button type="primary" @click="$router.push('/home')">Back to Homepage</a-button>
+        <a-button type="primary" @click="$router.push('/home')">回到主页</a-button>
       </a-menu-item>
       <a-menu-item>
         <a-button @click="$router.push('/task_center')">任务列表</a-button>

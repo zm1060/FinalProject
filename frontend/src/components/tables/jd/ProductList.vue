@@ -1,8 +1,8 @@
 <template>
   <div>
-    <a-button type="primary" @click="$router.push('/home')">Back to Homepage</a-button>
+    <a-button type="primary" @click="$router.push('/home')">回到主页</a-button>
     <a-input v-model:value="inputtaskId" placeholder="Enter Task ID" @pressEnter="getProductData" />
-    <a-button @click="getProductData">Fetch Data</a-button>
+    <a-button @click="getProductData">获取数据</a-button>
     <a-table :columns="columns"
              :dataSource="productData"
              v-if="productData.length > 0"/>

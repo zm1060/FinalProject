@@ -1,8 +1,8 @@
 <template>
   <div>
-    <a-button type="primary" @click="$router.push('/home')">Back to Homepage</a-button>
+    <a-button type="primary" @click="$router.push('/home')">回到主页</a-button>
     <a-input v-model:value="inputtaskId" placeholder="Enter Task ID" @pressEnter="getCommentData" />
-    <a-button @click="getCommentData">Fetch Data</a-button>
+    <a-button @click="getCommentData">获取数据</a-button>
     <a-table :columns="columns"
              :dataSource="commentData"
              v-if="commentData.length > 0"/>
@@ -47,52 +47,52 @@ export default {
           key: "created_at",
         },
         {
-          title: "Like Counts",
+          title: "点赞数量",
           dataIndex: "like_counts",
           key: "like_counts",
         },
         {
-          title: "IP Location",
+          title: "IP地址",
           dataIndex: "ip_location",
           key: "ip_location",
         },
         {
-          title: "Content",
+          title: "内容",
           dataIndex: "content",
           key: "content",
         },
         {
-          title: "Comment User ID",
+          title: "评论者ID",
           dataIndex: ["comment_user", "_id"],
           key: "comment_user_id",
         },
         {
-          title: "Comment User Avatar",
+          title: "评论者Avatar",
           dataIndex: ["comment_user", "avatar_hd"],
           key: "comment_user_avatar",
         },
         {
-          title: "Comment User Nick Name",
+          title: "评论者昵称",
           dataIndex: ["comment_user", "nick_name"],
           key: "comment_user_nick_name",
         },
         {
-          title: "Comment User Verified",
+          title: "评论者Verified",
           dataIndex: ["comment_user", "verified"],
           key: "comment_user_verified",
         },
         {
-          title: "Comment User Description",
+          title: "评论者描述",
           dataIndex: ["comment_user", "description"],
           key: "comment_user_description",
         },
         {
-          title: "Comment User Followers Count",
+          title: "评论者关注者数量",
           dataIndex: ["comment_user", "followers_count"],
           key: "comment_user_followers_count",
         },
         {
-          title: "Comment User Friends Count",
+          title: "评论者朋友数量",
           dataIndex: ["comment_user", "friends_count"],
           key: "comment_user_friends_count",
         },
@@ -102,12 +102,12 @@ export default {
           key: "comment_user_statuses_count",
         },
         {
-          title: "Comment User Gender",
+          title: "评论者性别",
           dataIndex: ["comment_user", "gender"],
           key: "comment_user_gender",
         },
         {
-          title: "Comment User Location",
+          title: "评论者位置",
           dataIndex: ["comment_user", "location"],
           key: "comment_user_location",
         },

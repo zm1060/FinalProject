@@ -1,8 +1,8 @@
 <template>
   <div>
-    <a-button type="primary" @click="$router.push('/home')">Back to Homepage</a-button>
+    <a-button type="primary" @click="$router.push('/home')">回到主页</a-button>
     <a-input v-model:value="inputtaskId" placeholder="Enter Task ID" @pressEnter="getRepostData" />
-    <a-button @click="getRepostData">Fetch Data</a-button>
+    <a-button @click="getRepostData">获取数据</a-button>
     <a-table :columns="columns"
              :dataSource="repostData"
              v-if="repostData.length > 0"/>
@@ -57,17 +57,17 @@ export default {
           key: "geo",
         },
         {
-          title: "IP Location",
+          title: "IP地址",
           dataIndex: "ip_location",
           key: "ip_location",
         },
         {
-          title: "Reposts Count",
+          title: "转发量",
           dataIndex: "reposts_count",
           key: "reposts_count",
         },
         {
-          title: "Comments Count",
+          title: "评论量",
           dataIndex: "comments_count",
           key: "comments_count",
         },
@@ -77,12 +77,12 @@ export default {
           key: "attitudes_count",
         },
         {
-          title: "Source",
+          title: "源",
           dataIndex: "source",
           key: "source",
         },
         {
-          title: "Content",
+          title: "内容",
           dataIndex: "content",
           key: "content",
         },
@@ -102,7 +102,7 @@ export default {
           key: "avatar",
         },
         {
-          title: "Nick Name",
+          title: "昵称",
           dataIndex: ["user", "nick_name"],
           key: "nick_name",
         },

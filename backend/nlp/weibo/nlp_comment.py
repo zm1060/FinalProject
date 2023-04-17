@@ -49,18 +49,51 @@
 #         print(word, "PERSON")
 #
 #
-# from textblob import TextBlob
-#
-# text = "这个餐厅的食物很好吃"
-# blob = TextBlob(text)
-#
-# if blob.sentiment.polarity > 0:
-#     print("Positive sentiment")
-# elif blob.sentiment.polarity < 0:
-#     print("Negative sentiment")
-# else:
-#     print("Neutral sentiment")
-#
+from textblob import TextBlob
+
+# 创建一个TextBlob对象
+text = TextBlob("I love this product, it's amazing!")
+
+# 分析情感
+sentiment = text.sentiment.polarity
+
+# 输出情感分析结果
+if sentiment > 0:
+    print("Positive")
+elif sentiment == 0:
+    print("Neutral")
+else:
+    print("Negative")
+
+
+from snownlp import SnowNLP
+
+word = u'这个姑娘真好看'
+s = SnowNLP(word)
+print(s.words)        # 分词
+print(list(s.tags))   # 词性标注
+print(s.sentiments)   # 情感分数
+print(s.pinyin)       # 拼音
+print(SnowNLP(u'蒹葭蒼蒼，白露為霜。所謂伊人，在水一方。').han)  # 繁体字转简体
+
+
+text = u'''
+考研后期听了姐姐的线代和概率，真的给了我超级大的帮助，考试的时候也用上了姐姐教的方法[奋斗]感谢姐姐考研后期的陪伴[抱一抱]
+'''
+
+s = SnowNLP(text)
+
+print(s.keywords(limit=3))        # 关键词提取
+print('--------------------------------')
+summary = s.summary(limit=4)      # 文本概括
+for i in summary:
+    print(i)
+
+print('--------------------------------')
+
+print(s.sentences)        # 句子
+
+
 #
 # # Topic modeling using jieba
 # import jieba.analyse
@@ -107,5 +140,5 @@
 # print(response.choices[0].text)
 
 
-from ltp import LTP
-ltp = LTP() # 默认加载 LTP/Small 模型
+# from ltp import LTP
+# ltp = LTP() # 默认加载 LTP/Small 模型

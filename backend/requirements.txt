@@ -73,6 +73,7 @@ SQLAlchemy==2.0.4
 srsly==2.4.6
 starlette==0.13.6
 thinc==8.1.9
+
 tld==0.13
 tldextract==3.4.0
 tornado==6.2

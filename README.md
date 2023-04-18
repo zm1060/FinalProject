@@ -62,6 +62,16 @@ Use Vue Components
 
 
 
+## ToDO
+更新首页任务的显示。
+<br>
+更新页面的语言。
+<br>
+可视化分析模块。
+
+
+
+
 
 ## Development Notes
 ### use this to output the dependency

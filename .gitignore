@@ -3,3 +3,8 @@ backend/model/__pycache__/__init__.cpython-310.pyc
 backend/model/__pycache__/Task.cpython-310.pyc
 backend/model/__pycache__/User.cpython-310.pyc
 /node_modules/
+/zh_core_web_lg-3.5.0-py3-none-any.whl
+/zh_core_web_md-3.5.0-py3-none-any.whl
+/zh_core_web_sm-3.5.0-py3-none-any.whl
+/zh_core_web_trf-3.5.0-py3-none-any.whl
+/venv/

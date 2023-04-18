@@ -46,14 +46,29 @@ export default {
           key: "follower_avatar",
         },
         {
-          title: "昵称",
-          dataIndex: "nick_name",
-          key: "nick_name",
+          title: "关键字",
+          dataIndex: "keyword",
+          key: "keyword"
         },
         {
-          title: "Verified",
-          dataIndex: "verified",
-          key: "verified",
+          title: "博客ID",
+          dataIndex: "mblogid",
+          key: "mblogid"
+        },
+        {
+          title: "source",
+          dataIndex: "source",
+          key: "source",
+        },
+        {
+          title: "Content",
+          dataIndex: "content",
+          key: "content",
+        },
+        {
+          title: "User",
+          dataIndex: "keyword",
+          key: "keyword"
         },
         {
           title: "Description",

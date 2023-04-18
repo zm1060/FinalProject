@@ -6,8 +6,11 @@ from scrapy.utils.project import get_project_settings
 from twisted.internet import reactor
 from celery import Celery
 
+from app.db.weibo_db import db as weibo_db
+from app.db.task_db import tasks_collection
 from jdspider.spiders.JDcomment import JDcommentspider
 from jdspider.spiders.JDspider import JDspider
+from pre_process.weibo_comment_prepare import preprocess_weibo_comment_data, generate_weibo_comment_charts
 from weibospider.spiders import UserSpider, TweetSpider, FollowerSpider, CommentSpider, RepostSpider, FanSpider, \
     SearchSpider
 from app.config.config import BROKER_URL, BACKEND_URL
@@ -323,8 +326,15 @@ def run_jd_comment_spider(self, urls=None, pages=None):
     return {'message': f'Spider JD Comment Spider finished running.'}
 
 
-@celery.task(name="tasks.analyze_weibo_comment")
-def analyze_weibo_comment_task(comment):
-    result = analyze_weibo_comment(comment)
-    # do something with the result
-    return result
+# @celery.task(name="tasks.analyze_weibo_comment")
+# def analyze_weibo_comment_task(comment):
+#     result = analyze_weibo_comment(comment)
+#     # do something with the result
+#     return result
+
+
+@celery.task(name='tasks.run_analyze_weibo_comment_spider', bind=True)
+def run_analyze_weibo_comment_spider(self, task_id, task_type, data):
+    df, word_counts = preprocess_weibo_comment_data(data)
+    generate_weibo_comment_charts(df, word_counts, task_id, task_type)
+    return {'message': f'Analyze Weibo Comment finished running.'}

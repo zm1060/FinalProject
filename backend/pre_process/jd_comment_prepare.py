@@ -9,13 +9,15 @@ import seaborn as sns
 import re
 
 from wordcloud import WordCloud
+from fastapi import FastAPI, Request, Response
 
+app = FastAPI()
 
 def remove_emoticons(text):
     return re.sub(r'\[.*?\]', '', text)
 
 
-def preprocess_data(data):
+def preprocess_weibo_comment_data(data):
     # 将数据转化为Pandas DataFrame
     df = pd.DataFrame(data)
     # 对created_at列进行日期解析
@@ -30,7 +32,7 @@ def preprocess_data(data):
     return df, word_counts[:50]  # Return only the top 50 most frequent words
 
 
-def generate_charts(df, word_counts, task_id):
+def generate_weibo_comment_charts(df, word_counts, task_id, task_type):
     # Set the font family to "SimHei"
     plt.rcParams['font.family'] = 'SimHei'
 
@@ -75,20 +77,3 @@ def generate_charts(df, word_counts, task_id):
     ax.set_title('Average Like Counts by Day and Hour')
     plt.savefig(f'{task_id}_heatmap.png')
     plt.close()
-
-
-# Connect to MongoDB
-client = pymongo.MongoClient("mongodb://localhost:27017")
-db = client['weibo']
-task_id = '2013ec2e-a68f-4de3-a0ec-8bc03437b5fe'
-collection = db[task_id]
-
-# Find the data that matches the query
-data = list(collection.find())
-print(data)
-
-df, word_counts = preprocess_data(data)
-print(df)
-print(word_counts)
-generate_charts(df, word_counts, task_id)
-

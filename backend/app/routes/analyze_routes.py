@@ -42,17 +42,9 @@ async def run_analyze_weibo_comment_spider(task_id: str):
 
 @router.post('/analyze/weibo/tweet/{task_id}')
 async def run_analyze_weibo_tweet_spider(task_id: str):
-    # Use the task_id to get the task_type
-    task_type = tasks_collection.find_one({"task_id": task_id})['task_type']
-    collection = weibo_db[task_id]
-
-    # Find the data that matches the query
-    data = list(collection.find())
 
     task = celery.send_task('tasks.run_analyze_weibo_tweet_spider', kwargs={
         'task_id': task_id,
-        'task_type': task_type,
-        'data': data,
     })
 
     # user_id = current_user.id

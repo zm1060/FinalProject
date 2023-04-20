@@ -6,11 +6,11 @@ from scrapy.utils.project import get_project_settings
 from twisted.internet import reactor
 from celery import Celery
 
-from app.db.weibo_db import db as weibo_db
-from app.db.task_db import tasks_collection
 from jdspider.spiders.JDcomment import JDcommentspider
 from jdspider.spiders.JDspider import JDspider
-from pre_process.weibo_comment_prepare import preprocess_weibo_comment_data, generate_weibo_comment_charts
+from pre_process.jd_comment_prepare import run_jd_comment_analyze
+from pre_process.jd_product_prepare import run_jd_product_analyze
+from pre_process.weibo_comment_prepare import run_weibo_comment_analyze
 from weibospider.spiders import UserSpider, TweetSpider, FollowerSpider, CommentSpider, RepostSpider, FanSpider, \
     SearchSpider
 from app.config.config import BROKER_URL, BACKEND_URL
@@ -89,7 +89,7 @@ def run_weibo_search_spider(self, keywords: str = None,
 
     spider_kwargs['is_sort_by_hot'] = is_sort_by_hot
     spider_kwargs['is_search_with_specific_time_scope'] = is_search_with_specific_time_scope
-    os.environ['SCRAPY_SETTINGS_MODULE'] = 'weibospider.settings' # set the settings module for weibospider
+    os.environ['SCRAPY_SETTINGS_MODULE'] = 'weibospider.settings'  # set the settings module for weibospider
     settings = get_project_settings()
     runner = CrawlerRunner(settings)
     deferred = runner.crawl(spider_cls, **spider_kwargs)
@@ -121,7 +121,7 @@ def run_weibo_fan_spider(self, user_ids: list = None,
         spider_kwargs['cookie'] = cookie
     if task_id:
         spider_kwargs['task_id'] = task_id
-    os.environ['SCRAPY_SETTINGS_MODULE'] = 'weibospider.settings' # set the settings module for weibospider
+    os.environ['SCRAPY_SETTINGS_MODULE'] = 'weibospider.settings'  # set the settings module for weibospider
     settings = get_project_settings()
     runner = CrawlerRunner(settings)
     deferred = runner.crawl(spider_cls, **spider_kwargs)
@@ -152,7 +152,7 @@ def run_weibo_tweet_spider(self, user_ids: list = None, cookie: str = None):
         spider_kwargs['cookie'] = cookie
     if task_id:
         spider_kwargs['task_id'] = task_id
-    os.environ['SCRAPY_SETTINGS_MODULE'] = 'weibospider.settings' # set the settings module for weibospider
+    os.environ['SCRAPY_SETTINGS_MODULE'] = 'weibospider.settings'  # set the settings module for weibospider
     settings = get_project_settings()
     runner = CrawlerRunner(settings)
     deferred = runner.crawl(spider_cls, **spider_kwargs)
@@ -184,7 +184,7 @@ def run_weibo_follower_spider(self, user_ids: list = None,
         spider_kwargs['cookie'] = cookie
     if task_id:
         spider_kwargs['task_id'] = task_id
-    os.environ['SCRAPY_SETTINGS_MODULE'] = 'weibospider.settings' # set the settings module for weibospider
+    os.environ['SCRAPY_SETTINGS_MODULE'] = 'weibospider.settings'  # set the settings module for weibospider
     settings = get_project_settings()
     runner = CrawlerRunner(settings)
     deferred = runner.crawl(spider_cls, **spider_kwargs)
@@ -215,7 +215,7 @@ def run_weibo_comment_spider(self, tweet_ids: list = None, cookie: str = None):
         spider_kwargs['cookie'] = cookie
     if task_id:
         spider_kwargs['task_id'] = task_id
-    os.environ['SCRAPY_SETTINGS_MODULE'] = 'weibospider.settings' # set the settings module for weibospider
+    os.environ['SCRAPY_SETTINGS_MODULE'] = 'weibospider.settings'  # set the settings module for weibospider
     settings = get_project_settings()
     runner = CrawlerRunner(settings)
     deferred = runner.crawl(spider_cls, **spider_kwargs)
@@ -246,7 +246,7 @@ def run_weibo_repost_spider(self, tweet_ids=None, cookie=None):
         spider_kwargs['cookie'] = cookie
     if task_id:
         spider_kwargs['task_id'] = task_id
-    os.environ['SCRAPY_SETTINGS_MODULE'] = 'weibospider.settings' # set the settings module for weibospider
+    os.environ['SCRAPY_SETTINGS_MODULE'] = 'weibospider.settings'  # set the settings module for weibospider
     settings = get_project_settings()
     runner = CrawlerRunner(settings)
     deferred = runner.crawl(spider_cls, **spider_kwargs)
@@ -275,7 +275,7 @@ def run_jd_product_spider(self, search_name=None):
         spider_kwargs['search_name'] = search_name
     if task_id:
         spider_kwargs['task_id'] = task_id
-    os.environ['SCRAPY_SETTINGS_MODULE'] = 'jdspider.settings' # set the settings module for jdspider
+    os.environ['SCRAPY_SETTINGS_MODULE'] = 'jdspider.settings'  # set the settings module for jdspider
     settings = get_project_settings()
     runner = CrawlerRunner(settings)
     deferred = runner.crawl(spider_cls, **spider_kwargs)
@@ -306,7 +306,7 @@ def run_jd_comment_spider(self, urls=None, pages=None):
         spider_kwargs['pages'] = pages
     if task_id:
         spider_kwargs['task_id'] = task_id
-    os.environ['SCRAPY_SETTINGS_MODULE'] = 'jdspider.settings' # set the settings module for jdspider
+    os.environ['SCRAPY_SETTINGS_MODULE'] = 'jdspider.settings'  # set the settings module for jdspider
     settings = get_project_settings()
     runner = CrawlerRunner(settings)
     deferred = runner.crawl(spider_cls, **spider_kwargs)
@@ -333,8 +333,55 @@ def run_jd_comment_spider(self, urls=None, pages=None):
 #     return result
 
 
-@celery.task(name='tasks.run_analyze_weibo_comment_spider', bind=True)
-def run_analyze_weibo_comment_spider(self, task_id, task_type, data):
-    df, word_counts = preprocess_weibo_comment_data(data)
-    generate_weibo_comment_charts(df, word_counts, task_id, task_type)
+@celery.task(name='tasks.run_analyze_weibo_comment', bind=True)
+def run_analyze_weibo_comment(self, task_id):
+    run_weibo_comment_analyze(task_id)
     return {'message': f'Analyze Weibo Comment finished running.'}
+
+
+@celery.task(name='tasks.run_analyze_weibo_fan', bind=True)
+def run_analyze_weibo_fan(self, task_id):
+    run_weibo_comment_analyze(task_id)
+    return {'message': f'Analyze Weibo Comment finished running.'}
+
+
+@celery.task(name='tasks.run_analyze_weibo_follower', bind=True)
+def run_analyze_weibo_follower(self, task_id):
+    run_weibo_comment_analyze(task_id)
+    return {'message': f'Analyze Weibo Comment finished running.'}
+
+
+@celery.task(name='tasks.run_analyze_weibo_repost', bind=True)
+def run_analyze_weibo_repost(self, task_id):
+    run_weibo_comment_analyze(task_id)
+    return {'message': f'Analyze Weibo Comment finished running.'}
+
+
+@celery.task(name='tasks.run_analyze_weibo_search', bind=True)
+def run_analyze_weibo_search(self, task_id):
+    run_weibo_comment_analyze(task_id)
+    return {'message': f'Analyze Weibo Comment finished running.'}
+
+
+@celery.task(name='tasks.run_analyze_weibo_tweet', bind=True)
+def run_analyze_weibo_tweet(self, task_id):
+    run_weibo_comment_analyze(task_id)
+    return {'message': f'Analyze Weibo Comment finished running.'}
+
+
+@celery.task(name='tasks.run_analyze_weibo_user', bind=True)
+def run_analyze_weibo_user(self, task_id):
+    run_weibo_comment_analyze(task_id)
+    return {'message': f'Analyze Weibo Comment finished running.'}
+
+
+@celery.task(name='tasks.run_analyze_jd_product', bind=True)
+def run_analyze_jd_product(self, task_id):
+    run_jd_product_analyze(task_id)
+    return {'message': f'Analyze JD Product finished running.'}
+
+
+@celery.task(name='tasks.run_analyze_jd_comment', bind=True)
+def run_analyze_jd_comment(self, task_id):
+    run_jd_comment_analyze(task_id)
+    return {'message': f'Analyze JD Comment finished running.'}

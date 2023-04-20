@@ -1,79 +1,80 @@
-import pandas as pd
-import numpy as np
+from app.db.jd_db import db as jd_db
 import jieba
-
-import matplotlib.pyplot as plt
-import pymongo
-import seaborn as sns
-
-import re
-
 from wordcloud import WordCloud
-from fastapi import FastAPI, Request, Response
-
-app = FastAPI()
-
-def remove_emoticons(text):
-    return re.sub(r'\[.*?\]', '', text)
-
-
-def preprocess_weibo_comment_data(data):
-    # 将数据转化为Pandas DataFrame
-    df = pd.DataFrame(data)
-    # 对created_at列进行日期解析
-    df['created_at'] = pd.to_datetime(df['created_at'])
-    # 将like_counts列中的字符串转化为整数
-    df['like_counts'] = df['like_counts'].astype(int)
-    # 对content列进行分词和词频统计
-    df['content'] = df['content'].apply(remove_emoticons)
-    df['content'] = df['content'].apply(lambda x: jieba.lcut(x))  # Use jieba for Chinese word segmentation
-    word_counts = pd.Series(np.concatenate(df['content'].values)).value_counts()
-    # 返回处理后的数据和词频统计结果
-    return df, word_counts[:50]  # Return only the top 50 most frequent words
+import matplotlib.pyplot as plt
+import re
+from collections import Counter
+import io
+from app.redis_client import redis_client
 
 
-def generate_weibo_comment_charts(df, word_counts, task_id, task_type):
-    # Set the font family to "SimHei"
-    plt.rcParams['font.family'] = 'SimHei'
+def load_data(task_id):
+    # Get data from database
+    collection = jd_db[task_id]
+    data = collection.find()
 
-    # Create a line chart of like counts over time
-    fig, ax = plt.subplots(figsize=(10, 6))
-    ax.plot(df['created_at'], df['like_counts'])
-    ax.set_xlabel('日期')
-    ax.set_ylabel('点赞数')
-    ax.set_title('点赞数变化')
-    plt.savefig(f'{task_id}_line_chart.png')
-    plt.close()
+    return data
 
-    # Create a bar chart of word counts
-    fig, ax = plt.subplots(figsize=(10, 6))
-    ax.bar(word_counts.index, word_counts.values)
-    ax.set_xticklabels(word_counts.index, rotation=45, ha='right')
-    ax.set_xlabel('Words')
-    ax.set_ylabel('Count')
-    ax.set_title('Word Count')
-    plt.savefig(f'{task_id}_bar_chart.png')
-    plt.close()
 
-    # Create a word cloud of the most common words
-    font_path = "../SimHei.ttf"
-    wordcloud = WordCloud(
-        background_color='white',
-        max_words=50,
-        font_path=font_path
-    ).generate_from_frequencies(word_counts)
+def clean_data(data):
+    # Clean and preprocess data
+    cleaned_data = []
+    for item in data:
+        content = item['content']
+        # Remove HTML tags and special characters
+        content = re.sub('<[^<]+?>', '', content)
+        content = re.sub('[^\w\s]', '', content)
+        cleaned_data.append(content)
 
+    return cleaned_data
+
+
+def tokenize_data(cleaned_data):
+    # Tokenize the cleaned data
+    with open('common_stopwords.txt', 'r', encoding='utf-8') as f:
+        stopwords = [line.strip() for line in f.readlines()]
+
+    words_list = []
+    for content in cleaned_data:
+        # Filter out stopwords
+        words = [word for word in jieba.cut(content) if word not in stopwords]
+        # Adjust the granularity of the words
+        words = [word for word in words if len(word) >= 2]
+        words_list.append(' '.join(words))
+
+    return words_list
+
+
+def count_words(words_list):
+    # Count the word frequencies
+    words_count = Counter(' '.join(words_list).split())
+
+    return words_count
+
+
+def generate_wordcloud(task_id, words_count):
+    # Generate the wordcloud
+    font_path = '../SimHei.ttf'  # Please adjust the actual font file path
+    wordcloud = WordCloud(font_path=font_path, background_color='white', max_words=100, contour_width=3,
+                          contour_color='steelblue')
+    wordcloud.generate_from_frequencies(words_count)
     plt.imshow(wordcloud, interpolation='bilinear')
-    plt.axis("off")
-    plt.savefig(f'{task_id}_word_cloud.png')
+    plt.axis('off')
+
+    # Convert the image to bytes and store in Redis
+    buf = io.BytesIO()
+    # plt.savefig('1.png')
+    plt.savefig(buf, format='png')
+    buf.seek(0)
+    image_bytes = buf.getvalue()
+    buf.close()
+    redis_client.set(f"{task_id}_wordcloud", image_bytes)
     plt.close()
 
-    # Create a heatmap of like counts by day and hour
-    df['day'] = df['created_at'].dt.date
-    df['hour'] = df['created_at'].dt.hour
-    pivot_df = df.pivot_table(index='day', columns='hour', values='like_counts', aggfunc='mean')
-    fig, ax = plt.subplots(figsize=(12, 6))
-    sns.heatmap(pivot_df, cmap='coolwarm', ax=ax)
-    ax.set_title('Average Like Counts by Day and Hour')
-    plt.savefig(f'{task_id}_heatmap.png')
-    plt.close()
+
+def run_jd_comment_analyze(task_id):
+    data = load_data(task_id)
+    cleaned_data = clean_data(data)
+    words_list = tokenize_data(cleaned_data)
+    words_count = count_words(words_list)
+    generate_wordcloud(task_id, words_count)

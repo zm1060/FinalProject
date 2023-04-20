@@ -31,6 +31,8 @@ services:
       - CELERY_BROKER_URL=amqp://admin:admin@rabbitmq:5672/
       - CELERY_RESULT_BACKEND=rpc://
       - CELERY_LOG_LEVEL=debug
+      - ELASTIC_SEARCH=http://elasticsearch:9200
+      - REDIS_HOST=redis
       - FLOWER_BASIC_AUTH=admin:password
       - MONGODB_URL=mongodb://mongodb:27017
     depends_on:

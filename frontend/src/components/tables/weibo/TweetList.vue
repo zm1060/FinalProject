@@ -1,7 +1,7 @@
 <template>
   <div>
     <a-button type="primary" @click="$router.push('/home')">回到主页</a-button>
-    <a-input v-model:value="inputtaskId" placeholder="Enter Task ID" @pressEnter="getTweetData" />
+    <a-input v-model:value="inputtaskId" placeholder="输入任务ID" @pressEnter="getTweetData" />
     <a-button @click="getTweetData">获取数据</a-button>
     <a-table :columns="columns"
              :dataSource="tweetData"
@@ -40,12 +40,12 @@ export default {
           key: "_id",
         },
         {
-          title: "Blog ID",
+          title: "博客ID",
           dataIndex: "mblogid",
           key: "mblogid",
         },
         {
-          title: "Created At",
+          title: "发布于",
           dataIndex: "created_at",
           key: "created_at",
         },
@@ -65,7 +65,7 @@ export default {
           key: "comments_count",
         },
         {
-          title: "Attitudes Count",
+          title: "参与者数量",
           dataIndex: "attitudes_count",
           key: "attitudes_count",
         },
@@ -90,7 +90,7 @@ export default {
           key: "url",
         },
         {
-          title: "Crawl Time",
+          title: "数据收集时间",
           dataIndex: "crawl_time",
           key: "crawl_time",
         },

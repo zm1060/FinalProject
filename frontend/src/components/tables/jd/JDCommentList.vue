@@ -1,7 +1,7 @@
 <template>
   <div>
     <a-button type="primary" @click="$router.push('/home')">回到主页</a-button>
-    <a-input v-model:value="inputtaskId" placeholder="Enter Task ID" @pressEnter="getCommentData" />
+    <a-input v-model:value="inputtaskId" placeholder="输入任务ID" @pressEnter="getCommentData" />
     <a-button @click="getCommentData">获取数据</a-button>
     <a-table :columns="columns"
              :dataSource="commentData"

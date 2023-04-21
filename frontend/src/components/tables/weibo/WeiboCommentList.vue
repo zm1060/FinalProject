@@ -1,7 +1,7 @@
 <template>
   <div>
     <a-button type="primary" @click="$router.push('/home')">回到主页</a-button>
-    <a-input v-model:value="inputtaskId" placeholder="Enter Task ID" @pressEnter="getCommentData" />
+    <a-input v-model:value="inputtaskId" placeholder="输入任务ID" @pressEnter="getCommentData" />
     <a-button @click="getCommentData">获取数据</a-button>
     <a-table :columns="columns"
              :dataSource="commentData"
@@ -97,7 +97,7 @@ export default {
           key: "comment_user_friends_count",
         },
         {
-          title: "Comment User Statuses Count",
+          title: "评论者Statuses Count",
           dataIndex: ["comment_user", "statuses_count"],
           key: "comment_user_statuses_count",
         },
@@ -112,17 +112,17 @@ export default {
           key: "comment_user_location",
         },
         {
-          title: "Comment User MBRank",
+          title: "评论者MBRank",
           dataIndex: ["comment_user", "mbrank"],
           key: "comment_user_mbrank",
         },
         {
-          title: "Comment User MBType",
+          title: "评论者MBType",
           dataIndex: ["comment_user", "mbtype"],
           key: "comment_user_mbtype",
         },
         {
-          title: "Crawl Time",
+          title: "数据收集时间",
           dataIndex: "crawl_time",
           key: "crawl_time",
         },

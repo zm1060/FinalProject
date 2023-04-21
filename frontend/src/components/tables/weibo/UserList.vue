@@ -1,7 +1,7 @@
 <template>
   <div>
     <a-button type="primary" @click="$router.push('/home')">回到主页</a-button>
-    <a-input v-model:value="inputtaskId" placeholder="Enter Task ID" @pressEnter="getUserData" />
+    <a-input v-model:value="inputtaskId" placeholder="输入任务ID" @pressEnter="getUserData" />
     <a-button @click="getUserData">获取数据</a-button>
     <a-table :columns="columns"
              :dataSource="userData"
@@ -72,11 +72,11 @@ export default {
           dataIndex: 'birthday',
         },
         {
-          title: 'Created At',
+          title: '账号创立时间',
           dataIndex: 'created_at',
         },
         {
-          title: 'Description Text',
+          title: '描述文本',
           dataIndex: 'desc_text',
         },
         {
@@ -84,16 +84,16 @@ export default {
           dataIndex: 'ip_location',
         },
         {
-          title: 'Sunshine Credit',
+          title: '阳光信用分',
           dataIndex: 'sunshine_credit',
         },
         {
-          title: 'Label Desc',
+          title: '标签描述',
           dataIndex: 'label_desc',
           scopedSlots: { customRender: 'label_desc' },
         },
         {
-          title: 'Crawl Time',
+          title: '数据收集时间',
           dataIndex: 'crawl_time',
           slots: { customRender: 'crawl_time' },
         },

@@ -1,7 +1,7 @@
 <template>
   <div>
     <a-button type="primary" @click="$router.push('/home')">回到主页</a-button>
-    <a-input v-model:value="inputtaskId" placeholder="Enter Task ID" @pressEnter="getSearchData" />
+    <a-input v-model:value="inputtaskId" placeholder="输入任务ID" @pressEnter="getSearchData" />
     <a-button @click="getSearchData">获取数据</a-button>
     <a-table :columns="columns"
              :dataSource="searchData"
@@ -56,22 +56,22 @@ export default {
           key: "mblogid"
         },
         {
-          title: "source",
+          title: "源",
           dataIndex: "source",
           key: "source",
         },
         {
-          title: "Content",
+          title: "内容",
           dataIndex: "content",
           key: "content",
         },
         {
-          title: "User",
-          dataIndex: "keyword",
-          key: "keyword"
+          title: "用户",
+          dataIndex: "user",
+          key: "user"
         },
         {
-          title: "Description",
+          title: "描述",
           dataIndex: "description",
           key: "description",
         },
@@ -116,7 +116,7 @@ export default {
           key: "birthday",
         },
         {
-          title: "Created At",
+          title: "账号创立时间",
           dataIndex: "created_at",
           key: "created_at",
         },
@@ -131,12 +131,12 @@ export default {
           key: "ip_location",
         },
         {
-          title: "Sunshine Credit",
+          title: "阳光信用分",
           dataIndex: "sunshine_credit",
           key: "sunshine_credit",
         },
         {
-          title: "Label Desc",
+          title: "标签描述",
           dataIndex: "label_desc",
           key: "label_desc",
         },
@@ -151,7 +151,7 @@ export default {
           key: "eduction",
         },
         {
-          title: "Crawl Time",
+          title: "数据收集时间",
           dataIndex: "crawl_time",
           key: "crawl_time",
         },

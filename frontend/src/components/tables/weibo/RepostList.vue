@@ -1,7 +1,7 @@
 <template>
   <div>
     <a-button type="primary" @click="$router.push('/home')">回到主页</a-button>
-    <a-input v-model:value="inputtaskId" placeholder="Enter Task ID" @pressEnter="getRepostData" />
+    <a-input v-model:value="inputtaskId" placeholder="输入任务ID" @pressEnter="getRepostData" />
     <a-button @click="getRepostData">获取数据</a-button>
     <a-table :columns="columns"
              :dataSource="repostData"
@@ -42,12 +42,12 @@ export default {
           key: "_id",
         },
         {
-          title: "Blog ID",
+          title: "博客ID",
           dataIndex: "mblogid",
           key: "mblogid",
         },
         {
-          title: "Created At",
+          title: "发布于",
           dataIndex: "created_at",
           key: "created_at",
         },
@@ -127,7 +127,7 @@ export default {
           key: "url",
         },
         {
-          title: "Crawl Time",
+          title: "数据收集时间",
           dataIndex: "crawl_time",
           key: "crawl_time",
         },

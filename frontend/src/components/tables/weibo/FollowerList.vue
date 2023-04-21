@@ -1,7 +1,7 @@
 <template>
   <div>
     <a-button type="primary" @click="$router.push('/home')">回到主页</a-button>
-    <a-input v-model:value="inputtaskId" placeholder="Enter Task ID" @pressEnter="getFollowerData" />
+    <a-input v-model:value="inputtaskId" placeholder="输入任务ID" @pressEnter="getFollowerData" />
     <a-button @click="getFollowerData">获取数据</a-button>
     <a-table :columns="columns"
              :dataSource="followerData"
@@ -42,12 +42,12 @@ export default {
           key: "_id",
         },
         {
-          title: "Fan ID",
+          title: "粉丝ID",
           dataIndex: "fan_id",
           key: "fan_id",
         },
         {
-          title: "Follower ID",
+          title: "关注者ID",
           dataIndex: ["follower_info", "_id"],
           key: "follower_id",
         },
@@ -68,7 +68,7 @@ export default {
           }
         },
         {
-          title: "Nick Name",
+          title: "昵称",
           dataIndex: ["follower_info", "nick_name"],
           key: "nick_name",
         },
@@ -78,12 +78,12 @@ export default {
           key: "verified",
         },
         {
-          title: "Description",
+          title: "描述",
           dataIndex: ["follower_info", "description"],
           key: "description",
         },
         {
-          title: "Followers Count",
+          title: "关注者数量",
           dataIndex: ["follower_info", "followers_count"],
           key: "followers_count",
         },
@@ -93,32 +93,32 @@ export default {
           key: "statuses_count",
         },
         {
-          title: "Gender",
+          title: "性别",
           dataIndex: ["follower_info", "gender"],
           key: "gender",
         },
         {
-          title: "Location",
+          title: "位置",
           dataIndex: ["follower_info", "location"],
           key: "location",
         },
         {
-          title: "Credit Score",
+          title: "信用分",
           dataIndex: ["follower_info", "credit_score"],
           key: "credit_score",
         },
         {
-          title: "Verified Type",
+          title: "认证种类",
           dataIndex: ["follower_info", "verified_type"],
           key: "verified_type",
         },
         {
-          title: "Verified Reason",
+          title: "认证原因",
           dataIndex: ["follower_info", "verified_reason"],
           key: "verified_reason",
         },
         {
-          title: "Crawl Time",
+          title: "数据收集时间",
           dataIndex: "crawl_time",
           key: "crawl_time",
         },

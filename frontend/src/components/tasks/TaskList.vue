@@ -1,14 +1,15 @@
 <template>
   <div>
     <a-button type="primary" @click="$router.push('/home')">Back to Homepage</a-button>
-    <h1>My Tasks</h1>
+    <h1>任务列表</h1>
     <a-table :columns="columns" :data-source="tasks" :loading="loading">
       <template v-slot:action="{ record }">
         <span>
           <a-button type="primary" @click="handleView(record.task_id, record.task_type)">
             查看
           </a-button>
-          <a-button type="primary" @click="handleAnalyze(record.task_id)">分析</a-button>
+          <a-button type="primary" @click="handleAnalyze(record.task_id, record.task_type)">分析</a-button>
+          <a-button type="primary" @click="handleResult(record.task_id, record.task_type)">查看分析结果</a-button>
           <a-popconfirm
             title="Are you sure to delete this task?"
             @confirm="handleDelete(record.task_id)"
@@ -147,17 +148,60 @@ export default {
           console.log(error);
         });
     },
-    handleAnalyze(taskId){
-      axiosInstance.get(`/weibo/analyze/${taskId}`)
-          .then((response)=>{
-            message.success("Success!");
-            console.log(response);
-          })
-          .catch((error)=>{
-              message.error("Error!");
-              console.log(error);
-          })
+    handleAnalyze(taskId, taskType) {
+      let endpoint = '';
+      switch (taskType) {
+        case 'weibo_comment':
+          endpoint = `/analyze/weibo/comment/${taskId}`;
+          break;
+        case 'weibo_tweet':
+          endpoint = `/analyze/weibo/tweet/${taskId}`;
+          break;
+        case 'weibo_repost':
+          endpoint = `/analyze/weibo/repost/${taskId}`;
+          break;
+        case 'weibo_search':
+          endpoint = `/analyze/weibo/search/${taskId}`;
+          break;
+        case 'weibo_fan':
+          endpoint = `/analyze/weibo/fan/${taskId}`;
+          break;
+        case 'weibo_follower':
+          endpoint = `/analyze/weibo/follower/${taskId}`;
+          break;
+        case 'weibo_user':
+          endpoint = `/analyze/weibo/user/${taskId}`;
+          break;
+        case 'jd_comment':
+          endpoint = `/analyze/jd/comment/${taskId}`;
+          break;
+        case 'jd_product':
+          endpoint = `/analyze/jd/product/${taskId}`;
+          break;
+        default:
+          console.error('Invalid task type');
+          return;
+      }
 
+      axiosInstance.post(endpoint)
+        .then((response) => {
+          message.success("Success!");
+          console.log(response);
+        })
+        .catch((error) => {
+          message.error("Error!");
+          console.log(error);
+        });
+    },
+    handleResult(taskId, taskType) {
+      // Generate the route name based on the task type
+      const routeName = `${taskType}_result`;
+
+      // Navigate to the task result page with the task ID as a parameter
+      this.$router.push({ name: routeName, params: { taskId } })
+        .catch((error) => {
+          console.error('Navigation failed:', error);
+        });
     },
 
   },

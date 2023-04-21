@@ -1,7 +1,7 @@
 <template>
   <div>
     <a-button type="primary" @click="$router.push('/home')">回到主页</a-button>
-    <a-input v-model:value="inputtaskId" placeholder="Enter Task ID" @pressEnter="getFanData" />
+    <a-input v-model:value="inputtaskId" placeholder="输入任务ID" @pressEnter="getFanData" />
     <a-button @click="getFanData">获取数据</a-button>
     <a-table :columns="columns"
              :dataSource="fanData"
@@ -42,12 +42,12 @@ export default {
           key: "_id",
         },
         {
-          title: "Follower ID",
+          title: "关注者ID",
           dataIndex: "follower_id",
           key: "follower_id",
         },
         {
-          title: "Fan ID",
+          title: "粉丝ID",
           dataIndex: ["fan_info", "_id"],
           key: "fan_id",
         },
@@ -78,7 +78,7 @@ export default {
           key: "verified",
         },
         {
-          title: "Description",
+          title: "描述",
           dataIndex: ["fan_info", "description"],
           key: "description",
         },
@@ -123,12 +123,12 @@ export default {
           key: "credit_score",
         },
         {
-          title: "Created At",
+          title: "账号创立时间",
           dataIndex: ["fan_info", "created_at"],
           key: "created_at",
         },
         {
-          title: "Crawl Time",
+          title: "数据收集时间",
           dataIndex: "crawl_time",
           key: "crawl_time",
         },

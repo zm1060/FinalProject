@@ -11,6 +11,12 @@ from jdspider.spiders.JDspider import JDspider
 from pre_process.jd_comment_prepare import run_jd_comment_analyze
 from pre_process.jd_product_prepare import run_jd_product_analyze
 from pre_process.weibo_comment_prepare import run_weibo_comment_analyze
+from pre_process.weibo_fan_prepare import run_weibo_fan_analyze
+from pre_process.weibo_follower_prepare import run_weibo_follower_analyze
+from pre_process.weibo_repost_prepare import run_weibo_repost_analyze
+from pre_process.weibo_search_prepare import run_weibo_search_analyze
+from pre_process.weibo_tweet_prepare import run_weibo_tweet_analyze
+from pre_process.weibo_user_prepare import run_weibo_user_analyze
 from weibospider.spiders import UserSpider, TweetSpider, FollowerSpider, CommentSpider, RepostSpider, FanSpider, \
     SearchSpider
 from app.config.config import BROKER_URL, BACKEND_URL
@@ -341,38 +347,38 @@ def run_analyze_weibo_comment(self, task_id):
 
 @celery.task(name='tasks.run_analyze_weibo_fan', bind=True)
 def run_analyze_weibo_fan(self, task_id):
-    run_weibo_comment_analyze(task_id)
+    run_weibo_fan_analyze(task_id)
     return {'message': f'Analyze Weibo Comment finished running.'}
 
 
 @celery.task(name='tasks.run_analyze_weibo_follower', bind=True)
 def run_analyze_weibo_follower(self, task_id):
-    run_weibo_comment_analyze(task_id)
-    return {'message': f'Analyze Weibo Comment finished running.'}
+    run_weibo_follower_analyze(task_id)
+    return {'message': f'Analyze Weibo Follower finished running.'}
 
 
 @celery.task(name='tasks.run_analyze_weibo_repost', bind=True)
 def run_analyze_weibo_repost(self, task_id):
-    run_weibo_comment_analyze(task_id)
-    return {'message': f'Analyze Weibo Comment finished running.'}
+    run_weibo_repost_analyze(task_id)
+    return {'message': f'Analyze Weibo Repost finished running.'}
 
 
 @celery.task(name='tasks.run_analyze_weibo_search', bind=True)
 def run_analyze_weibo_search(self, task_id):
-    run_weibo_comment_analyze(task_id)
-    return {'message': f'Analyze Weibo Comment finished running.'}
+    run_weibo_search_analyze(task_id)
+    return {'message': f'Analyze Weibo Search finished running.'}
 
 
 @celery.task(name='tasks.run_analyze_weibo_tweet', bind=True)
 def run_analyze_weibo_tweet(self, task_id):
-    run_weibo_comment_analyze(task_id)
-    return {'message': f'Analyze Weibo Comment finished running.'}
+    run_weibo_tweet_analyze(task_id)
+    return {'message': f'Analyze Weibo Tweet finished running.'}
 
 
 @celery.task(name='tasks.run_analyze_weibo_user', bind=True)
 def run_analyze_weibo_user(self, task_id):
-    run_weibo_comment_analyze(task_id)
-    return {'message': f'Analyze Weibo Comment finished running.'}
+    run_weibo_user_analyze(task_id)
+    return {'message': f'Analyze Weibo User finished running.'}
 
 
 @celery.task(name='tasks.run_analyze_jd_product', bind=True)

@@ -18,7 +18,7 @@ WORKDIR /backend
 
 COPY ./requirements.txt /backend/requirements.txt
 # Copy the SimHei font file to the container
-COPY SimHei.ttf /usr/share/fonts/truetype/
+COPY pre_process/SimHei.ttf /usr/share/fonts/truetype/
 # Update the font cache
 RUN fc-cache -f -v
 RUN pip install -U pip

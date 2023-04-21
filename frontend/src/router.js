@@ -18,6 +18,15 @@ import FanList from "@/components/tables/weibo/FanList.vue";
 import ProductList from "@/components/tables/jd/ProductList.vue";
 import JDCommentList from "@/components/tables/jd/JDCommentList.vue";
 import TestComponent from "@/components/TestComponent.vue";
+import WeiboComment from "@/components/charts/WeiboComment.vue";
+import WeiboUser from "@/components/charts/WeiboUser.vue";
+import WeiboTweet from "@/components/charts/WeiboTweet.vue";
+import WeiboSearch from "@/components/charts/WeiboSearch.vue";
+import WeiboRepost from "@/components/charts/WeiboRepost.vue";
+import WeiboFollower from "@/components/charts/WeiboFollower.vue";
+import WeiboFan from "@/components/charts/WeiboFan.vue";
+import JdProduct from "@/components/charts/JdProduct.vue";
+import JdComment from "@/components/charts/JdComment.vue";
 
 const routes = [
   {
@@ -115,6 +124,51 @@ const routes = [
     path: '/jd_comment_list/:taskId',
     name: 'jd_comment_list',
     component: JDCommentList,
+  },
+  {
+    path: '/weibo_user_result/:taskId',
+    name: 'weibo_user_result',
+    component: WeiboUser,
+  },
+  {
+    path: '/weibo_comment_result/:taskId',
+    name: 'weibo_comment_result',
+    component: WeiboComment,
+  },
+  {
+    path: '/weibo_tweet_result/:taskId',
+    name: 'weibo_tweet_result',
+    component: WeiboTweet,
+  },
+  {
+    path: '/weibo_search_result/:taskId',
+    name: 'weibo_search_result',
+    component: WeiboSearch,
+  },
+  {
+    path: '/weibo_repost_result/:taskId',
+    name: 'weibo_repost_result',
+    component: WeiboRepost,
+  },
+  {
+    path: '/weibo_follower_result/:taskId',
+    name: 'weibo_follower_result',
+    component: WeiboFollower,
+  },
+  {
+    path: '/weibo_fan_result/:taskId',
+    name: 'weibo_fan_result',
+    component: WeiboFan,
+  },
+  {
+    path: '/jd_product_result/:taskId',
+    name: 'jd_product_result',
+    component: JdProduct,
+  },
+  {
+    path: '/jd_comment_result/:taskId',
+    name: 'jd_comment_result',
+    component: JdComment,
   },
 ]
 

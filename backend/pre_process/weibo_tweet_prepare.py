@@ -1,3 +1,4 @@
+import os
 import re
 
 import pandas as pd
@@ -10,7 +11,11 @@ import io
 from app.redis_client import redis_client
 
 plt.rcParams['font.sans-serif'] = ['SimHei']  # 设置中文显示字体
+# Get the absolute path of the script
+script_dir = os.path.dirname(os.path.abspath(__file__))
 
+# Use the script directory to construct the path to the font file
+font_path = os.path.join(script_dir, 'SimHei.ttf')
 
 def analyze_weibo_data(task_id):
     # Get Weibo data from database
@@ -35,7 +40,7 @@ def analyze_weibo_data(task_id):
     plt.title('微博用户参与度分布')
     plt.ylabel('数量')
     buf = io.BytesIO()
-    plt.savefig(f'{task_id}_engagement_boxplot.png')
+    # plt.savefig(f'{task_id}_engagement_boxplot.png')
     plt.savefig(buf, format='png')
     buf.seek(0)
     redis_client.set(f'{task_id}_engagement_boxplot', buf.getvalue())
@@ -57,7 +62,7 @@ def analyze_weibo_data(task_id):
     plt.xlabel('情感得分')
     plt.ylabel('微博数量')
     buf = io.BytesIO()
-    plt.savefig(f'{task_id}_sentiment_histogram.png')
+    # plt.savefig(f'{task_id}_sentiment_histogram.png')
     plt.savefig(buf, format='png')
     buf.seek(0)
     redis_client.set(f'{task_id}_sentiment_histogram', buf.getvalue())
@@ -82,7 +87,7 @@ def analyze_weibo_data(task_id):
     plt.ylabel('微博数量')
     plt.xticks(rotation=45, ha='right')
     buf = io.BytesIO()
-    plt.savefig(f'{task_id}_top_hashtags.png')
+    # plt.savefig(f'{task_id}_top_hashtags.png')
     plt.savefig(buf, format='png')
     buf.seek(0)
     redis_client.set(f'{task_id}_top_hashtags', buf.getvalue())
@@ -102,13 +107,13 @@ def analyze_weibo_data(task_id):
     plt.xlabel('小时')
     plt.ylabel('微博数量')
     buf = io.BytesIO()
-    plt.savefig('hourly_post_count.png')
+    # plt.savefig(f"{task_id}hourly_post_count.png")
     plt.savefig(buf, format='png')
     buf.seek(0)
-    redis_client.set('hourly_post_count', buf.getvalue())
+    redis_client.set(f"{task_id}_hourly_post_count", buf.getvalue())
     plt.close()
 
 def run_weibo_tweet_analyze(task_id):
     analyze_weibo_data(task_id)
 
-run_weibo_tweet_analyze('4c17f1cb-ebf2-443e-95bb-fb0e373f9f9f')
+# run_weibo_tweet_analyze('4c17f1cb-ebf2-443e-95bb-fb0e373f9f9f')

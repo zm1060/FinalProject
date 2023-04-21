@@ -1,3 +1,5 @@
+import os
+
 import jieba
 import matplotlib.pyplot as plt
 import io
@@ -7,6 +9,12 @@ from app.db.weibo_db import db as weibo_db
 from app.redis_client import redis_client
 
 plt.rcParams['font.sans-serif'] = ['SimHei']  # 设置中文显示字体
+
+# Get the absolute path of the script
+script_dir = os.path.dirname(os.path.abspath(__file__))
+
+# Use the script directory to construct the path to the font file
+font_path = os.path.join(script_dir, 'SimHei.ttf')
 def generate_user_profile(task_id):
     collection = weibo_db[task_id]
     weibo_data = list(collection.find())
@@ -40,7 +48,7 @@ def generate_user_profile(task_id):
     plt.title('微博标签描述分布')
     plt.xlabel('数量')
     buf = io.BytesIO()
-    plt.savefig(f"{task_id}label_desc_barchart.png")
+    # plt.savefig(f"{task_id}label_desc_barchart.png")
     plt.savefig(buf, format='png')
     buf.seek(0)
     label_desc_barchart_bytes = buf.getvalue()
@@ -48,7 +56,7 @@ def generate_user_profile(task_id):
     redis_client.set(f"{task_id}_label_desc_barchart", label_desc_barchart_bytes)
     plt.close()
 
-    font_path = "../SimHei.ttf"
+
     # concatenate the text from different fields
     # 将需要生成词云的文本合并成一个字符串
     text = ' '.join([data['nick_name'] + ' ' + data['location'] + ' ' + data['description'] + ' ' + data[
@@ -71,7 +79,7 @@ def generate_user_profile(task_id):
     plt.axis("off")
     plt.title('用户画像')
     buf = io.BytesIO()
-    plt.savefig(f"{task_id}company_wordcloud.png")
+    # plt.savefig(f"{task_id}company_wordcloud.png")
     plt.savefig(buf, format='png')
     buf.seek(0)
     company_wordcloud_bytes = buf.getvalue()
@@ -82,4 +90,4 @@ def generate_user_profile(task_id):
 def run_weibo_user_analyze(task_id):
     generate_user_profile(task_id)
 
-run_weibo_user_analyze('fa963f68-3d23-422a-bc31-cf22e504eebf')
+# run_weibo_user_analyze('fa963f68-3d23-422a-bc31-cf22e504eebf')

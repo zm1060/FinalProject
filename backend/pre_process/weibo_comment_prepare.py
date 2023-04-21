@@ -1,4 +1,6 @@
 import io
+import os
+
 import pandas as pd
 import numpy as np
 import jieba
@@ -10,6 +12,13 @@ from wordcloud import WordCloud
 from app.db.weibo_db import db as weibo_db
 from app.redis_client import redis_client
 
+# Set the font family to "SimHei"
+plt.rcParams['font.family'] = 'SimHei'
+# Get the absolute path of the script
+script_dir = os.path.dirname(os.path.abspath(__file__))
+
+# Use the script directory to construct the path to the font file
+font_path = os.path.join(script_dir, 'SimHei.ttf')
 
 def remove_emoticons(text):
     return re.sub(r'\[.*?\]', '', text)
@@ -31,8 +40,7 @@ def preprocess_weibo_comment_data(data):
 
 
 def generate_weibo_comment_charts(df, word_counts, task_id):
-    # Set the font family to "SimHei"
-    plt.rcParams['font.family'] = 'SimHei'
+
 
     # Create a line chart of like counts over time
     fig, ax = plt.subplots(figsize=(10, 6))
@@ -40,21 +48,32 @@ def generate_weibo_comment_charts(df, word_counts, task_id):
     ax.set_xlabel('日期')
     ax.set_ylabel('点赞数')
     ax.set_title('点赞数变化')
-    plt.savefig(f'{task_id}_line_chart.png')
+    buf = io.BytesIO()
+    # plt.savefig(f'{task_id}_line_chart.png')
+    plt.savefig(buf, format='png')
+    buf.seek(0)
+    image_bytes = buf.getvalue()
+    buf.close()
+    redis_client.set(f"{task_id}_line_chart", image_bytes)
     plt.close()
 
     # Create a bar chart of word counts
     fig, ax = plt.subplots(figsize=(10, 6))
     ax.bar(word_counts.index, word_counts.values)
     ax.set_xticklabels(word_counts.index, rotation=45, ha='right')
-    ax.set_xlabel('Words')
-    ax.set_ylabel('Count')
-    ax.set_title('Word Count')
-    plt.savefig(f'{task_id}_bar_chart.png')
+    ax.set_xlabel('词')
+    ax.set_ylabel('数量')
+    ax.set_title('热点词')
+    buf = io.BytesIO()
+    # plt.savefig(f'{task_id}_bar_chart.png')
+    plt.savefig(buf, format='png')
+    buf.seek(0)
+    image_bytes = buf.getvalue()
+    buf.close()
+    redis_client.set(f"{task_id}_bar_chart", image_bytes)
     plt.close()
 
     # Create a word cloud of the most common words
-    font_path = "../SimHei.ttf"
     wordcloud = WordCloud(
         background_color='white',
         max_words=50,
@@ -77,9 +96,9 @@ def generate_weibo_comment_charts(df, word_counts, task_id):
     pivot_df = df.pivot_table(index='day', columns='hour', values='like_counts', aggfunc='mean')
     fig, ax = plt.subplots(figsize=(12, 6))
     sns.heatmap(pivot_df, cmap='coolwarm', ax=ax)
-    ax.set_title('Average Like Counts by Day and Hour')
+    ax.set_title('平均点赞量(时分)')
     buf = io.BytesIO()
-    plt.savefig(f'{task_id}_heatmap.png')
+    # plt.savefig(f'{task_id}_heatmap.png')
     plt.savefig(buf, format='png')
     buf.seek(0)
     image_bytes = buf.getvalue()
@@ -96,4 +115,4 @@ def run_weibo_comment_analyze(task_id):
     generate_weibo_comment_charts(df, word_counts, task_id)
 
 
-run_weibo_comment_analyze('4dc92e7d-1152-4fdf-b105-ba1401dedce8')
+# run_weibo_comment_analyze('4dc92e7d-1152-4fdf-b105-ba1401dedce8')

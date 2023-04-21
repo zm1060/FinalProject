@@ -51,7 +51,7 @@ def analyze_follower_info(task_id):
     plt.ylabel('数量')
     plt.xticks(rotation=45)
     buf = io.BytesIO()
-    plt.savefig(f"{task_id}_location_counts")
+    # plt.savefig(f"{task_id}_location_counts.png")
     plt.savefig(buf, format='png')
     buf.seek(0)
     location_counts_bytes = buf.getvalue()
@@ -64,7 +64,7 @@ def analyze_follower_info(task_id):
     sns.heatmap(gender_location_counts, cmap='YlGnBu')
     plt.title('关注者的性别和位置分布')
     buf = io.BytesIO()
-    plt.savefig(f"{task_id}_gender_location_counts")
+    # plt.savefig(f"{task_id}_gender_location_counts.png")
     plt.savefig(buf, format='png')
     buf.seek(0)
     gender_location_counts_bytes = buf.getvalue()
@@ -76,11 +76,11 @@ def analyze_follower_info(task_id):
     follower_info_df['account_age'] = (datetime.now() - pd.to_datetime(follower_info_df['created_at'])).apply(
         lambda x: x.days // 365)
     follower_info_df['account_age'].hist(bins=20)
-    plt.title('Age distribution of fans')
-    plt.xlabel('Account age (years)')
-    plt.ylabel('Count')
+    plt.title('关注者年龄分布')
+    plt.xlabel('年龄')
+    plt.ylabel('数量')
     buf = io.BytesIO()
-    plt.savefig(f"{task_id}_age_distribution")
+    # plt.savefig(f"{task_id}_age_distribution.png")
     plt.savefig(buf, format='png')
     buf.seek(0)
     age_distribution_bytes = buf.getvalue()
@@ -95,12 +95,12 @@ def analyze_follower_info(task_id):
     top_words = word_count[:20]
     plt.figure(figsize=(12, 6))
     plt.bar(top_words.index, top_words.values)
-    plt.title('Top interests of fans')
-    plt.xlabel('Interest')
-    plt.ylabel('Count')
+    plt.title('关注者的兴趣分布')
+    plt.xlabel('兴趣')
+    plt.ylabel('数量')
     plt.xticks(rotation=45)
     buf = io.BytesIO()
-    plt.savefig(f"{task_id}_top_interests")
+    # plt.savefig(f"{task_id}_top_interests.png")
     plt.savefig(buf, format='png')
     buf.seek(0)
     top_interests_bytes = buf.getvalue()
@@ -115,7 +115,7 @@ def analyze_follower_info(task_id):
     plt.xlabel('关注者数量')
     plt.ylabel('数量')
     buf = io.BytesIO()
-    plt.savefig(f"{task_id}_influence_distribution")
+    # plt.savefig(f"{task_id}_influence_distribution.png")
     plt.savefig(buf, format='png')
     buf.seek(0)
     influence_distribution_bytes = buf.getvalue()
@@ -124,8 +124,8 @@ def analyze_follower_info(task_id):
     plt.close()
 
 
-def run_weibo_fan_analyze(task_id):
+def run_weibo_follower_analyze(task_id):
     analyze_follower_info(task_id)
 
 
-run_weibo_fan_analyze('58f3b422-003f-40db-b2c6-75cf129cb018')
+# run_weibo_follower_analyze('58f3b422-003f-40db-b2c6-75cf129cb018')

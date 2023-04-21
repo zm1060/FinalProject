@@ -1,3 +1,4 @@
+import os
 import re
 from datetime import datetime
 import numpy as np
@@ -7,72 +8,17 @@ from gensim import corpora, models
 import pandas as pd
 import matplotlib.pyplot as plt
 from snownlp import SnowNLP
-from textblob import TextBlob
 import io
 
 from app.db.weibo_db import db as weibo_db
 from app.redis_client import redis_client
 
 plt.rcParams['font.sans-serif'] = ['SimHei']  # 设置中文显示字体
+# Get the absolute path of the script
+script_dir = os.path.dirname(os.path.abspath(__file__))
 
-
-def analyze_sentiment(task_id):
-    collection = weibo_db[task_id]
-    # Find the data that matches the query
-    data = list(collection.find())
-    # Extract text content from each data entry
-    content_list = []
-    for d in data:
-        if 'content' in d:
-            content_list.append(d['content'])
-    # Perform sentiment analysis on the text content
-    sentiment_list = []
-    for content in content_list:
-        blob = TextBlob(content)
-        sentiment_list.append(blob.sentiment.polarity)
-    # Convert list of sentiment scores into DataFrame
-    sentiment_df = pd.DataFrame(sentiment_list, columns=['sentiment'])
-    # Create a histogram of the sentiment scores
-    plt.figure(figsize=(6, 4))
-    plt.hist(sentiment_df['sentiment'], bins=20)
-    plt.title('Sentiment distribution of posts')
-    plt.xlabel('Sentiment score')
-    plt.ylabel('Count')
-    buf = io.BytesIO()
-    plt.savefig(f"{task_id}_sentiment_histogram")
-    plt.savefig(buf, format='png')
-    buf.seek(0)
-    sentiment_histogram_bytes = buf.getvalue()
-    buf.close()
-    redis_client.set(f"{task_id}_sentiment_histogram", sentiment_histogram_bytes)
-    plt.close()
-
-
-def analyze_time_series(task_id):
-    collection = weibo_db[task_id]
-    data = list(collection.find())
-    # Create a list of timestamps for each post
-    timestamp_list = []
-    for d in data:
-        timestamp = datetime.strptime(d['created_at'], '%Y-%m-%d %H:%M:%S')
-        timestamp_list.append(timestamp)
-    # Convert timestamp list into Pandas Series and resample by hour
-    ts = pd.Series([1] * len(timestamp_list), index=timestamp_list)
-    ts = ts.resample('H').sum().fillna(0)
-    # Create a line chart of the post frequency over time
-    plt.figure(figsize=(12, 6))
-    plt.plot(ts)
-    plt.title('Post frequency over time')
-    plt.xlabel('Date')
-    plt.ylabel('Number of posts')
-    buf = io.BytesIO()
-    plt.savefig(f"{task_id}_time_series")
-    plt.savefig(buf, format='png')
-    buf.seek(0)
-    time_series_bytes = buf.getvalue()
-    buf.close()
-    redis_client.set(f"{task_id}_time_series", time_series_bytes)
-    plt.close()
+# Use the script directory to construct the path to the font file
+font_path = os.path.join(script_dir, 'SimHei.ttf')
 
 
 def analyze_user_engagement(task_id):
@@ -95,12 +41,12 @@ def analyze_user_engagement(task_id):
     plt.bar(reposts.index, reposts, label='Reposts')
     plt.bar(comments.index, comments, bottom=reposts, label='Comments')
     plt.bar(likes.index, likes, bottom=reposts + comments, label='Likes')
-    plt.title('User engagement with posts')
-    plt.xlabel('Post index')
-    plt.ylabel('Number of engagements')
+    plt.title('博文用户参与度')
+    plt.xlabel('博文索引')
+    plt.ylabel('参与数量')
     plt.legend()
     buf = io.BytesIO()
-    plt.savefig(f"{task_id}_user_engagement")
+    # plt.savefig(f"{task_id}_user_engagement.png")
     plt.savefig(buf, format='png')
     buf.seek(0)
     user_engagement_bytes = buf.getvalue()
@@ -124,12 +70,12 @@ def analyze_hashtags(task_id):
     # Create a bar chart of the hashtag counts
     plt.figure(figsize=(10, 6))
     plt.bar(hashtag_counts.index[:10], hashtag_counts.values[:10])
-    plt.title('Hashtag frequency in posts')
-    plt.xlabel('Hashtag')
-    plt.ylabel('Frequency')
+    plt.title('标签频率')
+    plt.xlabel('标签')
+    plt.ylabel('频率')
     plt.xticks(rotation=90)
     buf = io.BytesIO()
-    plt.savefig(f"{task_id}_hashtag_frequency")
+    # plt.savefig(f"{task_id}_hashtag_frequency.png")
     plt.savefig(buf, format='png')
     buf.seek(0)
     hashtag_counts_bytes = buf.getvalue()
@@ -172,18 +118,17 @@ def analyze_topics(task_id):
     plt.scatter(np.arange(len(data)), topic_distribution[:, 3], label='Topic 4')
     plt.scatter(np.arange(len(data)), topic_distribution[:, 4], label='Topic 5')
     plt.title('博文的话题分布')
-    plt.xlabel('Post index')
-    plt.ylabel('Topic probability')
+    plt.xlabel('博文索引')
+    plt.ylabel('话题概率')
     plt.legend()
     buf = io.BytesIO()
-    plt.savefig(f"{task_id}_topic_distribution")
+    # plt.savefig(f"{task_id}_topic_distribution.png")
     plt.savefig(buf, format='png')
     buf.seek(0)
     topic_distribution_bytes = buf.getvalue()
     buf.close()
     redis_client.set(f"{task_id}_topic_distribution", topic_distribution_bytes)
     plt.close()
-
 
 
 def analyze_post_sources(task_id):
@@ -209,7 +154,7 @@ def analyze_post_sources(task_id):
     plt.pie(source_counts.values, labels=source_counts.index)
     plt.title('博文发布源分布')
     buf = io.BytesIO()
-    plt.savefig(f"{task_id}_post_sources")
+    # plt.savefig(f"{task_id}_post_sources.png")
     plt.savefig(buf, format='png')
     buf.seek(0)
     source_counts_bytes = buf.getvalue()
@@ -241,7 +186,7 @@ def analyze_sentiment(task_id):
     plt.xlabel('情感分数')
     plt.ylabel('数量')
     buf = io.BytesIO()
-    plt.savefig(f"{task_id}_sentiment_histogram")
+    # plt.savefig(f"{task_id}_sentiment_histogram.png")
     plt.savefig(buf, format='png')
     buf.seek(0)
     sentiment_histogram_bytes = buf.getvalue()
@@ -268,7 +213,7 @@ def analyze_time_series(task_id):
     plt.xlabel('日期')
     plt.ylabel('博文数量')
     buf = io.BytesIO()
-    plt.savefig(f"{task_id}_time_series")
+    # plt.savefig(f"{task_id}_time_series.png")
     plt.savefig(buf, format='png')
     buf.seek(0)
     time_series_bytes = buf.getvalue()

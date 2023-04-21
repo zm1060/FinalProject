@@ -33,9 +33,9 @@ def analyze_post_sources(task_id):
     # Create a pie chart of the source counts
     plt.figure(figsize=(8, 6))
     plt.pie(source_counts.values, labels=source_counts.index)
-    plt.title('分布博文的使用设备分布')
+    plt.title('博文的发布设备分布')
     buf = io.BytesIO()
-    plt.savefig(f"{task_id}_post_sources")
+    # plt.savefig(f"{task_id}_post_sources.png")
     plt.savefig(buf, format='png')
     buf.seek(0)
     source_counts_bytes = buf.getvalue()
@@ -62,7 +62,7 @@ def analyze_post_sources(task_id):
     plt.xlabel('情感分数(0:消极  1:积极)')
     plt.ylabel('数量')
     buf = io.BytesIO()
-    plt.savefig(f"{task_id}_sentiment_histogram")
+    # plt.savefig(f"{task_id}_sentiment_histogram.png")
     plt.savefig(buf, format='png')
     buf.seek(0)
     sentiment_histogram_bytes = buf.getvalue()
@@ -86,7 +86,7 @@ def analyze_post_sources(task_id):
     plt.xlabel('日期')
     plt.ylabel('博文数量')
     buf = io.BytesIO()
-    plt.savefig(f"{task_id}_posting_frequency")
+    # plt.savefig(f"{task_id}_posting_frequency.png")
     plt.savefig(buf, format='png')
     buf.seek(0)
     posting_frequency_bytes = buf.getvalue()
@@ -113,7 +113,7 @@ def analyze_post_sources(task_id):
     plt.title('博文用户参与度')
     plt.ylabel('数量')
     buf = io.BytesIO()
-    plt.savefig(f"{task_id}_user_engagement")
+    # plt.savefig(f"{task_id}_user_engagement.png")
     plt.savefig(buf, format='png')
     buf.seek(0)
     user_engagement_bytes = buf.getvalue()
@@ -136,12 +136,12 @@ def analyze_post_sources(task_id):
     # Create a bar chart of the top hashtags
     plt.figure(figsize=(8, 6))
     plt.bar(top_hashtags.index, top_hashtags.values)
-    plt.title('Top 10 hashtags')
-    plt.xlabel('Hashtag')
-    plt.ylabel('Count')
+    plt.title('前十标签')
+    plt.xlabel('标签')
+    plt.ylabel('数量')
     plt.xticks(rotation=45, ha='right')
     buf = io.BytesIO()
-    plt.savefig(f"{task_id}_top_hashtags")
+    # plt.savefig(f"{task_id}_top_hashtags.png")
     plt.savefig(buf, format='png')
     buf.seek(0)
     top_hashtags_bytes = buf.getvalue()
@@ -150,8 +150,8 @@ def analyze_post_sources(task_id):
     plt.close()
 
 
-def run_weibo_post_analyze(task_id):
+def run_weibo_repost_analyze(task_id):
     analyze_post_sources(task_id)
 
 
-run_weibo_post_analyze('06aa4ec5-bdcc-455f-970b-f2c43aeec47d')
+# run_weibo_repost_analyze('06aa4ec5-bdcc-455f-970b-f2c43aeec47d')

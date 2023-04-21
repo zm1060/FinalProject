@@ -1,3 +1,5 @@
+import os
+
 from app.db.jd_db import db as jd_db
 import jieba
 from wordcloud import WordCloud
@@ -6,6 +8,24 @@ import re
 from collections import Counter
 import io
 from app.redis_client import redis_client
+
+plt.rcParams['font.sans-serif'] = ['SimHei']  # 设置中文显示字体
+
+# Get the absolute path of the script
+script_dir = os.path.dirname(os.path.abspath(__file__))
+
+# Use the script directory to construct the path to the font file
+font_path = os.path.join(script_dir, 'SimHei.ttf')
+
+# Get the directory of the current script
+dirname = os.path.dirname(__file__)
+
+# Construct the path to the stopwords file relative to the script directory
+stopwords_path = os.path.join(dirname, 'common_stopwords.txt')
+
+# Open the stopwords file using the relative path
+with open(stopwords_path, 'r', encoding='utf-8') as f:
+    stopwords = [line.strip() for line in f.readlines()]
 
 
 def load_data(task_id):
@@ -54,7 +74,6 @@ def count_words(words_list):
 
 def generate_wordcloud(task_id, words_count):
     # Generate the wordcloud
-    font_path = '../SimHei.ttf'  # Please adjust the actual font file path
     wordcloud = WordCloud(font_path=font_path, background_color='white', max_words=100, contour_width=3,
                           contour_color='steelblue')
     wordcloud.generate_from_frequencies(words_count)

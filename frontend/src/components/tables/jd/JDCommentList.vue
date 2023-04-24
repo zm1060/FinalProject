@@ -65,7 +65,7 @@ export default {
     };
   },
   methods: {
-    getCommentData() {
+    async getCommentData() {
       this.idToFetch = this.inputtaskId || this.taskId;
       axiosInstance.get(`/jd/data/comment/${this.idToFetch}`).then(response => {
         this.commentData = response.data;

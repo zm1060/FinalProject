@@ -10,13 +10,7 @@
         <a-button @click="showData = !showData">数据展示</a-button>
       </a-menu-item>
       <a-menu-item>
-        <a-button>数据分析</a-button>
-      </a-menu-item>
-      <a-menu-item>
-        <a-button>系统日志</a-button>
-      </a-menu-item>
-      <a-menu-item>
-        <a-avatar></a-avatar>
+        <a-button @click="$router.push('/help_center')">帮助中心</a-button>
       </a-menu-item>
       <a-menu-item>
         <a-button @click="$router.push('/login')">退出登录</a-button>

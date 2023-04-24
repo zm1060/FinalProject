@@ -66,89 +66,44 @@ export default {
           key: "content",
         },
         {
-          title: "用户",
-          dataIndex: "user",
-          key: "user"
+          title: "转发数量",
+          dataIndex: "reposts_count",
+          key: "reposts_count",
         },
         {
-          title: "描述",
-          dataIndex: "description",
-          key: "description",
+          title: "评论数量",
+          dataIndex: "comments_count",
+          key: "comments_count",
         },
         {
-          title: "关注数量",
-          dataIndex: "followers_count",
-          key: "followers_count",
+          title: "参与数量",
+          dataIndex: "attitudes_count",
+          key: "attitudes_count",
         },
         {
-          title: "朋友数量",
-          dataIndex: "friends_count",
-          key: "friends_count",
-        },
-        {
-          title: "Statuses Count",
-          dataIndex: "status_count",
-          key: "status_count",
-        },
-        {
-          title: "性别",
-          dataIndex: "gender",
-          key: "gender",
-        },
-        {
-          title: "位置",
-          dataIndex: "location",
-          key: "location",
-        },
-        {
-          title: "认证种类",
-          dataIndex: "verified_type",
-          key: "verified_type",
-        },
-        {
-          title: "认证原因",
-          dataIndex: "verified_reason",
-          key: "verified_reason",
-        },
-        {
-          title: "生日",
-          dataIndex: "birthday",
-          key: "birthday",
-        },
-        {
-          title: "账号创立时间",
+          title: "发布时间",
           dataIndex: "created_at",
           key: "created_at",
         },
         {
-          title: "描述文本",
-          dataIndex: "desc_text",
-          key: "desc_text",
+          title: "用户ID",
+          dataIndex: ["user","_id"],
+          key: "user"
+        },
+        {
+          title: "用户昵称",
+          dataIndex: ["user","nick_name"],
+          key: "description",
+        },
+        {
+          title: "用户认证种类",
+          dataIndex: ["user","verified_type"],
+          key: "verified_type",
         },
         {
           title: "IP地址",
           dataIndex: "ip_location",
           key: "ip_location",
-        },
-        {
-          title: "阳光信用分",
-          dataIndex: "sunshine_credit",
-          key: "sunshine_credit",
-        },
-        {
-          title: "标签描述",
-          dataIndex: "label_desc",
-          key: "label_desc",
-        },
-        {
-          title: "公司",
-          dataIndex: "company",
-          key: "company",
-        },
-        {
-          title: "教育",
-          dataIndex: ["eduction", "school"],
-          key: "eduction",
         },
         {
           title: "数据收集时间",

@@ -20,10 +20,7 @@
           </a-menu-item>
         </a-sub-menu>
         <a-menu-item>
-          <router-link to="/data_analysis">数据分析</router-link>
-        </a-menu-item>
-        <a-menu-item>
-          <router-link to="/data_management">数据管理</router-link>
+          <router-link to="/help_center">帮助中心</router-link>
         </a-menu-item>
         <a-menu-item>
           <router-link to="/user_center">{{currentUser.username}}</router-link>
@@ -229,8 +226,6 @@ export default {
     },
     handleView(taskId, taskType) {
       const routeName = `${taskType}_list`;
-      console.log('Generated route name:', routeName);
-
       // pass the taskId to the component as a route parameter
       this.$router
         .push(`/${routeName}/${taskId}`)

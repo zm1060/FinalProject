@@ -51,9 +51,6 @@ def clean_data(data):
 
 def tokenize_data(cleaned_data):
     # Tokenize the cleaned data
-    with open('common_stopwords.txt', 'r', encoding='utf-8') as f:
-        stopwords = [line.strip() for line in f.readlines()]
-
     words_list = []
     for content in cleaned_data:
         # Filter out stopwords

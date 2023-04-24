@@ -12,11 +12,11 @@ logging.basicConfig(level=logging.DEBUG)
 app = FastAPI()
 
 app.include_router(auth_router)
-app.include_router(protected_router)
-app.include_router(weibo_router)
 app.include_router(user_router)
+app.include_router(weibo_router)
 app.include_router(jd_router)
 app.include_router(analyze_router)
+app.include_router(protected_router)
 # Enable CORS for all origins
 app.add_middleware(
     CORSMiddleware,

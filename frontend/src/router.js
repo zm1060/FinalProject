@@ -27,6 +27,7 @@ import WeiboFollower from "@/components/charts/WeiboFollower.vue";
 import WeiboFan from "@/components/charts/WeiboFan.vue";
 import JdProduct from "@/components/charts/JdProduct.vue";
 import JdComment from "@/components/charts/JdComment.vue";
+import HelpCenter from "@/components/HelpCenter.vue";
 
 const routes = [
   {
@@ -170,6 +171,11 @@ const routes = [
     name: 'jd_comment_result',
     component: JdComment,
   },
+  {
+    path: '/help_center',
+    name: 'help_center',
+    component: HelpCenter,
+  }
 ]
 
 const router = createRouter({

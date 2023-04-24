@@ -263,52 +263,52 @@ async def run_complex_weibo_user_spider(user_data: dict = Body(...), current_use
     return {'task_id': result['jobid']}
 
 
-@router.get("/jd/data/product/{task_id}")
-async def get_jd_product(task_id: str, current_user: User = Depends(get_current_user)):
-    cache_key = f"jd_product:{task_id}"
-    cached_data = redis_client.get(cache_key)
-    if cached_data:
-        results = json.loads(cached_data)
-    elif es.indices.exists(index="jd_products"):
-        results = es.search(index="jd_products", body={"query": {"match": {"task_id": task_id}}})['hits']['hits']
-        if results:
-            results = [result['_source'] for result in results]
-            redis_client.set(cache_key, json.dumps(results))
-            es.index(index="jd_products", body=results)
-    else:
-        collection = db[task_id]
-        results = []
-        for result in collection.find():
-            result['_id'] = str(result['_id'])  # convert ObjectId to string
-            results.append(result)
-        redis_client.set(cache_key, json.dumps(results))
-        if es.indices.exists(index="jd_products"):
-            es.index(index="jd_products", body=results)
-    return results
-
-
-@router.get("/jd/data/comment/{task_id}")
-async def get_jd_comments(task_id: str, current_user: User = Depends(get_current_user)):
-    cache_key = f"jd_comment:{task_id}"
-    cached_data = redis_client.get(cache_key)
-    if cached_data:
-        results = json.loads(cached_data)
-    elif es.indices.exists(index="jd_comments"):
-        results = es.search(index="jd_comments", body={"query": {"match": {"task_id": task_id}}})['hits']['hits']
-        if results:
-            results = [result['_source'] for result in results]
-            redis_client.set(cache_key, json.dumps(results))
-            es.index(index="jd_comments", body=results)
-    else:
-        collection = db[task_id]
-        results = []
-        for result in collection.find():
-            result['_id'] = str(result['_id'])  # convert ObjectId to string
-            results.append(result)
-        redis_client.set(cache_key, json.dumps(results))
-        if es.indices.exists(index="jd_comments"):
-            es.index(index="jd_comments", body=results)
-    return results
+# @router.get("/jd/data/product/{task_id}")
+# async def get_jd_product(task_id: str, current_user: User = Depends(get_current_user)):
+#     cache_key = f"jd_product:{task_id}"
+#     cached_data = redis_client.get(cache_key)
+#     if cached_data:
+#         results = json.loads(cached_data)
+#     elif es.indices.exists(index="jd_products"):
+#         results = es.search(index="jd_products", body={"query": {"match": {"task_id": task_id}}})['hits']['hits']
+#         if results:
+#             results = [result['_source'] for result in results]
+#             redis_client.set(cache_key, json.dumps(results))
+#             es.index(index="jd_products", body=results)
+#     else:
+#         collection = db[task_id]
+#         results = []
+#         for result in collection.find():
+#             result['_id'] = str(result['_id'])  # convert ObjectId to string
+#             results.append(result)
+#         redis_client.set(cache_key, json.dumps(results))
+#         if es.indices.exists(index="jd_products"):
+#             es.index(index="jd_products", body=results)
+#     return results
+#
+#
+# @router.get("/jd/data/comment/{task_id}")
+# async def get_jd_comments(task_id: str, current_user: User = Depends(get_current_user)):
+#     cache_key = f"jd_comment:{task_id}"
+#     cached_data = redis_client.get(cache_key)
+#     if cached_data:
+#         results = json.loads(cached_data)
+#     elif es.indices.exists(index="jd_comments"):
+#         results = es.search(index="jd_comments", body={"query": {"match": {"task_id": task_id}}})['hits']['hits']
+#         if results:
+#             results = [result['_source'] for result in results]
+#             redis_client.set(cache_key, json.dumps(results))
+#             es.index(index="jd_comments", body=results)
+#     else:
+#         collection = db[task_id]
+#         results = []
+#         for result in collection.find():
+#             result['_id'] = str(result['_id'])  # convert ObjectId to string
+#             results.append(result)
+#         redis_client.set(cache_key, json.dumps(results))
+#         if es.indices.exists(index="jd_comments"):
+#             es.index(index="jd_comments", body=results)
+#     return results
 
 
 @router.get("/weibo/data/user/{task_id}")

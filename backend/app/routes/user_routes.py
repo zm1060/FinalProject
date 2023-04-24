@@ -56,6 +56,7 @@ async def get_current_user_tasks(current_user: User = Depends(get_current_user))
         tasks.append(task)
     return tasks
 
+
 @router.delete("/user/tasks/{task_id}")
 async def delete_task(task_id: str, current_user: User = Depends(get_current_user)):
     task = tasks_collection.find_one({"task_id": task_id})
@@ -81,6 +82,7 @@ async def delete_task(task_id: str, current_user: User = Depends(get_current_use
 
     return {"message": "Task deleted successfully."}
 
+
 @router.post("/tasks/stop/{task_id}")
 def stop_task(task_id: str):
     result = celery.AsyncResult(task_id)
@@ -89,5 +91,3 @@ def stop_task(task_id: str):
     # save the task data to a persistent storage
     # save_task_data_to_database(task_data)
     return {"status": "Task stopped successfully."}
-
-

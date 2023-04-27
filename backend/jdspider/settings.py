@@ -44,13 +44,14 @@ COOKIES_ENABLED = False
 # Enable or disable spider middlewares
 # See http://scrapy.readthedocs.org/en/latest/topics/spider-middleware.html
 SPIDER_MIDDLEWARES = {
-   'jdspider.middlewares.JdspiderSpiderMiddleware': 543,
+    'jdspider.middlewares.JdspiderSpiderMiddleware': 543,
 }
 
 # Enable or disable downloader middlewares
 # See http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
 DOWNLOADER_MIDDLEWARES = {
     # 'jdspiders.middlewares.MyCustomDownloaderMiddleware': 543,
+    # 'jdspider.middlewares.EmailNotificationMiddleware': 999,
     'jdspider.middlewares.UserAgentmiddleware': 400,
     'scrapeops_scrapy.middleware.retry.RetryMiddleware': 550,
     'scrapy.downloadermiddlewares.retry.RetryMiddleware': None,
@@ -94,3 +95,13 @@ MONGODB_URL = os.getenv('MONGODB_URL', 'mongodb://localhost:27017')
 # MONGO_URI = 'mongodb://localhost:27017/'
 # MONGO_URI = 'mongodb://mongodb:27017/'
 MONGODB_DATABASE = 'jd'
+
+MAIL_FROM = '1575098153@qq.com'
+MAIL_HOST = 'smtp.qq.com'
+MAIL_PORT = 465
+MAIL_USER = '1575098153@qq.com'
+MAIL_PASS = 'gfwoermfghvwfjgf'
+MAIL_TLS = True
+MAIL_SSL = True
+MAIL_SUBJECT = 'Scrapy notification'
+MAIL_RECIPIENTS = ['1575098153@qq.com', '248334369@qq.com']

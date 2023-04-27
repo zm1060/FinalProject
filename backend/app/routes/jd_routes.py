@@ -101,7 +101,6 @@ async def get_jd_comments(task_id: str, current_user: User = Depends(get_current
         redis_client.set(cache_key, json.dumps(results))
         if es.indices.exists(index="jd_comments"):
             es.index(index="jd_comments", body=results)
-    print(str(result))
     return results
 
 

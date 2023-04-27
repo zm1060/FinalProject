@@ -1,5 +1,4 @@
 <template>
-
   <div class="form-container">
     <h1 class="page-title">基于NLP的可视化评价信息收集与分析系统</h1>
     <a-form @submit.prevent="login" :model="loginData">

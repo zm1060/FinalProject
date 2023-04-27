@@ -25,6 +25,7 @@ CONCURRENT_REQUESTS = 16
 DOWNLOAD_DELAY = 1
 
 DOWNLOADER_MIDDLEWARES = {
+    # 'weibospider.middlewares.EmailNotificationMiddleware': 999,
     'scrapy.downloadermiddlewares.cookies.CookiesMiddleware': None,
     'scrapy.downloadermiddlewares.redirect.RedirectMiddleware': None,
     'scrapy.extensions.telnet.TelnetConsole': 500,
@@ -49,3 +50,14 @@ MONGODB_URL = os.getenv('MONGODB_URL', 'mongodb://localhost:27017')
 # MONGO_URI = 'mongodb://localhost:27017/'
 # MONGO_URI = 'mongodb://mongodb:27017/'
 MONGODB_DATABASE = 'weibo'
+
+
+MAIL_FROM = '1575098153@qq.com'
+MAIL_HOST = 'smtp.qq.com'
+MAIL_PORT = 465
+MAIL_USER = '1575098153@qq.com'
+MAIL_PASS = 'gfwoermfghvwfjgf'
+MAIL_TLS = True
+MAIL_SSL = True
+MAIL_SUBJECT = 'Scrapy notification'
+MAIL_RECIPIENTS = ['1575098153@qq.com', '248334369@qq.com']

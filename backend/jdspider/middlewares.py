@@ -8,6 +8,8 @@ import random
 
 from scrapy import signals
 from scrapy.downloadermiddlewares.useragent import UserAgentMiddleware
+
+from jdspider import settings
 from jdspider.useragents import USER_AGENTS
 
 
@@ -64,3 +66,18 @@ class UserAgentmiddleware(UserAgentMiddleware):
         agent = random.choice(USER_AGENTS)
         # log.msg('agent : %s' % agent,level=log.INFO)
         request.headers['User-Agent'] = agent
+
+
+from scrapy.mail import MailSender
+
+class EmailNotificationMiddleware(object):
+    def __init__(self, settings):
+        self.mailer = MailSender.from_settings(settings)
+
+    def process_spider_exception(self, response, exception, spider):
+        self.send_email_notification(exception)
+
+    def send_email_notification(self, exception):
+        subject = 'Scrapy notification'
+        body = str(exception)
+        self.mailer.send(to=settings.get('MAIL_RECIPIENTS'), subject=subject, body=body)

@@ -2,6 +2,9 @@
 # encoding: utf-8
 import requests
 
+from weibospider import settings
+
+
 class IPProxyMiddleware(object):
     """
     代理IP中间件
@@ -29,3 +32,17 @@ class IPProxyMiddleware(object):
             current_proxy = f'http://{proxy_data}'
             spider.logger.debug(f"current proxy:{current_proxy}")
             request.meta['proxy'] = current_proxy
+
+from scrapy.mail import MailSender
+
+class EmailNotificationMiddleware(object):
+    def __init__(self, settings):
+        self.mailer = MailSender.from_settings(settings)
+
+    def process_spider_exception(self, response, exception, spider):
+        self.send_email_notification(exception)
+
+    def send_email_notification(self, exception):
+        subject = 'Scrapy notification'
+        body = str(exception)
+        self.mailer.send(to=settings.get('MAIL_RECIPIENTS'), subject=subject, body=body)

@@ -105,7 +105,7 @@ export default {
     getUserData() {
       this.idToFetch = this.inputtaskId || this.taskId;
       axiosInstance.get(`/weibo/data/user/${this.idToFetch}`).then(response => {
-        this.userData = [response.data];
+        this.userData = [response.data][0];
         message.success('加载数据成功!')
         console.log(response)
       }).catch(error => {

@@ -33,7 +33,9 @@ class IPProxyMiddleware(object):
             spider.logger.debug(f"current proxy:{current_proxy}")
             request.meta['proxy'] = current_proxy
 
+
 from scrapy.mail import MailSender
+
 
 class EmailNotificationMiddleware(object):
     def __init__(self, settings):

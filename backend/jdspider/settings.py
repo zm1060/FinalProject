@@ -98,10 +98,10 @@ MONGODB_DATABASE = 'jd'
 
 MAIL_FROM = '1575098153@qq.com'
 MAIL_HOST = 'smtp.qq.com'
-MAIL_PORT = 465
+MAIL_PORT = 587
 MAIL_USER = '1575098153@qq.com'
 MAIL_PASS = 'gfwoermfghvwfjgf'
 MAIL_TLS = True
-MAIL_SSL = True
+MAIL_SSL = False
 MAIL_SUBJECT = 'Scrapy notification'
-MAIL_RECIPIENTS = ['1575098153@qq.com', '248334369@qq.com']
+MAIL_TO = ['1575098153@qq.com', '248334369@qq.com']

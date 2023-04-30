@@ -35,6 +35,7 @@ DOWNLOADER_MIDDLEWARES = {
     'scrapy.downloadermiddlewares.retry.RetryMiddleware': None,
 }
 SCRAPEOPS_API_KEY = 'f2a6e395-b730-498d-a642-ae125870cf32'
+
 EXTENSIONS = {
     'scrapeops_scrapy.extension.ScrapeOpsMonitor': 500,
     'scrapy.extensions.telnet.TelnetConsole': None,
@@ -54,10 +55,10 @@ MONGODB_DATABASE = 'weibo'
 
 MAIL_FROM = '1575098153@qq.com'
 MAIL_HOST = 'smtp.qq.com'
-MAIL_PORT = 465
+MAIL_PORT = 587
 MAIL_USER = '1575098153@qq.com'
 MAIL_PASS = 'gfwoermfghvwfjgf'
 MAIL_TLS = True
-MAIL_SSL = True
+MAIL_SSL = False
 MAIL_SUBJECT = 'Scrapy notification'
-MAIL_RECIPIENTS = ['1575098153@qq.com', '248334369@qq.com']
+MAIL_TO = ['1575098153@qq.com', '248334369@qq.com']

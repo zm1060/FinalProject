@@ -3,6 +3,10 @@
     <a-button type="primary" @click="$router.push('/home')">回到主页</a-button>
     <a-input v-model:value="inputtaskId" placeholder="输入任务ID" @pressEnter="getTweetData" />
     <a-button @click="getTweetData">获取数据</a-button>
+
+    <a-input v-model:value="searchQuery" placeholder="输入搜索关键字" />
+    <a-button @click="updateFilteredData()">搜索</a-button>
+    <a-button @click="searchQuery = ''">重置</a-button>
     <a-table :columns="columns"
              :dataSource="tweetData"
              v-if="tweetData.length > 0"/>
@@ -28,11 +32,17 @@ export default {
       return this.$route.params.taskId;
     },
   },
+  watch: {
+    searchQuery() {
+      this.updateFilteredData();
+    }
+  },
   data() {
     return {
       inputtaskId: '',
       idToFetch: '',
       tweetData: [],
+      searchQuery: "",
       columns: [
         {
           title: "ID",
@@ -103,11 +113,45 @@ export default {
       axiosInstance.get(`/weibo/data/tweet/${this.idToFetch}`).then(response => {
         this.tweetData = response.data;
         message.success('加载数据成功!')
-        console.log(JSON.stringify(this.tweetData))
       }).catch(error => {
         message.error('加载数据失败!')
         console.log(error)
       })
+    },
+    searchTweetData() {
+      const searchQuery = this.searchQuery.trim();
+      if (searchQuery === "") {
+        return this.tweetData;
+      } else {
+        const getValue = (record, dataIndex) => {
+          if (Array.isArray(dataIndex)) {
+            let value = record;
+            dataIndex.forEach(key => {
+              value = value[key];
+            });
+            return value;
+          }
+          return record[dataIndex];
+        };
+
+        const filteredData = this.tweetData.filter(record => {
+          return this.columns.some(column => {
+            const dataIndex = column.dataIndex;
+            const value = getValue(record, dataIndex);
+            const searchRegex = new RegExp(searchQuery, "giu");
+            return searchRegex.test(value);
+          });
+        });
+
+        return filteredData;
+      }
+    },
+    updateFilteredData() {
+      if (this.searchQuery === "") {
+        this.getTweetData();
+      } else {
+        this.tweetData = this.searchTweetData();
+      }
     },
   },
 };

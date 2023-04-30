@@ -3,6 +3,10 @@
     <a-button type="primary" @click="$router.push('/home')">回到主页</a-button>
     <a-input v-model:value="inputtaskId" placeholder="输入任务ID" @pressEnter="getSearchData" />
     <a-button @click="getSearchData">获取数据</a-button>
+
+    <a-input v-model:value="searchQuery" placeholder="输入搜索关键字" />
+    <a-button @click="updateFilteredData()">搜索</a-button>
+    <a-button @click="searchQuery = ''">重置</a-button>
     <a-table :columns="columns"
              :dataSource="searchData"
               v-if="searchData.length > 0"/>
@@ -12,7 +16,6 @@
 <script>
 import {Table, Input, Button, message} from 'ant-design-vue';
 import axiosInstance from "@/api/axiosInstance";
-import {toRaw} from "vue";
 
 export default {
   name: 'SearchList',
@@ -29,11 +32,17 @@ export default {
       return this.$route.params.taskId;
     },
   },
+  watch: {
+    searchQuery() {
+      this.updateFilteredData();
+    }
+  },
   data() {
     return {
       inputtaskId: '',
       idToFetch: '',
       searchData: [],
+      searchQuery: "",
       columns: [
         {
           title: "ID",
@@ -119,13 +128,46 @@ export default {
       this.idToFetch = this.inputtaskId || this.taskId;
       axiosInstance.get(`/weibo/data/search/${this.idToFetch}`).then(response => {
         this.searchData = response.data;
-        console.log(toRaw(this.searchData)); // access the raw array data
         message.success('加载数据成功!')
       }).catch(error => {
         message.error('加载数据失败!')
         console.log(error)
       })
 
+    },
+    searchSearchData() {
+      const searchQuery = this.searchQuery.trim();
+      if (searchQuery === "") {
+        return this.searchData;
+      } else {
+        const getValue = (record, dataIndex) => {
+          if (Array.isArray(dataIndex)) {
+            let value = record;
+            dataIndex.forEach(key => {
+              value = value[key];
+            });
+            return value;
+          }
+          return record[dataIndex];
+        };
+
+        const filteredData = this.searchData.filter(record => {
+          return this.columns.some(column => {
+            const dataIndex = column.dataIndex;
+            const value = getValue(record, dataIndex);
+            const searchRegex = new RegExp(searchQuery, "giu");
+            return searchRegex.test(value);
+          });
+        });
+        return filteredData;
+      }
+    },
+    updateFilteredData() {
+      if (this.searchQuery === "") {
+        this.getSearchData();
+      } else {
+        this.searchData = this.searchSearchData();
+      }
     },
   },
 };

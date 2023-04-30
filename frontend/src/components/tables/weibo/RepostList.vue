@@ -3,13 +3,15 @@
     <a-button type="primary" @click="$router.push('/home')">回到主页</a-button>
     <a-input v-model:value="inputtaskId" placeholder="输入任务ID" @pressEnter="getRepostData" />
     <a-button @click="getRepostData">获取数据</a-button>
+
+    <a-input v-model:value="searchQuery" placeholder="输入搜索关键字" />
+    <a-button @click="updateFilteredData()">搜索</a-button>
+    <a-button @click="searchQuery = ''">重置</a-button>
     <a-table :columns="columns"
              :dataSource="repostData"
              v-if="repostData.length > 0"/>
   </div>
 </template>
-
-
 
 <script>
 import {Table, Input, Button, message} from 'ant-design-vue';
@@ -30,11 +32,17 @@ export default {
       return this.$route.params.taskId;
     },
   },
+  watch: {
+    searchQuery() {
+      this.updateFilteredData();
+    }
+  },
   data() {
     return {
       inputtaskId: '',
       idToFetch: '',
       repostData: [],
+      searchQuery: "",
       columns: [
         {
           title: "ID",
@@ -145,6 +153,43 @@ export default {
         message.error('加载数据失败!')
         console.log(error)
       })
+    },
+    searchRepostData() {
+      const searchQuery = this.searchQuery.trim();
+      if (searchQuery === "") {
+        return this.repostData;
+      } else {
+        const getValue = (record, dataIndex) => {
+          if (Array.isArray(dataIndex)) {
+            let value = record;
+            dataIndex.forEach(key => {
+              value = value[key];
+            });
+            return value;
+          }
+          return record[dataIndex];
+        };
+
+        const filteredData = this.repostData.filter(record => {
+          return this.columns.some(column => {
+            const dataIndex = column.dataIndex;
+            const value = getValue(record, dataIndex);
+            const searchRegex = new RegExp(searchQuery, "giu");
+            return searchRegex.test(value);
+          });
+        });
+
+        return filteredData;
+      }
+    },
+
+
+    updateFilteredData() {
+      if (this.searchQuery === "") {
+        this.getRepostData();
+      } else {
+        this.repostData = this.searchRepostData();
+      }
     },
   },
 };

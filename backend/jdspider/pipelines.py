@@ -86,7 +86,7 @@ class JDcommentPipeline(object):
         self.task_db['tasks'].update_one({'task_id': task_id}, {'$set': {'stats': stats_info}}, upsert=True)
         self.client.close()
         subject = f"您的名称为{spider.name}的任务完成，任务号为 {task_id}!"
-        body = f"数据收集任务完成，请前往您的任务中心进行下异步操作。  运行状态:{stats_info}"
+        body = f"数据收集任务完成，请前往您的任务中心进行下一步操作。 可以前往https://scrapeops.io/app/dashboard查看数据收集程序的状态 运行状态:{stats_info}"
         send_email(subject, body)
 
     def process_item(self, item, spider):

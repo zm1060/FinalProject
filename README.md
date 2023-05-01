@@ -38,11 +38,11 @@ Backend framework.
 ``
 ### Celery in Linux
 ```
-celery -A app.celery_task.tasks worker --loglevel=info
+celery -A app.celery_task.tasks worker --concurrency 4 --loglevel=info
 ```
 #### use this to delete all history tasks
 ``
-celery -A app.celery_task.tasks purge 
+celery -A app.celery_task.tasks purge -f
 ``
 ### Flower
 ``

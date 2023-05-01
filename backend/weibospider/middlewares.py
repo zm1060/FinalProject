@@ -2,6 +2,7 @@
 # encoding: utf-8
 import requests
 
+from app import credentials
 from weibospider import settings
 
 
@@ -52,13 +53,15 @@ class EmailNotificationMiddleware(object):
 
 
 class ProxyDownloaderMiddleware:
-    _proxy = ('f675.kdltps.com', '15818')
+    url = credentials.proxy
+    port = credentials.port
+    _proxy = (url, port)
 
     def process_request(self, request, spider):
 
         # 用户名密码认证
-        username = "t18290722811974"
-        password = "so4zel3m"
+        username = credentials.username
+        password = credentials.password
         request.meta['proxy'] = "http://%(user)s:%(pwd)s@%(proxy)s/" % {"user": username, "pwd": password, "proxy": ':'.join(ProxyDownloaderMiddleware._proxy)}
 
         # 白名单认证

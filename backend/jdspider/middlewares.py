@@ -10,6 +10,7 @@ from scrapy import signals
 from scrapy.downloadermiddlewares.useragent import UserAgentMiddleware
 from w3lib.http import basic_auth_header
 
+from app import credentials
 from jdspider import settings
 from jdspider.useragents import USER_AGENTS
 
@@ -69,14 +70,32 @@ class UserAgentmiddleware(UserAgentMiddleware):
         request.headers['User-Agent'] = agent
 
 
+from scrapy.mail import MailSender
+
+class EmailNotificationMiddleware(object):
+    def __init__(self, settings):
+        self.mailer = MailSender.from_settings(settings)
+
+    def process_spider_exception(self, response, exception, spider):
+        self.send_email_notification(exception)
+
+    def send_email_notification(self, exception):
+        subject = 'Scrapy notification'
+        body = str(exception)
+        self.mailer.send(to=settings.get('MAIL_RECIPIENTS'), subject=subject, body=body)
+
+
+
 class ProxyDownloaderMiddleware:
-    _proxy = ('f675.kdltps.com', '15818')
+    url = credentials.proxy
+    port = credentials.port
+    _proxy = (url, port)
 
     def process_request(self, request, spider):
 
         # 用户名密码认证
-        username = "t18290722811974"
-        password = "so4zel3m"
+        username = credentials.username
+        password = credentials.password
         request.meta['proxy'] = "http://%(user)s:%(pwd)s@%(proxy)s/" % {"user": username, "pwd": password, "proxy": ':'.join(ProxyDownloaderMiddleware._proxy)}
 
         # 白名单认证
@@ -91,17 +110,3 @@ class ProxyDownloaderMiddleware:
             from scrapy.resolver import dnscache
             dnscache.__delitem__(ProxyDownloaderMiddleware._proxy[0])  # 删除proxy host的dns缓存
         return exception
-
-from scrapy.mail import MailSender
-
-class EmailNotificationMiddleware(object):
-    def __init__(self, settings):
-        self.mailer = MailSender.from_settings(settings)
-
-    def process_spider_exception(self, response, exception, spider):
-        self.send_email_notification(exception)
-
-    def send_email_notification(self, exception):
-        subject = 'Scrapy notification'
-        body = str(exception)
-        self.mailer.send(to=settings.get('MAIL_RECIPIENTS'), subject=subject, body=body)

@@ -24,12 +24,13 @@ LOG_FILE = "scrapy.log"
 # See also autothrottle settings and docs
 # DOWNLOAD_DELAY = 3
 # The download delay setting will honor only one of:
-CONCURRENT_REQUESTS = 16
+
+CONCURRENT_REQUESTS = 32
 DOWNLOAD_DELAY = 1
 
-CONCURRENT_REQUESTS_PER_DOMAIN = 16
-CONCURRENT_REQUESTS_PER_IP = 0
-# Disable cookies (enabled by default)
+CONCURRENT_REQUESTS_PER_DOMAIN = 32
+# CONCURRENT_REQUESTS_PER_IP = 0
+#Disable cookies (enabled by default)
 COOKIES_ENABLED = False
 
 # Disable Telnet Console (enabled by default)
@@ -52,6 +53,7 @@ SPIDER_MIDDLEWARES = {
 DOWNLOADER_MIDDLEWARES = {
     # 'jdspiders.middlewares.MyCustomDownloaderMiddleware': 543,
     # 'jdspider.middlewares.EmailNotificationMiddleware': 999,
+    'jdspider.middlewares.ProxyDownloaderMiddleware': 100,
     'jdspider.middlewares.UserAgentmiddleware': 400,
     'scrapeops_scrapy.middleware.retry.RetryMiddleware': 550,
     'scrapy.downloadermiddlewares.retry.RetryMiddleware': None,

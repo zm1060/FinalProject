@@ -1,5 +1,6 @@
 from datetime import datetime
 
+from celery.worker.control import revoke
 from fastapi import APIRouter, Body, Depends
 
 from app.celery_task.tasks import celery
@@ -11,6 +12,44 @@ from app.models.user import User
 from app.redis_client import redis_client
 
 router = APIRouter()
+
+
+@router.post('/jd/stop_spider')
+async def stop_spider(task_id: str, current_user: User = Depends(get_current_user)):
+    # Check if the task belongs to the current user
+    task = task_db["tasks"].find_one({"task_id": task_id, "user_id": current_user.id})
+    if task is None:
+        return {"message": "Task not found or not owned by the user."}
+
+    # Revoke the task
+    revoke(task_id, terminate=True)
+    task_db["tasks"].delete_one({"task_id": task_id})
+
+    return {"message": "Task has been stopped."}
+
+@router.post('/jd/restart_spider')
+async def restart_spider(task_id: str, current_user: User = Depends(get_current_user)):
+    # Check if the task belongs to the current user
+    task = task_db["tasks"].find_one({"task_id": task_id, "user_id": current_user.id})
+    if task is None:
+        return {"message": "Task not found or not owned by the user."}
+
+    # Get the task information
+    task_kwargs = task_db["task_kwargs"].find_one({"task_id": task_id})
+    task_type = task.get("task_type")
+
+    # Send the task
+    task = None
+    if task_type == "jd_product":
+        task = celery.send_task('tasks.run_jd_product_spider', kwargs=task_kwargs)
+    elif task_type == "jd_comment":
+        task = celery.send_task('tasks.run_jd_comment_spider', kwargs=task_kwargs)
+
+    # Update the task information
+    task_time = datetime.now()
+    task_db["tasks"].update_one({"task_id": task_id}, {"$set": {"task_time": task_time}})
+
+    return {"message": "Task has been restarted."}
 
 
 @router.post('/jd/run_jd_product_spider')

@@ -1,8 +1,12 @@
 <template>
   <div>
-    <a-button type="primary" @click="$router.push('/home')">Back to Homepage</a-button>
+    <a-button type="primary" @click="$router.push('/home')">返回主页</a-button>
     <h1>任务列表</h1>
     <a-table :columns="columns" :data-source="tasks" :loading="loading">
+      <template v-slot:status="{ record }">
+        <span v-if="record.stats.finish_time">{{ '已完成' }}</span>
+        <span v-else-if="!record.stats.finish_time">{{ '运行中' }}</span>
+      </template>
       <template v-slot:action="{ record }">
         <span>
           <a-button type="primary" @click="handleView(record.task_id, record.task_type)">
@@ -11,10 +15,24 @@
           <a-button type="primary" @click="handleAnalyze(record.task_id, record.task_type)">分析</a-button>
           <a-button type="primary" @click="handleResult(record.task_id, record.task_type)">查看分析结果</a-button>
           <a-popconfirm
-            title="Are you sure to delete this task?"
+            title="是否确定删除这个任务?"
             @confirm="handleDelete(record.task_id)"
           >
             <a-button type="danger">删除</a-button>
+          </a-popconfirm>
+          <a-button
+            v-if="!isRunning(record)"
+            type="primary"
+            @click="handleRestart(record.task_id, record.task_type)"
+          >
+            恢复
+          </a-button>
+          <a-popconfirm
+            v-if="isRunning(record)"
+            title="是否确定停止这个任务?"
+            @confirm="handleStop(record.task_id)"
+          >
+            <a-button type="danger">停止</a-button>
           </a-popconfirm>
         </span>
       </template>
@@ -59,6 +77,11 @@ export default {
           key: "finish_time",
         },
         {
+          title: '状态',
+          key: 'status',
+          slots: { customRender: 'status' }
+        },
+        {
           title: "爬取条目数量",
           dataIndex: ["stats", "item_scraped_count"],
           key: "item_scraped_count",
@@ -69,6 +92,12 @@ export default {
           slots: { customRender: "action" },
         },
       ],
+      isRunning: (record) => {
+        return record.status === '运行中';
+      },
+      modalVisible: false,
+      selectedTaskId: null,
+      selectedTaskType: null,
     };
   },
   created() {
@@ -90,40 +119,6 @@ export default {
         .finally(() => {
           this.loading = false;
         });
-    },
-    navigateToComponent(taskType) {
-      switch (taskType) {
-        case "jd_product":
-          this.$router.push("/jd_product_list");
-          break;
-        case "jd_comment":
-          this.$router.push("/jd_comment_list");
-          break;
-        case "weibo_user":
-          this.$router.push("/weibo_user_list");
-          break;
-        case "weibo_comment":
-          this.$router.push("/weibo_comment_list");
-          break;
-        case "weibo_repost":
-          this.$router.push("/weibo_repost_list");
-          break;
-        case "weibo_tweet":
-          this.$router.push("/weibo_tweet_list");
-          break;
-        case "weibo_fan":
-          this.$router.push("/weibo_fan_list");
-          break;
-        case "weibo_follower":
-          this.$router.push("/weibo_follower_list");
-          break;
-        case "weibo_search":
-          this.$router.push("/weibo_search_list");
-          break;
-        default:
-          // handle unknown task type
-          break;
-      }
     },
     handleView(taskId, taskType) {
       const routeName = `${taskType}_list`;
@@ -203,7 +198,32 @@ export default {
           console.error('Navigation failed:', error);
         });
     },
-
+    handleStop(taskId) {
+      axiosInstance
+        .post(`/weibo/stop_spider?task_id=${taskId}`)
+        .then((response) => {
+          message.success("任务已停止!");
+          console.log(response);
+          this.fetchTasks();
+        })
+        .catch((error) => {
+          message.error("任务停止失败!");
+          console.log(error);
+        });
+    },
+    handleRestart(taskId, taskType) {
+      axiosInstance
+        .post(`/weibo/restart_spider?task_id=${taskId}`)
+        .then((response) => {
+          message.success("任务已恢复!");
+          console.log(response);
+          this.navigateToComponent(taskType);
+        })
+        .catch((error) => {
+          message.error("任务恢复失败!");
+          console.log(error);
+        });
+    },
   },
 };
 </script>

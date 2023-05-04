@@ -4,7 +4,6 @@ import re
 
 import requests
 import scrapy
-import time
 
 from jdspider.items import JdcommentItem
 

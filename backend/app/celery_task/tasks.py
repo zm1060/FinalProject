@@ -26,8 +26,8 @@ celery = Celery('tasks',
                 backend=BACKEND_URL,
                 )
 celery.conf.task_routes = {'celery_task.tasks.*': {'queue': 'celery'}}
-celery.conf.timezone = 'Asia/Shanghai'
-celery.conf.enable_utc = True
+# celery.conf.timezone = 'Asia/Shanghai'
+# celery.conf.enable_utc = True
 import logging
 from scrapy.utils.log import configure_logging
 

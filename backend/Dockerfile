@@ -11,6 +11,9 @@ WORKDIR /backend
 COPY ./requirements.txt /backend/requirements.txt
 # Copy the SimHei font file to the container
 COPY pre_process/SimHei.ttf /usr/share/fonts/truetype/
+RUN apt-get update && apt-get install -y tzdata
+ENV TZ=Asia/Shanghai
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 # Update the font cache
 RUN fc-cache -f -v
 RUN pip install -U pip

@@ -67,12 +67,25 @@
                 <a-button type="primary" @click="handleAnalyze(record.task_id, record.task_type)">分析</a-button>
                 <a-button type="primary" @click="handleResult(record.task_id, record.task_type)">查看分析结果</a-button>
                 <a-popconfirm
-                  title="Are you sure to delete this task?"
+                  title="是否确定删除这个任务?"
                   @confirm="handleDelete(record.task_id)"
                 >
                   <a-button type="danger">删除</a-button>
                 </a-popconfirm>
-
+                <a-button
+                  v-if="!isRunning(record)"
+                  type="primary"
+                  @click="handleRestart(record.task_id, record.task_type)"
+                >
+                  恢复
+                </a-button>
+                <a-popconfirm
+                  v-if="isRunning(record)"
+                  title="是否确定停止这个任务?"
+                  @confirm="handleStop(record.task_id, record.task_type)"
+                >
+                  <a-button type="danger">停止</a-button>
+                </a-popconfirm>
               </span>
             </template>
           </a-table>
@@ -135,16 +148,25 @@ export default {
               title: "开始时间",
               dataIndex: "task_time",
               key: "task_time",
+              sorter: (a, b) => new Date(a.task_time) - new Date(b.task_time),
             },
             {
               title: "完成时间",
               dataIndex: ["stats", "finish_time"],
               key: "finish_time",
+              sorter: (a, b) => new Date(a.stats.finish_time) - new Date(b.stats.finish_time),
             },
             {
               title: "爬取条目数量",
               dataIndex: ["stats", "item_scraped_count"],
               key: "item_scraped_count",
+              sorter: (a, b) => a.stats.item_scraped_count - b.stats.item_scraped_count,
+            },
+            {
+              title: '状态',
+              dataIndex: "status",
+              key: 'status',
+              sorter: (a, b) => a.status.localeCompare(b.status),
             },
             {
               title: "操作",
@@ -152,50 +174,84 @@ export default {
               slots: { customRender: "action" },
             },
           ],
+          isRunning: (record) => {
+            return record.status === 'running';
+          },
+          modalVisible: false,
+          selectedTaskId: null,
+          selectedTaskType: null,
           tasks: [],
       };
   },
 
 
   methods: {
-    setChartData() {
+      setChartData() {
       const data = {};
+      const colors = {
+        running: '#1890ff',
+        finished: '#52c41a',
+        stopped: '#ff4d4f',
+      };
 
+      // 根据任务类型和状态统计数据
       this.tasks.forEach(task => {
         if (data[task.task_type]) {
-          data[task.task_type]++;
+          if (data[task.task_type][task.status]) {
+            data[task.task_type][task.status]++;
+          } else {
+            data[task.task_type][task.status] = 1;
+          }
         } else {
-          data[task.task_type] = 1;
+          data[task.task_type] = {};
+          data[task.task_type][task.status] = 1;
         }
       });
 
       const xAxisData = Object.keys(data);
-      const seriesData = xAxisData.map(key => data[key]);
+      const legendData = Object.keys(colors);
+      const seriesData = legendData.map((status) => ({
+        name: status,
+        type: 'bar',
+        stack: 'task_type',
+        data: xAxisData.map(task_type => data[task_type][status] || 0),
+        itemStyle: {
+          color: colors[status],
+        },
+        emphasis: {
+          focus: 'series',
+          itemStyle: {
+            opacity: 1,
+          },
+        },
+      }));
 
       this.chartOptions.title = {
-        text: '任务种类'
+        text: '任务种类和状态'
       };
-      this.chartOptions.tooltip = {};
+      this.chartOptions.tooltip = {
+        trigger: 'axis',
+        axisPointer: {
+          type: 'shadow',
+        },
+      };
       this.chartOptions.legend = {
-        data: ['Task Types']
+        data: legendData,
       };
       this.chartOptions.xAxis = {
         type: 'category',
-        data: xAxisData
+        data: xAxisData,
       };
       this.chartOptions.yAxis = {
-        type: 'value'
+        type: 'value',
       };
-      this.chartOptions.series = [{
-        name: 'Task Types',
-        type: 'bar',
-        data: seriesData
-      }];
+      this.chartOptions.series = seriesData;
 
       this.$nextTick(() => {
         this.$refs.myChart.resize();
       });
     },
+
     async fetchTasks() {
       this.loading = true;
       axiosInstance
@@ -299,6 +355,44 @@ export default {
       this.$router.push({ name: routeName, params: { taskId } })
         .catch((error) => {
           console.error('Navigation failed:', error);
+        });
+    },
+    handleStop(taskId, taskType) {
+      let apiendpoint = "";
+      if(taskType.startsWith("weibo_")){
+          apiendpoint = `/weibo/stop_spider/${taskId}`
+      }else if(taskType.startsWith("jd_")){
+          apiendpoint = `/jd/stop_spider/${taskId}`
+      }
+      axiosInstance
+        .get(apiendpoint)
+        .then((response) => {
+          message.success("任务已停止!");
+          console.log(response);
+          this.fetchTasks();
+        })
+        .catch((error) => {
+          message.error("任务停止失败!");
+          console.log(error);
+        });
+    },
+    handleRestart(taskId, taskType) {
+      let apiendpoint = "";
+      if(taskType.startsWith("weibo_")){
+          apiendpoint = `/weibo/resume_spider/${taskId}`
+      }else if(taskType.startsWith("jd_")){
+          apiendpoint = `/jd/resume_spider/${taskId}`
+      }
+      axiosInstance
+        .get(apiendpoint)
+        .then((response) => {
+          message.success("任务已恢复!");
+          console.log(response);
+          this.fetchTasks();
+        })
+        .catch((error) => {
+          message.error("任务恢复失败!");
+          console.log(error);
         });
     },
 

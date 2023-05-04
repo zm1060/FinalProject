@@ -17,7 +17,7 @@ from weibospider.settings import SCRAPYD_PROJECT_NAME
 router = APIRouter()
 
 
-@router.post('/weibo/stop_spider')
+@router.get('/weibo/stop_spider/{task_id}')
 async def stop_spider(task_id: str, current_user: User = Depends(get_current_user)):
     # Check if the task belongs to the current user
     task = task_db["tasks"].find_one({"task_id": task_id, "user_id": current_user.id})
@@ -25,13 +25,14 @@ async def stop_spider(task_id: str, current_user: User = Depends(get_current_use
         return {"message": "Task not found or not owned by the user."}
 
     # Revoke the task
-    revoke(task_id, terminate=True)
-    task_db["tasks"].delete_one({"task_id": task_id})
+    celery.control.revoke(task_id, terminate=True)
+    task_db["tasks"].update_one({"task_id": task_id, "user_id": current_user.id}, {"$set": {"status": "stopped"}})
 
     return {"message": "Task has been stopped."}
 
-@router.post('/weibo/restart_spider')
-async def restart_spider(task_id: str, current_user: User = Depends(get_current_user)):
+
+@router.get('/weibo/resume_spider/{task_id}')
+async def resume_spider(task_id: str, current_user: User = Depends(get_current_user)):
     # Check if the task belongs to the current user
     task = task_db["tasks"].find_one({"task_id": task_id, "user_id": current_user.id})
     if task is None:
@@ -42,26 +43,25 @@ async def restart_spider(task_id: str, current_user: User = Depends(get_current_
     task_type = task.get("task_type")
 
     # Send the task
-    task = None
     if task_type == "weibo_user":
-        task = celery.send_task('tasks.run_weibo_user_spider', kwargs=task_kwargs)
+        task = celery.send_task('tasks.run_weibo_user_spider', task_id=task_id, kwargs=task_kwargs)
     elif task_type == "weibo_search":
-        task = celery.send_task('tasks.run_weibo_search_spider', kwargs=task_kwargs)
+        task = celery.send_task('tasks.run_weibo_search_spider', task_id=task_id, kwargs=task_kwargs)
     elif task_type == "weibo_fan":
-        task = celery.send_task('tasks.run_weibo_fan_spider', kwargs=task_kwargs)
+        task = celery.send_task('tasks.run_weibo_fan_spider', task_id=task_id, kwargs=task_kwargs)
     elif task_type == "weibo_tweet":
-        task = celery.send_task('tasks.run_weibo_tweet_spider', kwargs=task_kwargs)
+        task = celery.send_task('tasks.run_weibo_tweet_spider', task_id=task_id, kwargs=task_kwargs)
     elif task_type == "weibo_follower":
-        task = celery.send_task('tasks.run_weibo_follower_spider', kwargs=task_kwargs)
+        task = celery.send_task('tasks.run_weibo_follower_spider', task_id=task_id, kwargs=task_kwargs)
     elif task_type == "weibo_comment":
-        task = celery.send_task('tasks.run_weibo_comment_spider', kwargs=task_kwargs)
+        task = celery.send_task('tasks.run_weibo_comment_spider', task_id=task_id, kwargs=task_kwargs)
     elif task_type == "weibo_repost":
-        task = celery.send_task('tasks.run_weibo_repost_spider', kwargs=task_kwargs)
+        task = celery.send_task('tasks.run_weibo_repost_spider', task_id=task_id, kwargs=task_kwargs)
 
     # Update the task information
     task_time = datetime.now()
-    task_db["tasks"].update_one({"task_id": task_id}, {"$set": {"task_time": task_time}})
-
+    task_db["tasks"].update_one({"task_id": task_id, "user_id": current_user.id},
+                                {"$set": {"task_time": task_time, "status": "running"}})
     return {"message": "Task has been restarted."}
 
 
@@ -82,6 +82,7 @@ async def run_weibo_user_spider(user_data: dict = Body(...), current_user: User 
         "user_id": user_id,
         "task_type": "weibo_user",
         "task_time": task_time,
+        "status": "running",
     }
     task_db["tasks"].insert_one(new_task)
     return {'task_id': task.id}
@@ -102,7 +103,8 @@ async def run_weibo_search_spider(search_data: dict = Body(...), current_user: U
         'end_time': end_time,
         'is_sort_by_hot': is_sort_by_hot,
         'is_search_with_specific_time_scope': is_search_with_specific_time_scope,
-        'cookie': cookie
+        'cookie': cookie,
+        "status": "running",
     })
 
     user_id = current_user.id
@@ -112,6 +114,7 @@ async def run_weibo_search_spider(search_data: dict = Body(...), current_user: U
         "user_id": user_id,
         "task_type": "weibo_search",
         "task_time": task_time,
+        "status": "running",
     }
     task_db["tasks"].insert_one(new_task)
 
@@ -135,6 +138,7 @@ async def run_weibo_fan_spider(fan_data: dict = Body(...), current_user: User = 
         "user_id": user_id,
         "task_type": "weibo_fan",
         "task_time": task_time,
+        "status": "running",
     }
     task_db["tasks"].insert_one(new_task)
 
@@ -157,6 +161,7 @@ async def run_weibo_tweet_spider(tweet_data: dict = Body(...), current_user: Use
         "user_id": user_id,
         "task_type": "weibo_tweet",
         "task_time": task_time,
+        "status": "running",
     }
     task_db["tasks"].insert_one(new_task)
 
@@ -180,6 +185,7 @@ async def run_weibo_follower_spider(follower_data: dict = Body(...), current_use
         "user_id": user_id,
         "task_type": "weibo_follower",
         "task_time": task_time,
+        "status": "running",
     }
     task_db["tasks"].insert_one(new_task)
 
@@ -202,6 +208,7 @@ async def run_weibo_comment_spider(comment_data: dict = Body(...), current_user:
         "user_id": user_id,
         "task_type": "weibo_comment",
         "task_time": task_time,
+        "status": "running",
     }
     task_db["tasks"].insert_one(new_task)
 
@@ -223,6 +230,7 @@ async def run_weibo_repost_spider(repost_data: dict = Body(...), current_user: U
         "user_id": user_id,
         "task_type": "weibo_repost",
         "task_time": task_time,
+        "status": "running",
     }
     task_db["tasks"].insert_one(new_task)
 

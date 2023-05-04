@@ -21,7 +21,10 @@ from weibospider.spiders import UserSpider, TweetSpider, FollowerSpider, Comment
     SearchSpider
 from app.config.config import BROKER_URL, BACKEND_URL
 
-celery = Celery('tasks', broker=BROKER_URL, backend=BACKEND_URL)
+celery = Celery('tasks',
+                broker=BROKER_URL,
+                backend=BACKEND_URL,
+                )
 celery.conf.task_routes = {'celery_task.tasks.*': {'queue': 'celery'}}
 celery.conf.timezone = 'Asia/Shanghai'
 celery.conf.enable_utc = True

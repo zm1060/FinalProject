@@ -35,7 +35,10 @@ class JDspiderPipeline(object):
 
         # 将统计信息（包括task_id和user_id）写入MongoDB
         print(f"Stats info in pipeline: {stats_info}")
-        self.task_db['tasks'].update_one({'task_id': task_id}, {'$set': {'stats': stats_info}}, upsert=True)
+        self.task_db['tasks'].update_one(
+            {'task_id': task_id},
+            {'$set': {'status': 'finished', 'stats': stats_info}}
+        )
         self.client.close()
         subject = f"您的名称为{spider.name}的任务完成，任务号为 {task_id}!"
         body = f"数据收集任务完成，请前往您的任务中心进行下异步操作。  运行状态:{stats_info}"
@@ -83,7 +86,10 @@ class JDcommentPipeline(object):
 
         # 将统计信息（包括task_id和user_id）写入MongoDB
         print(f"Stats info in pipeline: {stats_info}")
-        self.task_db['tasks'].update_one({'task_id': task_id}, {'$set': {'stats': stats_info}}, upsert=True)
+        self.task_db['tasks'].update_one(
+            {'task_id': task_id},
+            {'$set': {'status': 'finished', 'stats': stats_info}}
+        )
         self.client.close()
         subject = f"您的名称为{spider.name}的任务完成，任务号为 {task_id}!"
         body = f"数据收集任务完成，请前往您的任务中心进行下一步操作。 可以前往https://scrapeops.io/app/dashboard查看数据收集程序的状态 运行状态:{stats_info}"

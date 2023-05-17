@@ -30,7 +30,6 @@ def generate_user_profile(task_id):
     mbtype = weibo_data[0]['mbtype']
     sunshine_credit = weibo_data[0]['sunshine_credit']
     label_desc = weibo_data[0]['label_desc']
-    company = weibo_data[0]['company']
     education = weibo_data[0]['education']
 
     # Create a bar chart of label description distribution
@@ -61,8 +60,7 @@ def generate_user_profile(task_id):
     # 将需要生成词云的文本合并成一个字符串
     text = ' '.join([data['nick_name'] + ' ' + data['location'] + ' ' + data['description'] + ' ' + data[
         'verified_reason'] + ' ' + data['birthday'] + ' ' + data['created_at'] + ' ' + data['desc_text'] + ' ' + data[
-                         'ip_location'] + ' ' + data['sunshine_credit'] + ' '.join(data['label_desc']) + ' ' + data[
-                         'company'] + ' ' + data['education']['school'] for data in weibo_data])
+                         'ip_location'] + ' ' + data['sunshine_credit'] + ' '.join(data['label_desc']) + ' ' + ' ' + data['education']['school'] for data in weibo_data])
 
     # split text into words
     words = jieba.cut(text)

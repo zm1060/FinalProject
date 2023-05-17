@@ -104,7 +104,6 @@ async def run_weibo_search_spider(search_data: dict = Body(...), current_user: U
         'is_sort_by_hot': is_sort_by_hot,
         'is_search_with_specific_time_scope': is_search_with_specific_time_scope,
         'cookie': cookie,
-        "status": "running",
     })
 
     user_id = current_user.id

@@ -44,11 +44,11 @@ services:
       - DB_AUTH_PLUGIN=mysql_native_password
       - CELERY_BROKER_URL=amqp://admin:admin@rabbitmq:5672/
       - CELERY_RESULT_BACKEND=rpc://
-      - CELERY_LOG_LEVEL=info
-      - MONGODB_URL=mongodb://mongodb:27017
+      - CELERY_LOG_LEVEL=debug
       - ELASTICSEARCH_URL=http://elasticsearch:9200
       - REDIS_HOST=redis
       - FLOWER_BASIC_AUTH=admin:password
+      - MONGODB_URL=mongodb://mongodb:27017
     depends_on:
       - mysql
       - mongodb
@@ -56,16 +56,20 @@ services:
       - elasticsearch
 
   celery:
-    extends:
-      service: backend
+    build: ./backend
+    environment:
+      - CELERY_BROKER_URL=amqp://admin:admin@rabbitmq:5672/
+      - CELERY_RESULT_BACKEND=rpc://
+      - CELERY_LOG_LEVEL=info
+      - MONGODB_URL=mongodb://mongodb:27017
     depends_on:
       - rabbitmq
     command: celery -A app.celery_task.tasks worker --loglevel=info
 
-
   flower:
-    extends:
-      service: backend
+    build: ./backend
+    environment:
+      - CELERY_BROKER_URL=amqp://admin:admin@rabbitmq:5672//
     ports:
       - "5555:5555"
     depends_on:

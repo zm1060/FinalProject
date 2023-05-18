@@ -5,6 +5,9 @@ from scrapy.crawler import CrawlerRunner
 from scrapy.utils.project import get_project_settings
 from twisted.internet import reactor
 from celery import Celery
+from app.db.weibo_db import db as weibo_db
+from app.db.jd_db import db as jd_db
+from app.db.task_db import task_db
 
 from jdspider.spiders.JDcomment import JDcommentspider
 from jdspider.spiders.JDspider import JDspider

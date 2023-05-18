@@ -27,6 +27,7 @@ export default {
       images: {},
       tabs: [
         { key: 'wordcloud', title: '词云' },
+        {key: 'sentiment_histogram', title: '情感分布'}
       ],
       visibleTabs: {
         wordcloud: false,

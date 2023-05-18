@@ -62,6 +62,7 @@ services:
       - CELERY_RESULT_BACKEND=rpc://
       - CELERY_LOG_LEVEL=info
       - MONGODB_URL=mongodb://mongodb:27017
+      - REDIS_HOST=redis
     depends_on:
       - rabbitmq
     command: celery -A app.celery_task.tasks worker --loglevel=info

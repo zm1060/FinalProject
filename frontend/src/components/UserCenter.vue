@@ -5,7 +5,7 @@
 
         <a-menu mode="horizontal" theme="dark">
           <a-menu-item>
-              <a-button type="primary" @click="$router.push('/home')">Back to Homepage</a-button>
+              <a-button type="primary" @click="$router.push('/home')">回到主页</a-button>
           </a-menu-item>
           <a-menu-item>用户中心</a-menu-item>
         </a-menu>

@@ -2,12 +2,21 @@
   <div class="container">
     <a-button type="primary" @click="$router.push('/home')">回到主页</a-button>
     <h1>Task Results</h1>
-    <a-radio-group class="tabs" v-model="activeName" @change="(e) => handleTabClick(e.target.value)">
-      <a-radio-button v-for="tab in tabs" :key="tab.key" :value="tab.key">{{tab.title}}</a-radio-button>
-    </a-radio-group>
-    <div class="image-container">
-      <img v-if="images['wordcloud'] && visibleTabs['wordcloud']" class="image" :src="images['wordcloud']" alt="词云">
-    </div>
+    <a-layout>
+      <a-layout-sider :width="200">
+        <a-radio-group class="tabs" v-model="activeName" @change="(e) => handleTabClick(e.target.value)">
+          <a-radio-button v-for="tab in tabs" :key="tab.key" :value="tab.key">{{tab.title}}</a-radio-button>
+        </a-radio-group>
+      </a-layout-sider>
+      <a-layout-content>
+        <div class="image-container">
+          <div v-for="tab in visibleImageTabs" :key="tab.key" class="image">
+            <img :src="images[tab.key]" :alt="tab.title" />
+            <div class="image-label">{{ tab.title }}</div>
+          </div>
+        </div>
+      </a-layout-content>
+    </a-layout>
   </div>
 </template>
 <script>
@@ -22,15 +31,23 @@ export default {
       activeName: ref('wordcloud'),
     };
   },
+  computed: {
+    visibleImageTabs() {
+      return this.tabs.filter(tab => this.visibleTabs[tab.key]);
+    }
+  },
   data() {
     return {
       images: {},
       tabs: [
         { key: 'wordcloud', title: '词云' },
-        {key: 'sentiment_histogram', title: '情感分布'}
+        { key: 'sentiment_histogram', title: '情感分布'},
+        { key: 'feature_analysis', title: '特性分析'},
       ],
       visibleTabs: {
         wordcloud: false,
+        sentiment_histogram: false,
+        feature_analysis: false
       }
     }
   },
@@ -70,28 +87,16 @@ export default {
 </script>
 
 <style scoped>
-.container {
-  max-width: 960px;
-  margin: 0 auto;
-  padding: 1rem;
-  text-align: center;
+.ant-layout-sider {
+    position: relative;
+    min-width: 0;
+    background: #ffffff;
+    transition: all 0.2s;
 }
-
-.tabs {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 1rem;
-}
-
-.image-container {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-.image {
-  max-width: 100%;
-  margin: 1rem;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+.ant-layout-sider-children {
+    height: 100%;
+    margin-top: -0.1px;
+    padding-top: 0.1px;
+    background: white;
 }
 </style>

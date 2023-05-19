@@ -2,12 +2,10 @@ import io
 import os
 
 import jieba
-import pandas
 import pandas as pd
 from snownlp import SnowNLP
 import matplotlib.pyplot as plt
 from wordcloud import WordCloud
-import re
 from collections import Counter
 
 from app.db.jd_db import db as jd_db
@@ -37,32 +35,18 @@ def load_data(task_id):
     # Get data from database
     collection = jd_db[task_id]
     data = collection.find()
-
     return data
-
-
-def clean_data(data):
-    # Clean and preprocess data
-    cleaned_data = []
-    for item in data:
-        content = item['content']
-        # Remove HTML tags and special characters
-        content = re.sub('<[^<]+?>', '', content)
-        content = re.sub('[^\w\s]', '', content)
-        cleaned_data.append(content)
-
-    return cleaned_data
 
 
 def tokenize_data(cleaned_data):
     # Tokenize the cleaned data
     words_list = []
-    for content in cleaned_data:
-        # Filter out stopwords
-        words = [word for word in jieba.cut(content) if word not in stopwords]
-        # Adjust the granularity of the words
-        words = [word for word in words if len(word) >= 2]
-        words_list.append(' '.join(words))
+    for product in cleaned_data:
+        content = product.get('content', [])
+        for c in content:
+            for word in jieba.cut(c):
+                if word not in stopwords and word != ' ':
+                    words_list.append(word)
 
     return words_list
 
@@ -76,8 +60,7 @@ def count_words(words_list):
 
 def generate_wordcloud(task_id):
     data = load_data(task_id)
-    cleaned_data = clean_data(data)
-    words_list = tokenize_data(cleaned_data)
+    words_list = tokenize_data(data)
     words_count = count_words(words_list)
     # Generate the wordcloud
     wordcloud = WordCloud(font_path=font_path, background_color='white', max_words=100, contour_width=3,
@@ -93,8 +76,9 @@ def generate_wordcloud(task_id):
 
     # Convert the image to bytes and store in Redis
     buf = io.BytesIO()
-    plt.savefig(f"{task_id}_wordcloud.png")
-    fig.savefig(buf, format='png', bbox_inches='tight')
+    # plt.savefig(f"{task_id}_wordcloud.png")
+    fig.savefig(buf, format='png')
+    # fig.savefig(buf, format='png', bbox_inches='tight')
     buf.seek(0)
     image_bytes = buf.getvalue()
     redis_client.set(f"{task_id}_wordcloud", image_bytes)
@@ -105,7 +89,7 @@ def analyze_jd_comment_sentiment(task_id):
     data = load_data(task_id)
     sentiment_list = []
     for d in data:
-        content = d['content']
+        content = d['content'][0]
         blob = SnowNLP(content)
         sentiment_list.append(blob.sentiments)
 
@@ -118,7 +102,7 @@ def analyze_jd_comment_sentiment(task_id):
     plt.xlabel('情感得分')
     plt.ylabel('评价数量')
     buf = io.BytesIO()
-    plt.savefig(f"{task_id}_sentiment_histogram.png")
+    # plt.savefig('x.png')
     plt.savefig(buf, format='png')
     buf.seek(0)
     image_bytes = buf.getvalue()
@@ -131,10 +115,9 @@ def analyze_review_sentiment(task_id):
     # Convert reviews JSON to Pandas DataFrame
     df = pd.DataFrame(data)
 
-
     # Perform feature analysis
     feature_counts = Counter()
-    for text in df['content']:
+    for text in df['content'][0]:
         blob = SnowNLP(text)
         for feature in blob.words:
             if feature not in stopwords:  # Filter out personal pronouns
@@ -151,13 +134,11 @@ def analyze_review_sentiment(task_id):
 
     # Convert the image to bytes and store in Redis
     buf = io.BytesIO()
-    plt.savefig(f"{task_id}_feature_analysis.png")
     fig.savefig(buf, format='png', bbox_inches='tight')
     buf.seek(0)
     image_bytes = buf.getvalue()
     redis_client.set(f"{task_id}_feature_analysis", image_bytes)
     plt.close()
-
 
 def run_jd_comment_analyze(task_id):
     generate_wordcloud(task_id)
@@ -165,4 +146,4 @@ def run_jd_comment_analyze(task_id):
     analyze_review_sentiment(task_id)
 
 
-# run_jd_comment_analyze('091012e9-ce54-4a6d-bd57-4950126911bf')
+run_jd_comment_analyze('dcca51ae-a556-46bb-a1db-ef0dc1219fce')

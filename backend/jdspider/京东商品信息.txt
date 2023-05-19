@@ -1,1011 +1,1099 @@
-商品名称:AppleiPhone7 Plus
-包装清单:采用 Lightning 接头的 EarPods *1，iPhone *1，Lightning 至 USB 连接线*1，5W USB 电源适配器*1，Lightning 至3.5毫米耳机插孔转换器*1
-价格:5799.00
-品牌:Apple
-型号:
-入网型号:
-上市年份:
-上市月份:iPhone 7 Plus
-机身颜色:黑色
-机身长度（mm）:158.2
-机身宽度（mm）:77.9
-机身厚度（mm）:7.3
-机身重量（g）:188
-运营商标志或内容:
-机身材质分类:
-操作系统:ios
-CPU品牌:以官网信息为准
-CPU频率:以官网信息为准
-CPU核数:其他
-CPU型号:--
-双卡机类型:单卡
-最大支持SIM卡数量:1个
-SIM卡类型:
-4G网络:
-3G/2G网络:
-网络频率（2G/3G）:Nano SIM
-ROM:
-RAM:
-存储卡:
-可用空间:128GB
-主屏幕尺寸（英寸）:5.5英寸
-分辨率:1920*1080(FHD)
-屏幕材质类型:其他
-前置摄像头:700万像素
-前摄光圈大小:f/2.2
-摄像头数量:
-后置摄像头:
-电池容量（mAh）:以官网信息为准
-电池是否可拆卸:
-充电器:
-数据传输接口:蓝牙；WiFi热点
-NFC/NFC模式:其他
-耳机接口类型:Lightning
-充电接口类型:Lightning（iPhone）
-指纹识别:支持
-GPS:支持
-陀螺仪:支持
-常用功能:其他
-购买网址：https://item.jd.com/3133857.html
-
-
-
-商品名称:Apple iPhone 8
-包装清单:采用 Lightning 接头的 EarPods *1，iPhone *1，Lightning 至 USB 连接线*1，5W USB 电源适配器*1，Lightning 至3.5毫米耳机插孔转换器*1
-价格:5888.00
-品牌:Apple
-型号:
-入网型号:
-上市年份:
-上市月份:iPhone 8
-机身颜色:金色
-机身长度（mm）:138.4
-机身宽度（mm）:67.3
-机身厚度（mm）:7.3
-机身重量（g）:148
-运营商标志或内容:
-机身材质分类:
-操作系统:ios
-CPU品牌:以官网信息为准
-CPU频率:以官网信息为准
-CPU核数:其他
-CPU型号:其他
-双卡机类型:单卡
-最大支持SIM卡数量:1个
-SIM卡类型:
-4G网络:
-3G/2G网络:
-网络频率（2G/3G）:Nano SIM
-ROM:
-RAM:
-存储卡:
-主屏幕尺寸（英寸）:4.7英寸
-分辨率:1334*750
-屏幕材质类型:其他
-前置摄像头:700万像素
-前摄光圈大小:f/2.2
-摄像头数量:
-后置摄像头:
-电池容量（mAh）:以官网信息为准
-电池是否可拆卸:
-充电器:
-数据传输接口:WIFI；蓝牙；WiFi热点
-NFC/NFC模式:其他
-耳机接口类型:Lightning
-充电接口类型:Lightning（iPhone）
-指纹识别:支持
-GPS:支持
-陀螺仪:其他
-常用功能:其他
-购买网址：https://item.jd.com/5089225.html
-
-
-
-商品名称:AppleiPhone6s Plus
-包装清单:采用3.5毫米耳机插头的 EarPods *1，iPhone *1，Lightning 至 USB 连接线*1，5W USB 电源适配器*1
-价格:3599.00
-品牌:Apple
-型号:
-入网型号:
-上市年份:
-上市月份:iPhone 6S Plus
-机身颜色:金色
-机身长度（mm）:158.2
-机身宽度（mm）:77.9
-机身厚度（mm）:7.3
-机身重量（g）:192
-运营商标志或内容:
-机身材质分类:
-操作系统:ios
-CPU品牌:以官网信息为准
-CPU频率:以官网信息为准
-CPU核数:其他
-CPU型号:其他
-双卡机类型:单卡
-最大支持SIM卡数量:1个
-SIM卡类型:
-4G网络:
-3G/2G网络:
-网络频率（2G/3G）:Nano SIM
-ROM:
-RAM:
-存储卡:
-主屏幕尺寸（英寸）:5.5英寸
-分辨率:1920*1080(FHD)
-屏幕材质类型:IPS
-前置摄像头:500万像素
-前摄光圈大小:其他
-摄像头数量:
-后置摄像头:
-电池容量（mAh）:以官网信息为准
-电池是否可拆卸:
-充电器:
-数据传输接口:蓝牙；WiFi热点
-NFC/NFC模式:其他
-耳机接口类型:3.5mm
-充电接口类型:Lightning（iPhone）
-指纹识别:支持
-GPS:支持
-陀螺仪:支持
-常用功能:其他；录音；重力感应
-购买网址：https://item.jd.com/3726834.html
-
-
-
-商品名称:AppleiPhone 8 Plus
-包装清单:采用 Lightning 接头的 EarPods *1，iPhone *1，Lightning 至 USB 连接线*1，5W USB 电源适配器*1，Lightning 至3.5毫米耳机插孔转换器*1
-价格:6499.00
-品牌:Apple
-型号:
-入网型号:
-上市年份:
-上市月份:iPhone 8 Plus
-机身颜色:深空灰色
-机身长度（mm）:158.4
-机身宽度（mm）:78.1
-机身厚度（mm）:7.5
-机身重量（g）:202
-输入方式:触控
-运营商标志或内容:
-机身材质分类:
-操作系统:ios
-CPU品牌:以官网信息为准
-CPU频率:以官网信息为准
-CPU核数:其他
-CPU型号:其他
-双卡机类型:单卡
-最大支持SIM卡数量:1个
-SIM卡类型:
-4G网络:
-3G/2G网络:
-网络频率（2G/3G）:Nano SIM
-ROM:
-RAM:
-存储卡:
-主屏幕尺寸（英寸）:5.5英寸
-分辨率:1920*1080(FHD)
-屏幕材质类型:其他
-前置摄像头:700万像素
-前摄光圈大小:f/2.2
-摄像头数量:
-后置摄像头:
-电池容量（mAh）:以官网信息为准
-电池是否可拆卸:
-充电器:
-数据传输接口:WIFI；蓝牙；WiFi热点
-NFC/NFC模式:其他
-耳机接口类型:Lightning
-充电接口类型:Lightning（iPhone）
-指纹识别:支持
-GPS:支持
-陀螺仪:其他
-常用功能:其他
-购买网址：https://item.jd.com/5089275.html
-
-
-
-商品名称:AppleiPhone5s
-包装清单:请输入...
-价格:1399.00
-品牌:苹果（Apple）
-型号:
-入网型号:
-上市年份:
-上市月份:iPhone5s
-机身颜色:其他
-机身长度（mm）:123.8
-机身宽度（mm）:58.6
-机身厚度（mm）:7.6
-机身重量（g）:112
-输入方式:触控
-运营商标志或内容:
-机身材质分类:
-操作系统:以官网信息为准
-CPU品牌:以官网信息为准
-CPU频率:其他
-CPU核数:其他
-CPU型号:其他
-双卡机类型:单卡
-最大支持SIM卡数量:1个
-SIM卡类型:
-4G网络:
-网络频率（2G/3G）:
-ROM:
-RAM:
-存储卡:
-主屏幕尺寸（英寸）:4.0英寸
-分辨率:1136×640（iphone SE/ Retina）
-屏幕材质类型:其他
-前置摄像头:120万像素
-前摄光圈大小:其他
-拍照特点:其他
-摄像头数量:
-后置摄像头:
-电池容量（mAh）:其他
-电池类型:其他
-电池是否可拆卸:
-充电器:
-闪充:
-数据传输接口:其他
-NFC/NFC模式:其他
-耳机接口类型:3.5mm
-充电接口类型:Lightning（iPhone）
-数据线:其他
-指纹识别:支持
-GPS:支持
-陀螺仪:其他
-常用功能:其他
-购买网址：https://item.jd.com/10553435523.html
-
-
-
-商品名称:AppleiPhone6
-包装清单:iPhone 6*1;具有线控功能和麦克风的 Apple EarPods*1；Lightning to USB 连接线*1；USB 电源适配器*1；保修卡*1；资料
-价格:2217.00
-品牌:苹果（Apple）
-型号:
-入网型号:
-上市年份:
-上市月份:iPhone6
-机身颜色:金色
-机身长度（mm）:138.3
-机身宽度（mm）:67.1
-机身厚度（mm）:7.1
-机身重量（g）:129
-输入方式:触控
-运营商标志或内容:
-机身材质分类:
-操作系统:ios
-CPU品牌:其他
-CPU频率:以官网信息为准
-CPU核数:其他
-CPU型号:其他
-双卡机类型:单卡
-最大支持SIM卡数量:1个
-SIM卡类型:
-4G网络:
-3G/2G网络:
-国际漫游网络支持:Nano SIM
-网络频率（2G/3G）:
-是否支持同时使用联通卡:
-ROM:
-RAM:
-存储卡:
-主屏幕尺寸（英寸）:4.7英寸
-分辨率:1334*750（iphone6s Retina HD）
-屏幕材质类型:其他
-前置摄像头:其他
-前摄光圈大小:其他
-摄像头数量:
-后置摄像头:
-电池容量（mAh）:1810
-电池是否可拆卸:
-充电器:
-数据传输接口:WiFi热点；蓝牙；WIFI
-NFC/NFC模式:其他
-耳机接口类型:3.5mm
-充电接口类型:Lightning（iPhone）
-指纹识别:支持
-GPS:支持
-陀螺仪:支持
-常用功能:重力感应
-购买网址：https://item.jd.com/16918432678.html
-
-
-
-商品名称:Apple 苹果6 iPhone6（A1586）4.7英寸4G手机 金色 32G ROM
-包装清单:iPhone 6*1;具有线控功能和麦克风的 Apple EarPods*1；Lightning to USB 连接线*1；USB 电源适配器*1；保修卡*1；资料
-价格:2188.00
-型号:
-入网型号:
-上市年份:
-上市月份:A1586
-机身颜色:其他
-机身长度（mm）:138.1
-机身宽度（mm）:67.0
-机身厚度（mm）:6.9
-机身重量（g）:约129
-运营商标志或内容:
-机身材质分类:
-操作系统:以官网信息为准
-CPU品牌:以官网信息为准
-CPU频率:以官方信息为准
-CPU核数:其他
-CPU型号:其他
-双卡机类型:单卡
-最大支持SIM卡数量:1个
-SIM卡类型:
-4G网络:
-3G/2G网络:
-网络频率（2G/3G）:Nano SIM
-ROM:
-RAM:
-存储卡:
-主屏幕尺寸（英寸）:4.7英寸
-分辨率:1334*750（iphone6）
-屏幕材质类型:其他
-前置摄像头:其他
-前摄光圈大小:其他
-摄像头数量:
-后置摄像头:
-电池容量（mAh）:以官网信息为准
-电池是否可拆卸:
-充电器:
-数据传输接口:WIFI
-NFC/NFC模式:其他
-耳机接口类型:3.5mm
-充电接口类型:其他
-指纹识别:支持
-GPS:支持
-陀螺仪:支持
-常用功能:其他
-购买网址：https://item.jd.com/13130267185.html
-
-
-
-商品名称:AppleiPhone 8 Plus
-包装清单:请输入...
-价格:5718.00
-品牌:苹果（Apple）
-型号:
-入网型号:
-上市年份:
-上市月份:iPhone 8 Plus
-机身颜色:其他
-机身长度（mm）:158.4
-机身宽度（mm）:78.1
-机身厚度（mm）:7.5
-机身重量（g）:202
-运营商标志或内容:
-机身材质分类:
-操作系统:ios
-CPU品牌:以官网信息为准
-CPU频率:以官网信息为准
-CPU核数:其他
-CPU型号:其他
-双卡机类型:单卡
-最大支持SIM卡数量:1个
-SIM卡类型:
-4G网络:
-3G/2G网络:
-网络频率（2G/3G）:Nano SIM
-ROM:
-RAM:
-存储卡:
-主屏幕尺寸（英寸）:5.5英寸
-分辨率:1920*1080(FHD)
-屏幕材质类型:其他
-前置摄像头:700万像素
-前摄光圈大小:f/2.2
-摄像头数量:
-后置摄像头:
-电池容量（mAh）:以官网信息为准
-电池是否可拆卸:
-充电器:
-数据传输接口:WiFi热点；蓝牙；WIFI
-NFC/NFC模式:其他
-耳机接口类型:Lightning
-充电接口类型:Lightning（iPhone）
-指纹识别:支持
-GPS:支持
-陀螺仪:其他
-常用功能:其他
-购买网址：https://item.jd.com/15279966734.html
-
-
-
-商品名称:AppleiPhone X
-包装清单:请输入...
-价格:7758.00
-型号:
-入网型号:
-上市年份:
-上市月份:0
-机身颜色:其他
-机身长度（mm）:0
-机身宽度（mm）:0
-机身厚度（mm）:0
-机身重量（g）:0
-运营商标志或内容:
-机身材质分类:
-操作系统:以官网信息为准
-CPU品牌:以官网信息为准
-CPU频率:0
-CPU核数:其他
-CPU型号:其他
-双卡机类型:以官网信息为准
-最大支持SIM卡数量:1个
-SIM卡类型:
-4G网络:
-网络频率（2G/3G）:
-是否支持同时使用联通卡:Nano SIM
-ROM:
-RAM:
-存储卡:
-主屏幕尺寸（英寸）:其他
-分辨率:其他
-屏幕材质类型:其他
-前置摄像头:700万像素
-前摄光圈大小:其他
-摄像头数量:
-后置摄像头:
-电池容量（mAh）:0
-电池是否可拆卸:
-充电器:
-数据传输接口:蓝牙；其他；WIFI
-NFC/NFC模式:其他
-耳机接口类型:其他
-充电接口类型:其他
-指纹识别:其他
-GPS:支持
-陀螺仪:支持
-常用功能:其他
-购买网址：https://item.jd.com/16580068432.html
-
-
-
-商品名称:AppleiPhone6
-包装清单:主机,充电头,数据线,三包凭证,取卡针,耳机
-价格:2149.00
-品牌:苹果（Apple）
-型号:
-入网型号:
-上市年份:
-上市月份:6
-机身颜色:金色
-机身长度（mm）:138.1
-机身宽度（mm）:67
-机身厚度（mm）:6.9
-机身重量（g）:129
-输入方式:触控
-运营商标志或内容:
-机身材质分类:
-操作系统:ios
-CPU品牌:以官网信息为准
-CPU频率:其他
-CPU核数:双核
-CPU型号:其他
-双卡机类型:单卡
-最大支持SIM卡数量:1个
-SIM卡类型:
-4G网络:
-3G/2G网络:
-网络频率（2G/3G）:其他
-ROM:
-RAM:
-存储卡:
-主屏幕尺寸（英寸）:4.7英寸
-分辨率:1334*750（iphone6s Retina HD）
-屏幕材质类型:其他
-前置摄像头:120万像素
-前摄光圈大小:其他
-摄像头数量:
-后置摄像头:
-电池容量（mAh）:1810
-电池是否可拆卸:
-充电器:
-数据传输接口:蓝牙；WIFI
-NFC/NFC模式:其他
-耳机接口类型:3.5mm
-充电接口类型:Lightning（iPhone）
-指纹识别:支持
-GPS:支持
-电子罗盘:支持
-陀螺仪:支持
-其他:距离感应；光线感应
-常用功能:其他
-购买网址：https://item.jd.com/12519089055.html
-
-
-
-商品名称:AppleiPhone6
-包装清单:请输入...
-价格:2148.00
-品牌:苹果（Apple）
-型号:
-入网型号:
-上市年份:
-上市月份:苹果6
-机身颜色:其他
-机身长度（mm）:138.1
-机身宽度（mm）:67
-机身厚度（mm）:6.9
-机身重量（g）:129
-输入方式:触控
-运营商标志或内容:
-机身材质分类:
-机身材质工艺:
-屏占比:其他
-操作系统:以官网信息为准
-操作系统版本:以官网信息为准
-CPU品牌:以官网信息为准
-CPU频率:以官网信息为准
-CPU核数:其他
-CPU型号:其他
-GPU型号:
-双卡机类型:单卡
-最大支持SIM卡数量:1个
-SIM卡类型:
-SIM卡类型备注:
-4G网络:
-3G/2G网络:Nano SIM
-副SIM卡类型:以官网信息为准
-副SIM卡4G网络:
-副SIM卡3G/2G网络:
-国际漫游网络支持:
-网络频率（4G）:4G：移动（TD-LTE)；4G：联通(TD-LTE)；4G：联通(FDD-LTE)；4G：电信(FDD-LTE)
-网络频率（2G/3G）:3G：移动(TD-SCDMA)；3G：联通(WCDMA)；3G：电信(CDMA2000)；2G：移动（GSM）+联通(GSM)
-副卡网络频率:
-数据业务:
-其他:
-功能备注:其他
-ROM:
-ROM类型:
-RAM:
-RAM类型:32GB
-存储卡:其他
-最大存储扩展容量:
-可用空间:
-主屏幕尺寸（英寸）:4.7英寸
-分辨率:1334*750（iphone6）
-屏幕像素密度（ppi）:以官网信息为准
-屏幕材质类型:其他
-屏幕生产厂商:其他
-屏幕色彩:其他
-亮度:以官网信息为准
-对比度:以官网信息为准
-副屏幕尺寸(英寸）:其他
-副屏幕其他参数:以官网信息为准
-触摸屏类型:其他
-触摸屏实现方式:其他
-裸眼3D显示:其他
-屏幕补充说明:以官网信息为准
-前置摄像头:120万像素
-前摄光圈大小:其他
-闪光灯:其他
-美颜技术:其他
-副摄像头光圈大小:其他
-照片最大分辨率:以官网信息为准
-拍照特点:连拍；全景；微信小视频
-功能备注:以官网信息为准
-摄像头数量:
-后置摄像头:
-摄像头光圈大小:
-闪光灯:1个
-美颜技术:800万像素
-副摄像头光圈大小:其他
-照片最大分辨率:其他
-拍照特点:其他
-功能备注:其他
-电池容量（mAh）:1810mAh
-电池类型:其他
-电池是否可拆卸:
-理论待机时间（小时）:
-理论通话时间（小时）:
-充电器:否
-快速充电:以官网信息为准
-闪充:以官网信息为准
-无线充电:其他
-独立Hi-Fi芯片:不支持
-Hi-Fi芯片型号:以官网信息为准
-mic数量:其他
-喇叭数量:其他
-视频录制格式:以官网信息为准
-视频录制分辨率:以官网信息为准
-视频录制帧率（fps/s）:以官网信息为准
-无线视频传输:以官网信息为准
-音乐特性:以官网信息为准
-视频特性:以官网信息为准
-数据传输接口:WiFi热点；蓝牙
-NFC/NFC模式:其他
-耳机接口类型:其他
-充电接口类型:其他
-数据线:其他
-其他接口特点:以官网信息为准
-GPS:以官网信息为准
-蓝牙特点:以官网信息为准
-功能备注:以官网信息为准
-WLAN特点:以官网信息为准
-指纹识别:支持
-语音识别:其他
-GPS:支持
-电子罗盘:其他
-霍尔感应器:其他
-陀螺仪:支持
-红外遥控:其他
-适配VR:其他
-虹膜识别技术:以官网信息为准
-其他:光线感应
-常用功能:其他
-购买网址：https://item.jd.com/11404871391.html
-
-
-
-商品名称:Apple 苹果8 iPhone8 4G手机 深空灰 移动联通版64G
-包装清单:请输入...
-价格:4588.00
-型号:
-入网型号:
-上市年份:
-上市月份:iPhone 8
-机身颜色:其他
-机身长度（mm）:138.4
-机身宽度（mm）:67.3
-机身厚度（mm）:7.3
-机身重量（g）:148
-运营商标志或内容:
-机身材质分类:
-操作系统:以官网信息为准
-CPU品牌:以官网信息为准
-CPU频率:以官网信息为准
-CPU核数:其他
-CPU型号:其他
-双卡机类型:单卡
-最大支持SIM卡数量:1个
-SIM卡类型:
-4G网络:
-3G/2G网络:
-网络频率（2G/3G）:其他
-ROM:
-RAM:
-存储卡:
-主屏幕尺寸（英寸）:4.7英寸
-分辨率:1334*750
-屏幕材质类型:其他
-前置摄像头:700万像素
-前摄光圈大小:f/2.2
-摄像头数量:
-后置摄像头:
-电池容量（mAh）:以官网信息为准
-电池是否可拆卸:
-充电器:
-数据传输接口:WiFi热点；蓝牙；WIFI
-NFC/NFC模式:其他
-耳机接口类型:Lightning
-充电接口类型:Lightning（iPhone）
-指纹识别:支持
-GPS:支持
-陀螺仪:其他
-常用功能:其他
-购买网址：https://item.jd.com/25547963027.html
-
-
-
-商品名称:AppleiPhone 8
-包装清单:暂无
-价格:4718.00
-品牌:苹果（Apple）
-型号:
-入网型号:
-上市年份:
-上市月份:其他
-机身颜色:其他
-机身长度（mm）:以官网信息为准
-机身宽度（mm）:以官网信息为准
-机身厚度（mm）:以官网信息为准
-机身重量（g）:以官网信息为准
-运营商标志或内容:
-机身材质分类:
-操作系统:以官网信息为准
-CPU品牌:以官网信息为准
-CPU频率:以官网信息为准
-CPU核数:其他
-CPU型号:其他
-双卡机类型:以官网信息为准
-最大支持SIM卡数量:1个
-SIM卡类型:
-4G网络:
-网络频率（2G/3G）:
-是否支持同时使用联通卡:Nano SIM
-ROM:
-RAM:
-存储卡:
-主屏幕尺寸（英寸）:4.7英寸
-分辨率:其他
-屏幕材质类型:其他
-前置摄像头:700万像素
-前摄光圈大小:其他
-摄像头数量:
-后置摄像头:
-电池容量（mAh）:以官网信息为准
-电池是否可拆卸:
-充电器:
-数据传输接口:蓝牙；其他
-NFC/NFC模式:其他
-耳机接口类型:其他
-充电接口类型:其他
-指纹识别:支持
-GPS:支持
-陀螺仪:其他
-常用功能:其他
-购买网址：https://item.jd.com/15501980018.html
-
-
-
-商品名称:AppleiPhone6
-包装清单:暂无
-价格:2188.00
-品牌:苹果（Apple）
-型号:
-入网型号:
-上市年份:
-上市月份:其他
-机身颜色:其他
-机身长度（mm）:其他
-机身宽度（mm）:其他
-机身厚度（mm）:其他
-机身重量（g）:其他
-运营商标志或内容:
-机身材质分类:
-操作系统:其他
-CPU品牌:其他
-CPU频率:其他
-CPU核数:其他
-CPU型号:其他
-双卡机类型:其他
-最大支持SIM卡数量:其他
-SIM卡类型:
-4G网络:
-3G/2G网络:
-网络频率（2G/3G）:其他
-是否支持同时使用联通卡:
-ROM:
-RAM:
-存储卡:
-主屏幕尺寸（英寸）:其他
-分辨率:其他
-屏幕材质类型:其他
-前置摄像头:其他
-前摄光圈大小:其他
-摄像头数量:
-后置摄像头:
-电池容量（mAh）:其他
-电池类型:其他
-电池是否可拆卸:
-充电器:
-数据传输接口:其他
-NFC/NFC模式:其他
-耳机接口类型:其他
-充电接口类型:其他
-指纹识别:其他
-GPS:其他
-陀螺仪:其他
-常用功能:其他
-购买网址：https://item.jd.com/19036593197.html
-
-
-
-商品名称:Apple 苹果6  iPhone6 手机 4.7英寸 移动联通电信全网通 4G智能手机 金色 全网通标配 32GB
-包装清单:iphone6*1 具有线控功能和麦克风的Apple Earpods*1；Lightning to USB 连接线*1；USB电源适配器*1；保修卡*1；资料。
-价格:2169.00
-型号:
-入网型号:
-上市年份:
-上市月份:官网信息为准
-机身颜色:其他
-机身长度（mm）:138官网信息为准
-机身宽度（mm）:67官网信息为准
-机身厚度（mm）:6.9官网信息为准
-机身重量（g）:约129官网信息为准
-运营商标志或内容:
-机身材质分类:
-操作系统:ios
-CPU品牌:以官网信息为准
-CPU频率:以官网信息为准
-CPU核数:其他
-CPU型号:其他
-双卡机类型:以官网信息为准
-最大支持SIM卡数量:1个
-SIM卡类型:
-4G网络:
-3G/2G网络:
-网络频率（2G/3G）:Nano SIM
-是否支持同时使用联通卡:
-ROM:
-RAM:
-存储卡:
-主屏幕尺寸（英寸）:4.7英寸
-分辨率:1334*750（iphone6s Retina HD）
-屏幕材质类型:其他
-前置摄像头:其他
-前摄光圈大小:其他
-摄像头数量:
-后置摄像头:
-电池容量（mAh）:1810
-电池是否可拆卸:
-充电器:
-闪充:
-数据传输接口:WiFi热点；蓝牙；WIFI
-NFC/NFC模式:其他
-耳机接口类型:3.5mm
-充电接口类型:Lightning（iPhone）
-指纹识别:支持
-GPS:其他
-陀螺仪:其他
-其他:其他
-常用功能:其他
-购买网址：https://item.jd.com/11378358411.html
-
-
-
-商品名称:Apple 苹果 iPhone6 手机 全网通32G 金色
-包装清单:iPhone 6*1;具有线控功能和麦克风的 Apple EarPods*1；Lightning to USB 连接线*1；USB 电源适配器*1；保修卡*1；资料
-价格:2156.00
-型号:
-入网型号:
-上市年份:
-上市月份:iphone6
-机身颜色:其他
-机身长度（mm）:138.1
-机身宽度（mm）:67
-机身厚度（mm）:6.9
-机身重量（g）:129
-运营商标志或内容:
-机身材质分类:
-操作系统:以官网信息为准
-CPU品牌:其他
-CPU频率:其他
-CPU核数:其他
-CPU型号:其他
-双卡机类型:单卡
-最大支持SIM卡数量:1个
-SIM卡类型:
-4G网络:
-3G/2G网络:
-网络频率（2G/3G）:Nano SIM
-ROM:
-RAM:
-存储卡:
-主屏幕尺寸（英寸）:4.7英寸
-分辨率:1334*750（iphone6）
-屏幕材质类型:其他
-前置摄像头:其他
-前摄光圈大小:其他
-摄像头数量:
-后置摄像头:
-电池容量（mAh）:以官网信息为准
-电池是否可拆卸:
-充电器:
-数据传输接口:WIFI
-NFC/NFC模式:其他
-耳机接口类型:3.5mm
-充电接口类型:其他
-指纹识别:支持
-GPS:支持
-陀螺仪:支持
-常用功能:其他
-购买网址：https://item.jd.com/12402820301.html
-
-
-
-商品名称:AppleiPhone 8
-包装清单:请输入...
-价格:4758.00
-品牌:苹果（Apple）
-型号:
-入网型号:
-上市年份:
-上市月份:iPhone8
-机身颜色:其他
-机身长度（mm）:138.4
-机身宽度（mm）:67.3
-机身厚度（mm）:7.3
-机身重量（g）:约148
-运营商标志或内容:
-机身材质分类:
-操作系统:ios
-CPU品牌:以官网信息为准
-CPU频率:以官网信息为准
-CPU核数:其他
-CPU型号:其他
-双卡机类型:单卡
-最大支持SIM卡数量:1个
-SIM卡类型:
-4G网络:
-3G/2G网络:
-网络频率（2G/3G）:Nano SIM
-ROM:
-RAM:
-存储卡:
-主屏幕尺寸（英寸）:4.7英寸
-分辨率:1334*750
-屏幕材质类型:其他
-前置摄像头:700万像素
-前摄光圈大小:f/2.2
-摄像头数量:
-后置摄像头:
-电池容量（mAh）:1821mAh
-电池是否可拆卸:
-充电器:
-数据传输接口:WiFi热点；蓝牙
-NFC/NFC模式:其他
-耳机接口类型:Lightning
-充电接口类型:Lightning（iPhone）
-指纹识别:支持
-GPS:支持
-陀螺仪:其他
-常用功能:其他
-购买网址：https://item.jd.com/13617860517.html
-
-
-
-商品名称:Apple 苹果6  iPhone 6 手机 金色 全网通(32G ROM)
-包装清单:iPhone 6*1;具有线控功能和麦克风的 Apple EarPods*1；Lightning to USB 连接线*1；USB 电源适配器*1；保修卡*1；资料
-价格:2148.50
-品牌:APPLE
-型号:
-入网型号:
-上市年份:
-上市月份:iPhone6
-机身颜色:其他
-机身长度（mm）:138.1
-机身宽度（mm）:67.0
-机身厚度（mm）:6.9
-机身重量（g）:129
-输入方式:触控
-运营商标志或内容:
-机身材质分类:
-操作系统:以官网信息为准
-CPU品牌:以官网信息为准
-CPU频率:以官网信息为准
-CPU核数:双核
-CPU型号:其他
-双卡机类型:单卡
-最大支持SIM卡数量:1个
-SIM卡类型:
-4G网络:
-3G/2G网络:
-网络频率（2G/3G）:Nano SIM
-是否支持同时使用联通卡:
-ROM:
-RAM:
-存储卡:
-主屏幕尺寸（英寸）:4.7英寸
-分辨率:1334*750（iphone6）
-屏幕材质类型:IPS
-触摸屏类型:电容屏
-前置摄像头:120万像素
-前摄光圈大小:f/2.2
-拍照特点:连拍；HDR
-摄像头数量:
-后置摄像头:
-摄像头光圈大小:
-拍照特点:1个
-电池容量（mAh）:1810
-电池是否可拆卸:
-充电器:
-闪充:
-数据传输接口:WIFI
-NFC/NFC模式:其他
-耳机接口类型:3.5mm
-充电接口类型:其他
-指纹识别:支持
-GPS:支持
-电子罗盘:支持
-陀螺仪:支持
-其他:距离感应；气压测量；光线感应；其他
-常用功能:录音；其他
-购买网址：https://item.jd.com/11463828713.html
-
-
-
+{
+  "jwotestProduct": null,
+  "score": 0,
+  "comments": [
+    {
+      "id": 19124408843,
+      "guid": "b26e83fb099ab6386b84787b5aa47031",
+      "content": "这个吐司味道真的好极了，已经买过好多次了，百吃不厌，尤其是里面的紫米和炼乳，肚子饿的时候来一个，也可以当早餐吃，实惠又好吃，感谢京东",
+      "creationTime": "2023-05-18 20:59:08",
+      "isDelete": false,
+      "isTop": false,
+      "userImageUrl": "storage.360buyimg.com/i.imageUpload/31353336363139393035385f7031363739343539303634323936_sma.jpg",
+      "topped": 0,
+      "replyCount": 0,
+      "score": 5,
+      "imageStatus": 1,
+      "usefulVoteCount": 0,
+      "userClient": 2,
+      "discussionId": 1282598522,
+      "imageCount": 2,
+      "anonymousFlag": 1,
+      "plusAvailable": 201,
+      "mobileVersion": "12.0.0",
+      "images": [
+        {
+          "id": 2140015047,
+          "imgUrl": "//img30.360buyimg.com/n0/s128x96_jfs/t1/109389/16/18592/164511/6466211bF2f74f6c5/014564fd35601889.jpg.avif",
+          "imgTitle": "",
+          "status": 0
+        },
+        {
+          "id": 2140015048,
+          "imgUrl": "//img30.360buyimg.com/n0/s128x96_jfs/t1/158225/4/33839/76593/6466211bFc1f20168/882e08e520d1f7bb.jpg.avif",
+          "imgTitle": "",
+          "status": 0
+        }
+      ],
+      "mergeOrderStatus": 2,
+      "productColor": "【双料谷物夹心】紫米三明治555g",
+      "productSize": "",
+      "textIntegral": 0,
+      "imageIntegral": 0,
+      "extMap": {
+        "buyCount": 2
+      },
+      "location": "江苏",
+      "status": 1,
+      "referenceId": "100004839363",
+      "referenceTime": "2023-05-17 00:10:04",
+      "nickname": "昨***星",
+      "replyCount2": 0,
+      "userImage": "storage.360buyimg.com/i.imageUpload/31353336363139393035385f7031363739343539303634323936_sma.jpg",
+      "orderId": 0,
+      "integral": 0,
+      "productSales": "[]",
+      "referenceImage": "jfs/t1/171993/2/37332/168166/645b0005F9b3e854c/378d1c57421e013a.jpg",
+      "referenceName": "良品铺子 高端零食 手撕面包棒 营养早餐750g*1",
+      "firstCategory": 1320,
+      "secondCategory": 1583,
+      "thirdCategory": 1595,
+      "aesPin": null,
+      "days": 1,
+      "afterDays": 0
+    },
+    {
+      "id": 19124397446,
+      "guid": "15ce8f38d50df7f9035692ae06bb6b63",
+      "content": "不得不说的就是快递真的很快   面包也是软软的好吃！",
+      "creationTime": "2023-05-18 20:55:20",
+      "isDelete": false,
+      "isTop": false,
+      "userImageUrl": "misc.360buyimg.com/user/myjd-2015/css/i/peisong.jpg",
+      "topped": 0,
+      "replyCount": 0,
+      "score": 5,
+      "imageStatus": 1,
+      "usefulVoteCount": 0,
+      "userClient": 2,
+      "discussionId": 1282599643,
+      "imageCount": 1,
+      "anonymousFlag": 1,
+      "plusAvailable": 201,
+      "mobileVersion": "12.0.0",
+      "images": [
+        {
+          "id": 2140011022,
+          "imgUrl": "//img30.360buyimg.com/n0/s128x96_jfs/t1/186464/7/34690/35052/64662038Fd9929b6f/38016156c7d289ac.jpg.avif",
+          "imgTitle": "",
+          "status": 0
+        }
+      ],
+      "mergeOrderStatus": 2,
+      "productColor": "【0反式脂肪酸】手撕面包2斤装",
+      "productSize": "",
+      "textIntegral": 10,
+      "imageIntegral": 10,
+      "extMap": {
+        "buyCount": 8
+      },
+      "location": "河南",
+      "status": 1,
+      "referenceId": "4544060",
+      "referenceTime": "2023-05-17 11:34:27",
+      "nickname": "j***q",
+      "replyCount2": 0,
+      "userImage": "misc.360buyimg.com/user/myjd-2015/css/i/peisong.jpg",
+      "orderId": 0,
+      "integral": 20,
+      "productSales": "[]",
+      "referenceImage": "jfs/t1/171993/2/37332/168166/645b0005F9b3e854c/378d1c57421e013a.jpg",
+      "referenceName": "良品铺子 高端零食 手撕面包棒 营养早餐750g*1",
+      "firstCategory": 1320,
+      "secondCategory": 1583,
+      "thirdCategory": 1595,
+      "aesPin": null,
+      "days": 1,
+      "afterDays": 0
+    },
+    {
+      "id": 19124377202,
+      "guid": "cad57fceaba7605bf586015a57b5c3c1",
+      "content": "口味不错，而且价格便宜，物流很快，经济实惠。",
+      "creationTime": "2023-05-18 20:49:01",
+      "isDelete": false,
+      "isTop": false,
+      "userImageUrl": "storage.360buyimg.com/i.imageUpload/313335303632333732383531343838323533383639333330_sma.jpg",
+      "topped": 0,
+      "replyCount": 0,
+      "score": 5,
+      "usefulVoteCount": 0,
+      "userClient": 4,
+      "anonymousFlag": 1,
+      "plusAvailable": 201,
+      "mobileVersion": "12.0.0",
+      "productColor": "【0反式脂肪酸】手撕面包2斤装",
+      "productSize": "",
+      "textIntegral": 0,
+      "extMap": {
+        "buyCount": 1
+      },
+      "location": "江苏",
+      "status": 1,
+      "referenceId": "4544060",
+      "referenceTime": "2023-05-09 15:19:28",
+      "nickname": "j***z",
+      "replyCount2": 0,
+      "userImage": "storage.360buyimg.com/i.imageUpload/313335303632333732383531343838323533383639333330_sma.jpg",
+      "orderId": 0,
+      "integral": 0,
+      "productSales": "[]",
+      "referenceImage": "jfs/t1/171993/2/37332/168166/645b0005F9b3e854c/378d1c57421e013a.jpg",
+      "referenceName": "良品铺子 高端零食 手撕面包棒 营养早餐750g*1",
+      "firstCategory": 1320,
+      "secondCategory": 1583,
+      "thirdCategory": 1595,
+      "aesPin": null,
+      "days": 9,
+      "afterDays": 0
+    },
+    {
+      "id": 19124376955,
+      "guid": "8f69c4f5bce69f64e6c9db3c823a0dd9",
+      "content": "真的好喜欢，客服态度也挺好的，值！以后有需要还会来买",
+      "creationTime": "2023-05-18 20:48:22",
+      "isDelete": false,
+      "isTop": false,
+      "userImageUrl": "storage.360buyimg.com/i.imageUpload/6a645f3731376431303933346230623631343737323138383438393837_sma.jpg",
+      "topped": 0,
+      "replyCount": 0,
+      "score": 5,
+      "usefulVoteCount": 0,
+      "userClient": 4,
+      "anonymousFlag": 1,
+      "plusAvailable": 201,
+      "mobileVersion": "12.0.0",
+      "productColor": "【0反式脂肪酸】手撕面包2斤装",
+      "productSize": "",
+      "textIntegral": 0,
+      "extMap": {
+        "buyCount": 3
+      },
+      "location": "浙江",
+      "status": 1,
+      "referenceId": "4544060",
+      "referenceTime": "2023-05-16 09:27:00",
+      "nickname": "还***霞",
+      "replyCount2": 0,
+      "userImage": "storage.360buyimg.com/i.imageUpload/6a645f3731376431303933346230623631343737323138383438393837_sma.jpg",
+      "orderId": 0,
+      "integral": 0,
+      "productSales": "[]",
+      "referenceImage": "jfs/t1/171993/2/37332/168166/645b0005F9b3e854c/378d1c57421e013a.jpg",
+      "referenceName": "良品铺子 高端零食 手撕面包棒 营养早餐750g*1",
+      "firstCategory": 1320,
+      "secondCategory": 1583,
+      "thirdCategory": 1595,
+      "aesPin": null,
+      "days": 2,
+      "afterDays": 0
+    },
+    {
+      "id": 19124369044,
+      "guid": "302683526bd9349aaa416cb007de8382",
+      "content": "日期很新鲜\n抉递方便快捷\n口感如",
+      "creationTime": "2023-05-18 20:46:59",
+      "isDelete": false,
+      "isTop": false,
+      "userImageUrl": "misc.360buyimg.com/user/myjd-2015/css/i/peisong.jpg",
+      "topped": 0,
+      "replyCount": 0,
+      "score": 5,
+      "usefulVoteCount": 0,
+      "userClient": 4,
+      "anonymousFlag": 1,
+      "plusAvailable": 0,
+      "mobileVersion": "12.0.1",
+      "productColor": "【0反式脂肪酸】手撕面包2斤装",
+      "productSize": "",
+      "textIntegral": 0,
+      "extMap": {
+        "buyCount": 3
+      },
+      "location": "湖北",
+      "status": 1,
+      "referenceId": "4544060",
+      "referenceTime": "2023-04-24 13:52:34",
+      "nickname": "j***q",
+      "replyCount2": 0,
+      "userImage": "misc.360buyimg.com/user/myjd-2015/css/i/peisong.jpg",
+      "orderId": 0,
+      "integral": 0,
+      "productSales": "[]",
+      "referenceImage": "jfs/t1/171993/2/37332/168166/645b0005F9b3e854c/378d1c57421e013a.jpg",
+      "referenceName": "良品铺子 高端零食 手撕面包棒 营养早餐750g*1",
+      "firstCategory": 1320,
+      "secondCategory": 1583,
+      "thirdCategory": 1595,
+      "aesPin": null,
+      "days": 24,
+      "afterDays": 0
+    },
+    {
+      "id": 19124368710,
+      "guid": "f33a349dba9f849fe04aa59bcebbcdca",
+      "content": "不错",
+      "creationTime": "2023-05-18 20:46:26",
+      "isDelete": false,
+      "isTop": false,
+      "userImageUrl": "misc.360buyimg.com/user/myjd-2015/css/i/peisong.jpg",
+      "topped": 0,
+      "replyCount": 0,
+      "score": 5,
+      "usefulVoteCount": 0,
+      "userClient": 2,
+      "anonymousFlag": 1,
+      "plusAvailable": 201,
+      "mobileVersion": "12.0.0",
+      "productColor": "【0反式脂肪酸】手撕面包2斤装",
+      "productSize": "",
+      "textIntegral": 0,
+      "extMap": {
+        "buyCount": 2
+      },
+      "location": "北京",
+      "status": 1,
+      "referenceId": "4544060",
+      "referenceTime": "2023-05-10 11:06:53",
+      "nickname": "j***l",
+      "replyCount2": 0,
+      "userImage": "misc.360buyimg.com/user/myjd-2015/css/i/peisong.jpg",
+      "orderId": 0,
+      "integral": 0,
+      "productSales": "[]",
+      "referenceImage": "jfs/t1/171993/2/37332/168166/645b0005F9b3e854c/378d1c57421e013a.jpg",
+      "referenceName": "良品铺子 高端零食 手撕面包棒 营养早餐750g*1",
+      "firstCategory": 1320,
+      "secondCategory": 1583,
+      "thirdCategory": 1595,
+      "aesPin": null,
+      "days": 8,
+      "afterDays": 0
+    },
+    {
+      "id": 19124321367,
+      "guid": "ac0936bfc8b589b347bc6a9dbb3d9a31",
+      "content": "巳买过几次，当点心很方便",
+      "creationTime": "2023-05-18 20:31:06",
+      "isDelete": false,
+      "isTop": false,
+      "userImageUrl": "misc.360buyimg.com/user/myjd-2015/css/i/peisong.jpg",
+      "topped": 0,
+      "replyCount": 0,
+      "score": 5,
+      "usefulVoteCount": 0,
+      "userClient": 4,
+      "anonymousFlag": 1,
+      "plusAvailable": 201,
+      "mobileVersion": "11.8.4",
+      "productColor": "【0反式脂肪酸】手撕面包2斤装",
+      "productSize": "",
+      "textIntegral": 0,
+      "extMap": {
+        "buyCount": 12
+      },
+      "location": "上海",
+      "status": 1,
+      "referenceId": "4544060",
+      "referenceTime": "2023-05-07 11:22:13",
+      "nickname": "l***z",
+      "replyCount2": 0,
+      "userImage": "misc.360buyimg.com/user/myjd-2015/css/i/peisong.jpg",
+      "orderId": 0,
+      "integral": 0,
+      "productSales": "[]",
+      "referenceImage": "jfs/t1/171993/2/37332/168166/645b0005F9b3e854c/378d1c57421e013a.jpg",
+      "referenceName": "良品铺子 高端零食 手撕面包棒 营养早餐750g*1",
+      "firstCategory": 1320,
+      "secondCategory": 1583,
+      "thirdCategory": 1595,
+      "aesPin": null,
+      "days": 11,
+      "afterDays": 0
+    },
+    {
+      "id": 19124312877,
+      "guid": "c45c33f16f9465ae0b79ed3a0ba0fa0d",
+      "content": "多次回购了，不错！",
+      "creationTime": "2023-05-18 20:28:25",
+      "isDelete": false,
+      "isTop": false,
+      "userImageUrl": "misc.360buyimg.com/user/myjd-2015/css/i/peisong.jpg",
+      "topped": 0,
+      "replyCount": 0,
+      "score": 5,
+      "usefulVoteCount": 0,
+      "userClient": 4,
+      "anonymousFlag": 1,
+      "plusAvailable": 201,
+      "mobileVersion": "11.4.0",
+      "productColor": "【0反式脂肪酸】手撕面包2斤装",
+      "productSize": "",
+      "textIntegral": 0,
+      "extMap": {
+        "buyCount": 8
+      },
+      "location": "广东",
+      "status": 1,
+      "referenceId": "4544060",
+      "referenceTime": "2023-03-22 10:50:12",
+      "nickname": "溪***草",
+      "replyCount2": 0,
+      "userImage": "misc.360buyimg.com/user/myjd-2015/css/i/peisong.jpg",
+      "orderId": 0,
+      "integral": 0,
+      "productSales": "[]",
+      "referenceImage": "jfs/t1/171993/2/37332/168166/645b0005F9b3e854c/378d1c57421e013a.jpg",
+      "referenceName": "良品铺子 高端零食 手撕面包棒 营养早餐750g*1",
+      "firstCategory": 1320,
+      "secondCategory": 1583,
+      "thirdCategory": 1595,
+      "aesPin": null,
+      "days": 57,
+      "afterDays": 0
+    },
+    {
+      "id": 19124282166,
+      "guid": "9d49e3a34c2d05421f667c5aaac3ae83",
+      "content": "独立包装非常方便，早餐来一个，赞",
+      "creationTime": "2023-05-18 20:19:12",
+      "isDelete": false,
+      "isTop": false,
+      "userImageUrl": "storage.360buyimg.com/i.imageUpload/6a645f3461383961613030376636376231343838393735393232333834_sma.jpg",
+      "topped": 0,
+      "replyCount": 0,
+      "score": 5,
+      "usefulVoteCount": 0,
+      "userClient": 2,
+      "anonymousFlag": 1,
+      "plusAvailable": 201,
+      "mobileVersion": "12.0.0",
+      "productColor": "【0反式脂肪酸】手撕面包2斤装",
+      "productSize": "",
+      "textIntegral": 10,
+      "extMap": {
+        "buyCount": 7
+      },
+      "location": "天津",
+      "status": 1,
+      "referenceId": "4544060",
+      "referenceTime": "2023-04-10 07:13:29",
+      "nickname": "j***4",
+      "replyCount2": 0,
+      "userImage": "storage.360buyimg.com/i.imageUpload/6a645f3461383961613030376636376231343838393735393232333834_sma.jpg",
+      "orderId": 0,
+      "integral": 10,
+      "productSales": "[]",
+      "referenceImage": "jfs/t1/171993/2/37332/168166/645b0005F9b3e854c/378d1c57421e013a.jpg",
+      "referenceName": "良品铺子 高端零食 手撕面包棒 营养早餐750g*1",
+      "firstCategory": 1320,
+      "secondCategory": 1583,
+      "thirdCategory": 1595,
+      "aesPin": null,
+      "days": 38,
+      "afterDays": 0
+    },
+    {
+      "id": 19124242480,
+      "guid": "88d9e0124a4ef51a67b8d6d70d167909",
+      "content": "这个是比较萱软的，性价比高，用来不想起床的时候给孩子做早饭吃的，小朋友也比较喜欢",
+      "creationTime": "2023-05-18 20:07:04",
+      "isDelete": false,
+      "isTop": false,
+      "userImageUrl": "misc.360buyimg.com/user/myjd-2015/css/i/peisong.jpg",
+      "topped": 0,
+      "replyCount": 0,
+      "score": 5,
+      "imageStatus": 1,
+      "usefulVoteCount": 0,
+      "userClient": 4,
+      "discussionId": 1282572918,
+      "imageCount": 3,
+      "anonymousFlag": 1,
+      "plusAvailable": 201,
+      "mobileVersion": "11.8.3",
+      "images": [
+        {
+          "id": 2139960719,
+          "imgUrl": "//img30.360buyimg.com/n0/s128x96_jfs/t1/223561/14/20352/82622/646614e6Fa4267dc1/a1dca606ded7c965.jpg.avif",
+          "imgTitle": "",
+          "status": 0
+        },
+        {
+          "id": 2139960720,
+          "imgUrl": "//img30.360buyimg.com/n0/s128x96_jfs/t1/93963/27/35422/43411/646614e6F395ca656/38c2cbab2ee70a9e.jpg.avif",
+          "imgTitle": "",
+          "status": 0
+        },
+        {
+          "id": 2139960721,
+          "imgUrl": "//img30.360buyimg.com/n0/s128x96_jfs/t1/100721/4/25427/74224/646614e7Fa4d6acec/448479a663bb7916.jpg.avif",
+          "imgTitle": "",
+          "status": 0
+        }
+      ],
+      "mergeOrderStatus": 2,
+      "productColor": "【0反式脂肪酸】手撕面包2斤装",
+      "productSize": "",
+      "textIntegral": 0,
+      "imageIntegral": 0,
+      "extMap": {
+        "buyCount": 2
+      },
+      "location": "安徽",
+      "status": 1,
+      "referenceId": "4544060",
+      "referenceTime": "2023-05-06 14:57:47",
+      "nickname": "诺***康",
+      "replyCount2": 0,
+      "userImage": "misc.360buyimg.com/user/myjd-2015/css/i/peisong.jpg",
+      "orderId": 0,
+      "integral": 0,
+      "productSales": "[]",
+      "referenceImage": "jfs/t1/171993/2/37332/168166/645b0005F9b3e854c/378d1c57421e013a.jpg",
+      "referenceName": "良品铺子 高端零食 手撕面包棒 营养早餐750g*1",
+      "firstCategory": 1320,
+      "secondCategory": 1583,
+      "thirdCategory": 1595,
+      "aesPin": null,
+      "days": 12,
+      "afterDays": 0
+    },
+    {
+      "id": 19124204569,
+      "guid": "f757cef157bccd9bf094fb10497c5c74",
+      "content": "到货就迫不及待打开了，果真没有让我失望，质量特别好，颜值也相当高，满意的一次购物真的推荐啊，快递速度特别的快，爱了爱了。",
+      "creationTime": "2023-05-18 19:53:53",
+      "isDelete": false,
+      "isTop": false,
+      "userImageUrl": "misc.360buyimg.com/user/myjd-2015/css/i/peisong.jpg",
+      "topped": 0,
+      "replyCount": 0,
+      "score": 5,
+      "imageStatus": 1,
+      "usefulVoteCount": 0,
+      "userClient": 4,
+      "discussionId": 1282564875,
+      "imageCount": 2,
+      "anonymousFlag": 1,
+      "plusAvailable": 201,
+      "mobileVersion": "12.0.0",
+      "images": [
+        {
+          "id": 2139946268,
+          "imgUrl": "//img30.360buyimg.com/n0/s128x96_jfs/t1/90692/31/36136/87607/646611cfF7dcb6e35/4e9f7af8a606644e.jpg.avif",
+          "imgTitle": "",
+          "status": 0
+        },
+        {
+          "id": 2139946269,
+          "imgUrl": "//img30.360buyimg.com/n0/s128x96_jfs/t1/173083/12/37900/102591/646611d0F6151764a/01c67b56594f8cb8.jpg.avif",
+          "imgTitle": "",
+          "status": 0
+        }
+      ],
+      "mergeOrderStatus": 2,
+      "productColor": "【奶酪味夹心】手撕面包棒750g",
+      "productSize": "",
+      "textIntegral": 20,
+      "imageIntegral": 20,
+      "extMap": {
+        "buyCount": 7
+      },
+      "location": "辽宁",
+      "status": 1,
+      "referenceId": "6570894",
+      "referenceTime": "2023-05-13 18:26:29",
+      "nickname": "j***m",
+      "replyCount2": 0,
+      "userImage": "misc.360buyimg.com/user/myjd-2015/css/i/peisong.jpg",
+      "orderId": 0,
+      "integral": 40,
+      "productSales": "[]",
+      "referenceImage": "jfs/t1/171993/2/37332/168166/645b0005F9b3e854c/378d1c57421e013a.jpg",
+      "referenceName": "良品铺子 高端零食 手撕面包棒 营养早餐750g*1",
+      "firstCategory": 1320,
+      "secondCategory": 1583,
+      "thirdCategory": 1595,
+      "aesPin": null,
+      "days": 5,
+      "afterDays": 0
+    },
+    {
+      "id": 19124194698,
+      "guid": "fd89d85bb892b24a18a54433cbe3a277",
+      "content": "很好吃，多次购买了",
+      "creationTime": "2023-05-18 19:50:40",
+      "isDelete": false,
+      "isTop": false,
+      "userImageUrl": "misc.360buyimg.com/user/myjd-2015/css/i/peisong.jpg",
+      "topped": 0,
+      "replyCount": 0,
+      "score": 5,
+      "usefulVoteCount": 0,
+      "userClient": 4,
+      "anonymousFlag": 1,
+      "plusAvailable": 201,
+      "mobileVersion": "12.0.1",
+      "productColor": "【0反式脂肪酸】手撕面包2斤装",
+      "productSize": "",
+      "textIntegral": 0,
+      "extMap": {
+        "buyCount": 7
+      },
+      "location": "吉林",
+      "status": 1,
+      "referenceId": "4544060",
+      "referenceTime": "2023-05-16 21:03:35",
+      "nickname": "徐***丽",
+      "replyCount2": 0,
+      "userImage": "misc.360buyimg.com/user/myjd-2015/css/i/peisong.jpg",
+      "orderId": 0,
+      "integral": 0,
+      "productSales": "[]",
+      "referenceImage": "jfs/t1/171993/2/37332/168166/645b0005F9b3e854c/378d1c57421e013a.jpg",
+      "referenceName": "良品铺子 高端零食 手撕面包棒 营养早餐750g*1",
+      "firstCategory": 1320,
+      "secondCategory": 1583,
+      "thirdCategory": 1595,
+      "aesPin": null,
+      "days": 2,
+      "afterDays": 0
+    },
+    {
+      "id": 19124185479,
+      "guid": "f63ebe5f6a229de0e5d4f83cb87e9e3a",
+      "content": "物美价廉哦",
+      "creationTime": "2023-05-18 19:49:05",
+      "isDelete": false,
+      "isTop": false,
+      "userImageUrl": "storage.360buyimg.com/i.imageUpload/6a645f3465343432376463323333653631353432343134383737363735_sma.jpg",
+      "topped": 0,
+      "replyCount": 0,
+      "score": 5,
+      "usefulVoteCount": 0,
+      "userClient": 4,
+      "anonymousFlag": 1,
+      "plusAvailable": 201,
+      "mobileVersion": "12.0.1",
+      "productColor": "【0反式脂肪酸】手撕面包2斤装",
+      "productSize": "",
+      "textIntegral": 0,
+      "extMap": {
+        "buyCount": 3
+      },
+      "location": "辽宁",
+      "status": 1,
+      "referenceId": "4544060",
+      "referenceTime": "2023-05-18 09:43:04",
+      "nickname": "多***起",
+      "replyCount2": 0,
+      "userImage": "storage.360buyimg.com/i.imageUpload/6a645f3465343432376463323333653631353432343134383737363735_sma.jpg",
+      "orderId": 0,
+      "integral": 0,
+      "productSales": "[]",
+      "referenceImage": "jfs/t1/171993/2/37332/168166/645b0005F9b3e854c/378d1c57421e013a.jpg",
+      "referenceName": "良品铺子 高端零食 手撕面包棒 营养早餐750g*1",
+      "firstCategory": 1320,
+      "secondCategory": 1583,
+      "thirdCategory": 1595,
+      "aesPin": null,
+      "days": 0,
+      "afterDays": 0
+    },
+    {
+      "id": 19124189804,
+      "guid": "4f08090f19f441e494a941730fc18e89",
+      "content": "家人很爱吃，最近买了好几箱了",
+      "creationTime": "2023-05-18 19:48:32",
+      "isDelete": false,
+      "isTop": false,
+      "userImageUrl": "misc.360buyimg.com/user/myjd-2015/css/i/peisong.jpg",
+      "topped": 0,
+      "replyCount": 0,
+      "score": 5,
+      "imageStatus": 1,
+      "usefulVoteCount": 0,
+      "userClient": 4,
+      "discussionId": 1282561825,
+      "imageCount": 1,
+      "anonymousFlag": 1,
+      "plusAvailable": 201,
+      "mobileVersion": "12.0.1",
+      "images": [
+        {
+          "id": 2139941410,
+          "imgUrl": "//img30.360buyimg.com/n0/s128x96_jfs/t1/177441/37/34755/113196/6466108fF9a518f66/5c1e5a0a2219fd9f.jpg.avif",
+          "imgTitle": "",
+          "status": 0
+        }
+      ],
+      "mergeOrderStatus": 2,
+      "productColor": "【0反式脂肪酸】手撕面包2斤装",
+      "productSize": "",
+      "textIntegral": 0,
+      "imageIntegral": 0,
+      "extMap": {
+        "buyCount": 7
+      },
+      "location": "吉林",
+      "status": 1,
+      "referenceId": "4544060",
+      "referenceTime": "2023-05-08 21:27:45",
+      "nickname": "徐***丽",
+      "replyCount2": 0,
+      "userImage": "misc.360buyimg.com/user/myjd-2015/css/i/peisong.jpg",
+      "orderId": 0,
+      "integral": 0,
+      "productSales": "[]",
+      "referenceImage": "jfs/t1/171993/2/37332/168166/645b0005F9b3e854c/378d1c57421e013a.jpg",
+      "referenceName": "良品铺子 高端零食 手撕面包棒 营养早餐750g*1",
+      "firstCategory": 1320,
+      "secondCategory": 1583,
+      "thirdCategory": 1595,
+      "aesPin": null,
+      "days": 10,
+      "afterDays": 0
+    },
+    {
+      "id": 19124111422,
+      "guid": "e9ecd47f93774cc9efab2d34576c2165",
+      "content": "虽然有点跟想象的不一样，分量少了点，但还行吧，生活不易，相互理解",
+      "creationTime": "2023-05-18 19:23:38",
+      "isDelete": false,
+      "isTop": false,
+      "userImageUrl": "misc.360buyimg.com/user/myjd-2015/css/i/peisong.jpg",
+      "topped": 0,
+      "replyCount": 0,
+      "score": 5,
+      "imageStatus": 1,
+      "usefulVoteCount": 0,
+      "userClient": 4,
+      "discussionId": 1282545337,
+      "imageCount": 1,
+      "anonymousFlag": 1,
+      "plusAvailable": 0,
+      "mobileVersion": "12.0.1",
+      "images": [
+        {
+          "id": 2139915953,
+          "imgUrl": "//img30.360buyimg.com/n0/s128x96_jfs/t1/95535/14/38032/128656/64660abaFe8f60b99/de8dbb2333369606.jpg.avif",
+          "imgTitle": "",
+          "status": 0
+        }
+      ],
+      "mergeOrderStatus": 2,
+      "productColor": "【双料谷物夹心】紫米三明治555g",
+      "productSize": "",
+      "textIntegral": 0,
+      "imageIntegral": 0,
+      "extMap": {
+        "buyCount": 1
+      },
+      "location": "海南",
+      "status": 1,
+      "referenceId": "100004839363",
+      "referenceTime": "2023-05-17 23:38:42",
+      "nickname": "j***d",
+      "replyCount2": 0,
+      "userImage": "misc.360buyimg.com/user/myjd-2015/css/i/peisong.jpg",
+      "orderId": 0,
+      "integral": 0,
+      "productSales": "[]",
+      "referenceImage": "jfs/t1/171993/2/37332/168166/645b0005F9b3e854c/378d1c57421e013a.jpg",
+      "referenceName": "良品铺子 高端零食 手撕面包棒 营养早餐750g*1",
+      "firstCategory": 1320,
+      "secondCategory": 1583,
+      "thirdCategory": 1595,
+      "aesPin": null,
+      "days": 1,
+      "afterDays": 0
+    },
+    {
+      "id": 19124112945,
+      "guid": "94fe31362e5e8415a08b83e58dd82d99",
+      "content": "多次购买了，够实惠，品质有保证。",
+      "creationTime": "2023-05-18 19:23:25",
+      "isDelete": false,
+      "isTop": false,
+      "userImageUrl": "misc.360buyimg.com/user/myjd-2015/css/i/peisong.jpg",
+      "topped": 0,
+      "replyCount": 0,
+      "score": 5,
+      "usefulVoteCount": 0,
+      "userClient": 0,
+      "anonymousFlag": 1,
+      "plusAvailable": 0,
+      "mobileVersion": "",
+      "productColor": "【0反式脂肪酸】手撕面包2斤装",
+      "productSize": "",
+      "textIntegral": 0,
+      "extMap": {
+        "buyCount": 15
+      },
+      "location": "广东",
+      "status": 1,
+      "referenceId": "4544060",
+      "referenceTime": "2023-04-20 23:16:54",
+      "nickname": "l***s",
+      "replyCount2": 0,
+      "userImage": "misc.360buyimg.com/user/myjd-2015/css/i/peisong.jpg",
+      "orderId": 0,
+      "integral": 0,
+      "productSales": "[]",
+      "referenceImage": "jfs/t1/171993/2/37332/168166/645b0005F9b3e854c/378d1c57421e013a.jpg",
+      "referenceName": "良品铺子 高端零食 手撕面包棒 营养早餐750g*1",
+      "firstCategory": 1320,
+      "secondCategory": 1583,
+      "thirdCategory": 1595,
+      "aesPin": null,
+      "days": 28,
+      "afterDays": 0
+    },
+    {
+      "id": 19124069066,
+      "guid": "bc4e739d0b3c3aa58a6c2c0d130249e9",
+      "content": "便宜，实惠。还挺好吃的。",
+      "creationTime": "2023-05-18 19:10:16",
+      "isDelete": false,
+      "isTop": false,
+      "userImageUrl": "misc.360buyimg.com/user/myjd-2015/css/i/peisong.jpg",
+      "topped": 0,
+      "replyCount": 0,
+      "score": 5,
+      "usefulVoteCount": 0,
+      "userClient": 2,
+      "anonymousFlag": 1,
+      "plusAvailable": 201,
+      "mobileVersion": "12.0.0",
+      "productColor": "【鲜嫩似蛋挞】岩焗乳酪吐司500g",
+      "productSize": "",
+      "textIntegral": 0,
+      "extMap": {
+        "buyCount": 5
+      },
+      "location": "江西",
+      "status": 1,
+      "referenceId": "100005660342",
+      "referenceTime": "2023-05-15 16:42:18",
+      "nickname": "我***丨",
+      "replyCount2": 0,
+      "userImage": "misc.360buyimg.com/user/myjd-2015/css/i/peisong.jpg",
+      "orderId": 0,
+      "integral": 0,
+      "productSales": "[]",
+      "referenceImage": "jfs/t1/171993/2/37332/168166/645b0005F9b3e854c/378d1c57421e013a.jpg",
+      "referenceName": "良品铺子 高端零食 手撕面包棒 营养早餐750g*1",
+      "firstCategory": 1320,
+      "secondCategory": 1583,
+      "thirdCategory": 1595,
+      "aesPin": null,
+      "days": 3,
+      "afterDays": 0
+    },
+    {
+      "id": 19124062502,
+      "guid": "3622a1efa11c86f30fa4b7e08a6e3faf",
+      "content": "还不错，挺好的",
+      "creationTime": "2023-05-18 19:08:34",
+      "isDelete": false,
+      "isTop": false,
+      "userImageUrl": "misc.360buyimg.com/user/myjd-2015/css/i/peisong.jpg",
+      "topped": 0,
+      "replyCount": 0,
+      "score": 5,
+      "usefulVoteCount": 0,
+      "userClient": 4,
+      "anonymousFlag": 1,
+      "plusAvailable": 201,
+      "mobileVersion": "12.0.1",
+      "productColor": "【0反式脂肪酸】手撕面包2斤装",
+      "productSize": "",
+      "textIntegral": 0,
+      "extMap": {
+        "buyCount": 2
+      },
+      "location": "广东",
+      "status": 1,
+      "referenceId": "4544060",
+      "referenceTime": "2023-05-04 10:32:20",
+      "nickname": "远***3",
+      "replyCount2": 0,
+      "userImage": "misc.360buyimg.com/user/myjd-2015/css/i/peisong.jpg",
+      "orderId": 0,
+      "integral": 0,
+      "productSales": "[]",
+      "referenceImage": "jfs/t1/171993/2/37332/168166/645b0005F9b3e854c/378d1c57421e013a.jpg",
+      "referenceName": "良品铺子 高端零食 手撕面包棒 营养早餐750g*1",
+      "firstCategory": 1320,
+      "secondCategory": 1583,
+      "thirdCategory": 1595,
+      "aesPin": null,
+      "days": 14,
+      "afterDays": 0
+    },
+    {
+      "id": 19124027074,
+      "guid": "ce63051e04ddc8563d050eee136328a5",
+      "content": "物流很快，?产品很快就收到了，比想象中还好，不错不错！希望能耐用",
+      "creationTime": "2023-05-18 18:57:12",
+      "isDelete": false,
+      "isTop": false,
+      "userImageUrl": "misc.360buyimg.com/user/myjd-2015/css/i/peisong.jpg",
+      "topped": 0,
+      "replyCount": 0,
+      "score": 5,
+      "usefulVoteCount": 0,
+      "userClient": 4,
+      "anonymousFlag": 1,
+      "plusAvailable": 201,
+      "mobileVersion": "12.0.1",
+      "productColor": "【厚料纯肉松】肉肉海苔吐司520g",
+      "productSize": "",
+      "textIntegral": 10,
+      "extMap": {
+        "buyCount": 2
+      },
+      "location": "福建",
+      "status": 1,
+      "referenceId": "100013767476",
+      "referenceTime": "2023-04-20 08:27:33",
+      "nickname": "j***2",
+      "replyCount2": 0,
+      "userImage": "misc.360buyimg.com/user/myjd-2015/css/i/peisong.jpg",
+      "orderId": 0,
+      "integral": 10,
+      "productSales": "[]",
+      "referenceImage": "jfs/t1/171993/2/37332/168166/645b0005F9b3e854c/378d1c57421e013a.jpg",
+      "referenceName": "良品铺子 高端零食 手撕面包棒 营养早餐750g*1",
+      "firstCategory": 1320,
+      "secondCategory": 1583,
+      "thirdCategory": 1595,
+      "aesPin": null,
+      "days": 28,
+      "afterDays": 0
+    },
+    {
+      "id": 19124028015,
+      "guid": "50c404b0a8081e1bd000fe6f63956be8",
+      "content": "不错可以感觉没有以前的面包大",
+      "creationTime": "2023-05-18 18:56:40",
+      "isDelete": false,
+      "isTop": false,
+      "userImageUrl": "storage.360buyimg.com/i.imageUpload/c6e2d4c2b5c4cfc4ccec313531363237313839303837353033_sma.jpg",
+      "topped": 0,
+      "replyCount": 0,
+      "score": 5,
+      "usefulVoteCount": 0,
+      "userClient": 2,
+      "anonymousFlag": 1,
+      "plusAvailable": 201,
+      "mobileVersion": "12.0.0",
+      "productColor": "【0反式脂肪酸】手撕面包2斤装",
+      "productSize": "",
+      "textIntegral": 0,
+      "extMap": {
+        "buyCount": 39
+      },
+      "location": "江苏",
+      "status": 1,
+      "referenceId": "4544060",
+      "referenceTime": "2023-05-09 13:29:20",
+      "nickname": "起***啊",
+      "replyCount2": 0,
+      "userImage": "storage.360buyimg.com/i.imageUpload/c6e2d4c2b5c4cfc4ccec313531363237313839303837353033_sma.jpg",
+      "orderId": 0,
+      "integral": 0,
+      "productSales": "[]",
+      "referenceImage": "jfs/t1/171993/2/37332/168166/645b0005F9b3e854c/378d1c57421e013a.jpg",
+      "referenceName": "良品铺子 高端零食 手撕面包棒 营养早餐750g*1",
+      "firstCategory": 1320,
+      "secondCategory": 1583,
+      "thirdCategory": 1595,
+      "aesPin": null,
+      "days": 9,
+      "afterDays": 0
+    }
+  ],
+  "soType": 6,
+  "csv": "NOTHING",
+  "imageListCount": 500,
+  "hotCommentTagStatistics": [
+    {
+      "id": "9d8a323c646add49",
+      "name": "美味可口",
+      "count": 562,
+      "type": 4,
+      "canBeFiltered": true,
+      "stand": 1,
+      "rid": "9d8a323c646add49",
+      "ckeKeyWordBury": "eid=100^^tagid=9d8a323c646add49^^pid=20015^^sku=6570894^^sversion=1000^^token=7206c1dde8ee194e"
+    },
+    {
+      "id": "6720a974eddbf333",
+      "name": "分量充足",
+      "count": 185,
+      "type": 4,
+      "canBeFiltered": true,
+      "stand": 1,
+      "rid": "6720a974eddbf333",
+      "ckeKeyWordBury": "eid=100^^tagid=6720a974eddbf333^^pid=20015^^sku=6570894^^sversion=1000^^token=a46f5797548ade03"
+    },
+    {
+      "id": "6fa4a401e4bbd959",
+      "name": "松软可口",
+      "count": 177,
+      "type": 4,
+      "canBeFiltered": true,
+      "stand": 1,
+      "rid": "6fa4a401e4bbd959",
+      "ckeKeyWordBury": "eid=100^^tagid=6fa4a401e4bbd959^^pid=20015^^sku=6570894^^sversion=1000^^token=895b87cd9a33b10e"
+    },
+    {
+      "id": "3c3c526ae3f768aa",
+      "name": "完好无损",
+      "count": 158,
+      "type": 4,
+      "canBeFiltered": true,
+      "stand": 1,
+      "rid": "3c3c526ae3f768aa",
+      "ckeKeyWordBury": "eid=100^^tagid=3c3c526ae3f768aa^^pid=20015^^sku=6570894^^sversion=1000^^token=6f18d1621a29a956"
+    },
+    {
+      "id": "4fa2d72ac670a981",
+      "name": "食用方便",
+      "count": 58,
+      "type": 4,
+      "canBeFiltered": true,
+      "stand": 1,
+      "rid": "4fa2d72ac670a981",
+      "ckeKeyWordBury": "eid=100^^tagid=4fa2d72ac670a981^^pid=20015^^sku=6570894^^sversion=1000^^token=fbe066f5d35cedd3"
+    },
+    {
+      "id": "64306b7f0d354940",
+      "name": "营养丰富",
+      "count": 32,
+      "type": 4,
+      "canBeFiltered": true,
+      "stand": 1,
+      "rid": "64306b7f0d354940",
+      "ckeKeyWordBury": "eid=100^^tagid=64306b7f0d354940^^pid=20015^^sku=6570894^^sversion=1000^^token=2a650b1c02d1ff89"
+    },
+    {
+      "id": "da110b258b505681",
+      "name": "新鲜味美",
+      "count": 29,
+      "type": 4,
+      "canBeFiltered": true,
+      "stand": 1,
+      "rid": "da110b258b505681",
+      "ckeKeyWordBury": "eid=100^^tagid=da110b258b505681^^pid=20015^^sku=6570894^^sversion=1000^^token=c3c671730c89273d"
+    },
+    {
+      "id": "d170f4b7b36cce22",
+      "name": "颗粒硕大",
+      "count": 13,
+      "type": 4,
+      "canBeFiltered": true,
+      "stand": 1,
+      "rid": "d170f4b7b36cce22",
+      "ckeKeyWordBury": "eid=100^^tagid=d170f4b7b36cce22^^pid=20015^^sku=6570894^^sversion=1000^^token=8d8bf741f574df75"
+    },
+    {
+      "id": "73e8bc89ddb2a4a4",
+      "name": "香气扑鼻",
+      "count": 10,
+      "type": 4,
+      "canBeFiltered": true,
+      "stand": 1,
+      "rid": "73e8bc89ddb2a4a4",
+      "ckeKeyWordBury": "eid=100^^tagid=73e8bc89ddb2a4a4^^pid=20015^^sku=6570894^^sversion=1000^^token=257bf28881857029"
+    },
+    {
+      "id": "e380c9ff23a8d545",
+      "name": "造型精致",
+      "count": 10,
+      "type": 4,
+      "canBeFiltered": true,
+      "stand": 1,
+      "rid": "e380c9ff23a8d545",
+      "ckeKeyWordBury": "eid=100^^tagid=e380c9ff23a8d545^^pid=20015^^sku=6570894^^sversion=1000^^token=6ee1a5ac734e9e71"
+    },
+    {
+      "id": "ac985fbd77ae49ec",
+      "name": "用料扎实",
+      "count": 8,
+      "type": 4,
+      "canBeFiltered": true,
+      "stand": 1,
+      "rid": "ac985fbd77ae49ec",
+      "ckeKeyWordBury": "eid=100^^tagid=ac985fbd77ae49ec^^pid=20015^^sku=6570894^^sversion=1000^^token=896bfe4159f849dd"
+    },
+    {
+      "id": "fdebdc7e56756434",
+      "name": "新鲜可口",
+      "count": 8,
+      "type": 4,
+      "canBeFiltered": true,
+      "stand": 1,
+      "rid": "fdebdc7e56756434",
+      "ckeKeyWordBury": "eid=100^^tagid=fdebdc7e56756434^^pid=20015^^sku=6570894^^sversion=1000^^token=13de9679152b29cf"
+    }
+  ],
+  "testId": "A",
+  "vTagStatistics": null,
+  "maxPage": 100,
+  "productCommentSummary": {
+    "skuId": 6570894,
+    "averageScore": 5,
+    "defaultGoodCount": 0,
+    "defaultGoodCountStr": "500万+",
+    "commentCount": 0,
+    "commentCountStr": "500万+",
+    "goodCount": 0,
+    "goodCountStr": "239万+",
+    "goodRate": 0.98,
+    "goodRateShow": 98,
+    "generalCount": 0,
+    "generalCountStr": "1.6万+",
+    "generalRate": 0.017,
+    "generalRateShow": 2,
+    "poorCount": 0,
+    "poorCountStr": "7800+",
+    "poorRate": 0.003,
+    "poorRateShow": 0,
+    "videoCount": 0,
+    "videoCountStr": "9100+",
+    "afterCount": 0,
+    "afterCountStr": "1.6万+",
+    "showCount": 0,
+    "showCountStr": "21万+",
+    "oneYear": 0,
+    "sensitiveBook": 0,
+    "fixCount": 504415,
+    "plusCount": 0,
+    "plusCountStr": "0",
+    "buyerShow": 0,
+    "poorRateStyle": 0,
+    "generalRateStyle": 3,
+    "goodRateStyle": 147,
+    "installRate": 0,
+    "productId": 6570894,
+    "score1Count": 5000,
+    "score2Count": 2000,
+    "score3Count": 10000,
+    "score4Count": 20000,
+    "score5Count": 1000000
+  },
+  "productAttr": null
+}

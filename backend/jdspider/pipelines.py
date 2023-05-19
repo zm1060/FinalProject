@@ -41,7 +41,7 @@ class JDspiderPipeline(object):
         )
         self.client.close()
         subject = f"您的名称为{spider.name}的任务完成，任务号为 {task_id}!"
-        body = f"数据收集任务完成，请前往您的任务中心进行下异步操作。 可以前往https://scrapeops.io/app/dashboard查看数据收集程序的状态.运行状态:{stats_info}"
+        body = f"数据收集任务完成，请前往您的任务中心进行下异步操作。  运行状态:{stats_info}"
         send_email(subject, body)
 
     def process_item(self, item, spider):
@@ -92,7 +92,7 @@ class JDcommentPipeline(object):
         )
         self.client.close()
         subject = f"您的名称为{spider.name}的任务完成，任务号为 {task_id}!"
-        body = f"数据收集任务完成，请前往您的任务中心进行下一步操作。 可以前往https://scrapeops.io/app/dashboard查看数据收集程序的状态 运行状态:{stats_info}"
+        body = f"数据收集任务完成，请前往您的任务中心进行下一步操作。 可以前往https://scrapeops.io/app/dashboard 查看数据收集程序的状态 运行状态:{stats_info}"
         send_email(subject, body)
 
     def process_item(self, item, spider):
@@ -100,10 +100,26 @@ class JDcommentPipeline(object):
             collection_name = str(spider.task_id)
             collection = self.db[collection_name]
             data = {
+                'id': item['id'],
                 'name': item['name'],
                 'url': item['url'],
                 'date': item['date'],
-                'content': item['content']
+                'content': item['content'],
+                'isDelete': item['isDelete'],
+                'isTop': item['isTop'],
+                'topped': item['topped'],
+                'replyCount': item['replyCount'],
+                'score': item['score'],
+                'usefulVoteCount': item['usefulVoteCount'],
+                'mobileVersion': item['mobileVersion'],
+                'productColor': item['productColor'],
+                'productSize': item['productSize'],
+                'location': item['location'],
+                'referenceName': item['referenceName'],
+                'referenceTime': item['referenceTime'],
+                'nickname': item['nickname'],
+                'days': item['days'],
+                'afterDays': item['afterDays']
             }
             collection.insert_one(data)
         return item

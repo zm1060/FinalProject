@@ -25,7 +25,7 @@ LOG_FILE = "scrapy.log"
 # DOWNLOAD_DELAY = 3
 # The download delay setting will honor only one of:
 
-CONCURRENT_REQUESTS = 32
+# CONCURRENT_REQUESTS = 32
 CONCURRENT_REQUESTS_PER_DOMAIN = 2
 CONCURRENT_REQUESTS_PER_IP = 2
 AUTOTHROTTLE_ENABLED= True
@@ -57,7 +57,7 @@ SPIDER_MIDDLEWARES = {
 DOWNLOADER_MIDDLEWARES = {
     # 'jdspiders.middlewares.MyCustomDownloaderMiddleware': 543,
     # 'jdspider.middlewares.EmailNotificationMiddleware': 999,
-    'jdspider.middlewares.ProxyDownloaderMiddleware': 100,
+    ## 'jdspider.middlewares.ProxyDownloaderMiddleware': 100,
     'jdspider.middlewares.UserAgentmiddleware': 400,
     'scrapeops_scrapy.middleware.retry.RetryMiddleware': 550,
     'scrapy.downloadermiddlewares.retry.RetryMiddleware': None,

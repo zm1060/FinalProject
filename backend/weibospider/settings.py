@@ -35,7 +35,7 @@ DOWNLOADER_MIDDLEWARES = {
     'scrapy.downloadermiddlewares.redirect.RedirectMiddleware': None,
     'scrapy.extensions.telnet.TelnetConsole': 500,
     # 'weibospider.middlewares.IPProxyMiddleware': 100,
-    'weibospider.middlewares.ProxyDownloaderMiddleware': 100,
+    ## 'weibospider.middlewares.ProxyDownloaderMiddleware': 100,
     'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware': 101,
     'scrapeops_scrapy.middleware.retry.RetryMiddleware': 550,
     'scrapy.downloadermiddlewares.retry.RetryMiddleware': None,

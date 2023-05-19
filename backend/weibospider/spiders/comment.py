@@ -37,6 +37,7 @@ class CommentSpider(Spider):
             mid = url_to_mid(tweet_id)
             url = f"https://weibo.com/ajax/statuses/buildComments?" \
                   f"is_reload=1&id={mid}&is_show_bulletin=2&is_mix=0&count=20"
+            # https://weibo.com/ajax/statuses/buildComments?is_reload=1&id=N0o83vU51&is_show_bulletin=2&is_mix=0&count=20
             yield Request(url, callback=self.parse, meta={'source_url': url}, headers=self.headers, cookies=self.cookie)
 
     def parse(self, response, **kwargs):

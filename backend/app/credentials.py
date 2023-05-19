@@ -1,4 +1,4 @@
-username = "t18316577111970"
-password = "sz9rz4fb"
-proxy = 'j956.kdltps.com'
+username = "t18442220664117"
+password = "c4lugsio"
+proxy = 's867.kdltps.com'
 port = '15818'

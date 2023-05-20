@@ -34,20 +34,6 @@
       </a-menu>
 
       <a-layout-content style="padding: 0 50px">
-<!--        <div class="stats">-->
-<!--          <div class="stat">-->
-<!--            <h3 class="stat_completed">Tasks Completed</h3>-->
-<!--            <p class="stat_completed">{{ taskCounts.completed }}</p>-->
-<!--          </div>-->
-<!--          <div class="stat">-->
-<!--            <h3 class="stat_failed">Tasks Failed</h3>-->
-<!--            <p class="stat_failed">{{ taskCounts.failed }}</p>-->
-<!--          </div>-->
-<!--          <div class="stat">-->
-<!--            <h3 class="stat_running">Tasks Running</h3>-->
-<!--            <p class="stat_running">{{ taskCounts.running }}</p>-->
-<!--          </div>-->
-<!--        </div>-->
 
         <div class="visualization">
           <h2>Data Visualization</h2>
@@ -59,6 +45,12 @@
         <div class="table">
           <h2>任务列表</h2>
           <a-table :columns="columns" :data-source="tasks" :loading="loading">
+            <template v-slot:task_type="{ record }">
+              {{ mapTaskType(record.task_type) }}
+            </template>
+            <template v-slot:status="{ record }">
+              {{ mapStatusType(record.status) }}
+            </template>
             <template v-slot:action="{ record }">
               <span>
                 <a-button type="primary" @click="handleView(record.task_id, record.task_type)">
@@ -124,13 +116,7 @@ export default {
               username: '',
               email: '',
           },
-          taskCounts: {
-              completed: 10,
-              failed: 2,
-              running: 4,
-          },
           chartOptions: {
-
           },
           loading: false,
           columns: [
@@ -143,6 +129,7 @@ export default {
               title: "任务种类",
               dataIndex: "task_type",
               key: "task_type",
+              slots: { customRender: "task_type" },
             },
             {
               title: "开始时间",
@@ -166,6 +153,7 @@ export default {
               title: '状态',
               dataIndex: "status",
               key: 'status',
+              slots: { customRender: "status" },
               sorter: (a, b) => a.status.localeCompare(b.status),
             },
             {
@@ -186,71 +174,110 @@ export default {
 
 
   methods: {
+      mapTaskType(type) {
+        const map = {
+          'weibo_comment': '微博评论爬虫',
+          'weibo_user': '微博用户信息爬虫',
+          'weibo_repost': '微博转发评论爬虫',
+          'weibo_search': '微博搜索信息爬虫',
+          'weibo_fan': '微博粉丝爬虫',
+          'weibo_follower': '微博关注者爬虫',
+          'weibo_tweet': '微博博文爬虫',
+          'jd_product': '京东产品爬虫',
+          'jd_comment': '京东评论爬虫'
+        }
+        return map[type] || type
+      },
+      mapStatusType(type) {
+        const statusMap = {
+          running: '运行中',
+          stopped: '已停止',
+          finished: '已完成',
+        };
+        return statusMap[type] || type
+      },
       setChartData() {
-      const data = {};
-      const colors = {
-        running: '#1890ff',
-        finished: '#52c41a',
-        stopped: '#ff4d4f',
-      };
-
-      // 根据任务类型和状态统计数据
-      this.tasks.forEach(task => {
-        if (data[task.task_type]) {
-          if (data[task.task_type][task.status]) {
-            data[task.task_type][task.status]++;
+        const data = {};
+        const colors = ['#1890ff', '#52c41a', '#ff4d4f'];
+        const statusMap = {
+          running: '运行中',
+          stopped: '已停止',
+          finished: '已完成',
+        };
+        const taskTypeMap = {
+          'weibo_comment': '微博评论爬虫',
+          'weibo_user': '微博用户信息爬虫',
+          'weibo_repost': '微博转发评论爬虫',
+          'weibo_search': '微博搜索信息爬虫',
+          'weibo_fan': '微博粉丝爬虫',
+          'weibo_follower': '微博关注者爬虫',
+          'weibo_tweet': '微博博文爬虫',
+          'jd_product': '京东产品爬虫',
+          'jd_comment': '京东评论爬虫'
+        }
+        // 根据任务类型和状态统计数据
+        this.tasks.forEach(task => {
+          if (data[task.task_type]) {
+            if (data[task.task_type][task.status]) {
+              data[task.task_type][task.status]++;
+            } else {
+              data[task.task_type][task.status] = 1;
+            }
           } else {
+            data[task.task_type] = {};
             data[task.task_type][task.status] = 1;
           }
-        } else {
-          data[task.task_type] = {};
-          data[task.task_type][task.status] = 1;
-        }
-      });
-
-      const xAxisData = Object.keys(data);
-      const legendData = Object.keys(colors);
-      const seriesData = legendData.map((status) => ({
-        name: status,
-        type: 'bar',
-        stack: 'task_type',
-        data: xAxisData.map(task_type => data[task_type][status] || 0),
-        itemStyle: {
-          color: colors[status],
-        },
-        emphasis: {
-          focus: 'series',
+        });
+        console.log(data)
+        console.log(taskTypeMap)
+        const xAxisData = Object.keys(data);
+        const legendData = Object.keys(statusMap);
+        const seriesData = legendData.map((status, index) => ({
+          name: statusMap[status],
+          type: 'bar',
+          stack: 'task_type',
+          data: xAxisData.map(task_type => data[task_type][status] || 0),
           itemStyle: {
-            opacity: 1,
+            color: colors[index],
           },
-        },
-      }));
+          emphasis: {
+            focus: 'series',
+            itemStyle: {
+              opacity: 1,
+            },
+          },
+        }));
 
-      this.chartOptions.title = {
-        text: '任务种类和状态'
-      };
-      this.chartOptions.tooltip = {
-        trigger: 'axis',
-        axisPointer: {
-          type: 'shadow',
-        },
-      };
-      this.chartOptions.legend = {
-        data: legendData,
-      };
-      this.chartOptions.xAxis = {
-        type: 'category',
-        data: xAxisData,
-      };
-      this.chartOptions.yAxis = {
-        type: 'value',
-      };
-      this.chartOptions.series = seriesData;
+        this.chartOptions.title = {
+          text: '任务种类和运行状态'
+        };
+        this.chartOptions.tooltip = {
+          trigger: 'axis',
+          axisPointer: {
+            type: 'shadow',
+          },
+        };
+        this.chartOptions.legend = {
+          data: Object.values(statusMap),
+        };
+        this.chartOptions.xAxis = {
+          type: 'category',
+          data: xAxisData,
+          axisLabel: {
+            formatter: (value) => {
+              return this.mapTaskType(value);
+            },
+          },
+        };
+        this.chartOptions.yAxis = {
+          type: 'value',
+        };
+        this.chartOptions.series = seriesData;
 
-      this.$nextTick(() => {
-        this.$refs.myChart.resize();
-      });
-    },
+        this.$nextTick(() => {
+          this.$refs.myChart.resize();
+        });
+      },
 
     async fetchTasks() {
       this.loading = true;

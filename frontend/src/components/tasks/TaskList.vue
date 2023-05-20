@@ -3,8 +3,11 @@
     <a-button type="primary" @click="$router.push('/home')">返回主页</a-button>
     <h1>任务列表</h1>
     <a-table :columns="columns" :data-source="tasks" :loading="loading">
-      <template v-slot:[`status`]="{ text }">
-        <a-badge :status="text === 'finished' ? 'success' : 'processing'">{{ text }}</a-badge>
+      <template v-slot:task_type="{ record }">
+        {{ mapTaskType(record.task_type) }}
+      </template>
+      <template v-slot:status="{ record }">
+        {{ mapStatusType(record.status) }}
       </template>
       <template v-slot:action="{ record }">
         <span>
@@ -64,6 +67,7 @@ export default {
           title: "任务种类",
           dataIndex: "task_type",
           key: "task_type",
+          slots: { customRender: "task_type" },
         },
         {
           title: "开始时间",
@@ -87,6 +91,7 @@ export default {
           title: '状态',
           dataIndex: "status",
           key: 'status',
+          slots: { customRender: "status" },
           sorter: (a, b) => a.status.localeCompare(b.status),
         },
         {
@@ -123,6 +128,28 @@ export default {
         .finally(() => {
           this.loading = false;
         });
+    },
+    mapTaskType(type) {
+      const map = {
+        'weibo_comment': '微博评论爬虫',
+        'weibo_user': '微博用户信息爬虫',
+        'weibo_repost': '微博转发评论爬虫',
+        'weibo_search': '微博搜索信息爬虫',
+        'weibo_fan': '微博粉丝爬虫',
+        'weibo_follower': '微博关注者爬虫',
+        'weibo_tweet': '微博博文爬虫',
+        'jd_product': '京东产品爬虫',
+        'jd_comment': '京东评论爬虫'
+      }
+      return map[type] || type
+    },
+    mapStatusType(type) {
+      const statusMap = {
+        running: '运行中',
+        stopped: '已停止',
+        finished: '已完成',
+      };
+      return statusMap[type] || type
     },
     handleView(taskId, taskType) {
       const routeName = `${taskType}_list`;

@@ -52,32 +52,10 @@ flower --app=app.celery_task.tasks --broker=amqp://admin:admin@localhost:5672// 
 ## Vue
 Frontend framework.
 
-### What is Vue?
-### Why Vue?
-Use Vue Components
-
-## Some ideas
-<li>Use scrapydweb or spider-admin-pro to manage various kinds of spiders(crawlers).
-<li>And backend provides general processing to the result of spiders. However, for some special sites like weibo, we can provide more features.<br>It means that our frontend must use components. Once we want to support a new website like www.jd.com, we just need to code a new crawler. And use general backend services.
 
 
 
-## ToDO
-更新首页任务的显示。
-<br>
-更新页面的语言。
-<br>
-可视化分析模块。
-
-
-
-
-
-## Development Notes
 ### use this to output the dependency
 ```
 pip freeze >requirements.txt
 ```
-## How to use?
-
-## How to contribute to my project?

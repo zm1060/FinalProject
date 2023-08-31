@@ -23,14 +23,10 @@ This moudle will collect information from websites like JD, weibo...
 
 ## NLP
 Use NLP framework to analyze information.
-### moder nlp solutions
 
 
 ## FastAPI
 Backend framework.
-
-### What is FastAPI?
-### Why FastAPI?
 
 ### Celery in Windows
 ``
